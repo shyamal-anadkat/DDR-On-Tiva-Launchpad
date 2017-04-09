@@ -1,0 +1,128 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: µVision V5.21.1.0
+Copyright (C) 2016 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Joe Krachey, UW-Madison, LIC=----
+ 
+Tool Versions:
+Toolchain:       MDK-Lite  Version: 5.21a
+Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 3 (build 300)
+Assembler:       Armasm.exe V5.06 update 3 (build 300)
+Linker/Locator:  ArmLink.exe V5.06 update 3 (build 300)
+Library Manager: ArmAr.exe V5.06 update 3 (build 300)
+Hex Converter:   FromElf.exe V5.06 update 3 (build 300)
+CPU DLL:         SARMCM3.DLL V5.21a
+Dialog DLL:      DCM.DLL V1.13.8.0
+Target DLL:      lmidk-agdi.dll V???
+Dialog DLL:      TCM.DLL V1.14.14.0
+ 
+<h2>Project:</h2>
+C:\Users\joe.krachey\Documents\ece353-src\student-v2.0\HW3\HW3.uvprojx
+Project File Date:  11/01/2016
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 3 (build 300)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+Rebuild target 'HW2'
+assembling startup_TM4C123.s...
+compiling system_TM4C123.c...
+compiling gpio_port.c...
+..\drivers\c\gpio_port.c(82): warning:  #188-D: enumerated type mixed with another type
+         return 0;
+..\drivers\c\gpio_port.c(126): warning:  #177-D: variable "rcgc_mask" was declared but never referenced
+    uint32_t rcgc_mask = 0;
+..\drivers\c\gpio_port.c(127): warning:  #177-D: variable "pr_mask" was declared but never referenced
+    uint32_t pr_mask = 0;
+..\drivers\c\gpio_port.c(213): warning:  #177-D: variable "gpioPort" was declared but never referenced
+    GPIOA_Type  *gpioPort;
+..\drivers\c\gpio_port.c(235): warning:  #177-D: variable "gpioPort" was declared but never referenced
+    GPIOA_Type  *gpioPort;
+..\drivers\c\gpio_port.c(258): warning:  #177-D: variable "gpioPort" was declared but never referenced
+    GPIOA_Type  *gpioPort;
+..\drivers\c\gpio_port.c(279): warning:  #177-D: variable "gpioPort" was declared but never referenced
+    GPIOA_Type  *gpioPort;
+..\drivers\c\gpio_port.c(298): warning:  #177-D: variable "gpioPort" was declared but never referenced
+    GPIOA_Type  *gpioPort;
+..\drivers\c\gpio_port.c(311): warning:  #177-D: variable "gpioPort" was declared but never referenced
+    GPIOA_Type  *gpioPort;
+..\drivers\c\gpio_port.c(323): warning:  #177-D: variable "gpioPort" was declared but never referenced
+    GPIOA_Type  *gpioPort;
+..\drivers\c\gpio_port.c(336): warning:  #177-D: variable "gpioPort" was declared but never referenced
+    GPIOA_Type  *gpioPort;
+..\drivers\c\gpio_port.c(350): warning:  #177-D: variable "gpioPort" was declared but never referenced
+    GPIOA_Type  *gpioPort;
+..\drivers\c\gpio_port.c(376): warning:  #177-D: variable "gpioPort" was declared but never referenced
+    GPIOA_Type  *gpioPort;
+..\drivers\c\gpio_port.c(29): warning:  #177-D: function "verify_base_addr" was declared but never referenced
+  static bool verify_base_addr(uint32_t baseAddr)
+..\drivers\c\gpio_port.c: 14 warnings, 0 errors
+compiling ps2.c...
+compiling adc.c...
+..\drivers\c\adc.c(32): warning:  #550-D: variable "myADC" was set but never used
+    ADC0_Type  *myADC;
+..\drivers\c\adc.c: 1 warning, 0 errors
+compiling launchpad_io.c...
+..\peripherals\c\launchpad_io.c(184): warning:  #940-D: missing return statement at end of non-void function "lp_io_read_pin"
+  }
+..\peripherals\c\launchpad_io.c(66): warning:  #177-D: function "port_f_enable_port" was declared but never referenced
+  static __inline void  port_f_enable_port(void)
+..\peripherals\c\launchpad_io.c(85): warning:  #177-D: function "port_f_digital_enable" was declared but never referenced
+  static __inline void  port_f_digital_enable(uint8_t bit_mask)
+..\peripherals\c\launchpad_io.c(104): warning:  #177-D: function "port_f_enable_output" was declared but never referenced
+  static __inline void  port_f_enable_output(uint8_t bit_mask)
+..\peripherals\c\launchpad_io.c(122): warning:  #177-D: function "port_f_enable_input" was declared but never referenced
+  static __inline void  port_f_enable_input(uint8_t bit_mask)
+..\peripherals\c\launchpad_io.c(140): warning:  #177-D: function "port_f_enable_pull_up" was declared but never referenced
+  static __inline void  port_f_enable_pull_up(uint8_t bit_mask)
+..\peripherals\c\launchpad_io.c: 6 warnings, 0 errors
+compiling main.c...
+compiling lcd.c...
+..\peripherals\c\lcd.c(86): warning:  #177-D: variable "DH" was declared but never referenced
+    uint8_t DH = y>>8;      // Bits 15-8 of the pixel color
+..\peripherals\c\lcd.c(87): warning:  #177-D: variable "DL" was declared but never referenced
+    uint8_t DL = y;        // Bits 7-0 of the pixel color
+..\peripherals\c\lcd.c: 2 warnings, 0 errors
+compiling timers.c...
+..\drivers\c\timers.c(88): warning:  #550-D: variable "gp_timer" was set but never used
+    TIMER0_Type *gp_timer;
+..\drivers\c\timers.c(128): warning:  #550-D: variable "gp_timer" was set but never used
+    TIMER0_Type *gp_timer;
+..\drivers\c\timers.c: 2 warnings, 0 errors
+linking...
+Program Size: Code=3516 RO-data=744 RW-data=56 ZI-data=4096  
+".\obj\ece353_base_project.axf" - 0 Error(s), 25 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.4.5.0.pack
+                ARM::CMSIS:CORE:4.3.0
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: CORE Version: 4.3.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.TM4C_DFP.1.1.0.pack
+                Keil::Device:Startup:1.0.1
+                Texas Instruments Tiva C Series Device Support and Examples
+   * Component: Startup Version: 1.0.1
+
+<h2>Collection of Component include folders:</h2>
+  C:\Users\joe.krachey\Documents\ece353-src\student-v2.0\HW3\RTE
+  C:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include
+  C:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:4.3.0
+
+   * Component: Keil::Device:Startup:1.0.1
+      Include file:  Device\Include\TM4C123\TM4C123.h
+      Source file:   Device\Source\ARM\startup_TM4C123.s
+      Source file:   Device\Source\system_TM4C123.c
+Build Time Elapsed:  00:00:01
+</pre>
+</body>
+</html>
