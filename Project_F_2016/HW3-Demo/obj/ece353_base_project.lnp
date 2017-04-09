@@ -1,0 +1,13 @@
+--cpu Cortex-M4.fp
+".\obj\main.o"
+"..\lib\ECE353-Validate.lib"
+".\obj\gpio_port.o"
+".\obj\timers.o"
+".\obj\launchpad_io.o"
+".\obj\lcd.o"
+".\obj\ps2.o"
+".\obj\startup_tm4c123.o"
+".\obj\system_tm4c123.o"
+--library_type=microlib --ro-base 0x00000000 --entry 0x00000000 --rw-base 0x20000000 --entry Reset_Handler --first __Vectors --strict --summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\lst\ece353_base_project.map" -o .\obj\ece353_base_project.axf
