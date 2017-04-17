@@ -56,10 +56,67 @@ void initialize_hardware(void)
 {
 	//enable interrupts
 	EnableInterrupts();
+	
 	//init serial debug for printf
 	init_serial_debug(true, true);
+
+	//LCD init sequence: gpio + screen config 
+	lcd_config_gpio();
+	lcd_config_screen();
+	
 	//disable interrupts
 	DisableInterrupts();
+}
+
+//*****************************************************************************
+// Printing arrows on the lcd screen  
+//*****************************************************************************
+void print_arrows(void) {
+	
+		const uint16_t y_pos = 275;
+		lcd_clear_screen(LCD_COLOR_BLACK); 	// clear the screen
+	
+		// LEFT ARROW
+		lcd_draw_image(
+                  195,                // X Pos
+                  40,   							// Image Horizontal Width
+                  y_pos,              // Y Pos
+                  39,  								// Image Vertical Height
+                  left_arrowBitmaps, 	// Image
+                  LCD_COLOR_BLUE,     // Foreground Color
+                  LCD_COLOR_BLACK     // Background Color
+                ); 
+		// DOWN ARROW 
+		lcd_draw_image(
+                  150,                // X Pos
+                  40,   							// Image Horizontal Width
+                  y_pos,              // Y Pos
+                  39,  								// Image Vertical Height
+                  down_arrowBitmaps, 	// Image
+                  LCD_COLOR_BLUE,     // Foreground Color
+                  LCD_COLOR_BLACK     // Background Color
+                ); 
+		// UP ARROW 
+		lcd_draw_image(
+                  105,                // X Pos
+                  40,   							// Image Horizontal Width
+                  y_pos,                // Y Pos
+                  39,  								// Image Vertical Height
+                  up_arrowBitmaps, 		// Image
+                  LCD_COLOR_BLUE,     // Foreground Color
+                  LCD_COLOR_BLACK     // Background Color
+                ); 
+		// RIGHT ARROW 
+		lcd_draw_image(
+                  60,                // X Pos
+                  40,   							// Image Horizontal Width
+                  y_pos,                // Y Pos
+                  39,  								// Image Vertical Height
+                  right_arrowBitmaps, // Image
+                  LCD_COLOR_BLUE,     // Foreground Color
+                  LCD_COLOR_BLACK     // Background Color
+                ); 
+	
 }
 
 
@@ -70,15 +127,18 @@ main(void)
 {
   initialize_hardware();
 	
-	
 	printf("\n\r");
   printf("**************************************\n\r");
   printf("* ECE353 - Final Project\n\r");
   printf("**************************************\n\r");
   printf("\n\r");
+	print_arrows();
+
 	
-  
   // Reach infinite loop
-  while(1){
-  };
+  while(1){};
 }
+
+
+
+
