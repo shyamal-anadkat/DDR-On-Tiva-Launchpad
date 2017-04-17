@@ -65,6 +65,13 @@ int
 main(void)
 {
   initialize_hardware();
+	
+	
+	printf("\n\r");
+  printf("**************************************\n\r");
+  printf("* ECE353 - Final Project\n\r");
+  printf("**************************************\n\r");
+  printf("\n\r");
   
   // Reach infinite loop
   while(1){
