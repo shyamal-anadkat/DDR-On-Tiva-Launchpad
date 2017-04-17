@@ -50,11 +50,15 @@ void EnableInterrupts(void)
 
 
 //*****************************************************************************
+// INIT HARDWARE AND PERIPHERALS 
 //*****************************************************************************
 void initialize_hardware(void)
 {
+	//enable interrupts
 	EnableInterrupts();
+	//init serial debug for printf
 	init_serial_debug(true, true);
+	//disable interrupts
 	DisableInterrupts();
 }
 
@@ -72,6 +76,7 @@ main(void)
   printf("* ECE353 - Final Project\n\r");
   printf("**************************************\n\r");
   printf("\n\r");
+	
   
   // Reach infinite loop
   while(1){

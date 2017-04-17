@@ -177,10 +177,10 @@ __weak bool  gpio_enable_port(uint32_t baseAddr)
      }
    }
    
-   // Turn the clock on using the rcgc_mask
+		// Turn the clock on using the rcgc_mask
 	   SYSCTL->RCGCGPIO |= rcgc_mask; 
 
-   // Wait for the PRGPIO to indicate the port is ready
+		// Wait for the PRGPIO to indicate the port is ready
 			while( (SYSCTL->PRGPIO & pr_mask) == 0) 
 				{}	
     
