@@ -16,6 +16,9 @@ Section Cross References
     serial_debug.o(.text) refers to serial_debug.o(.data) for Rx_Interrupts_Enabled
     serial_debug.o(.text) refers to serial_debug.o(.bss) for UART0_Tx_Buffer
     serial_debug.o(.text) refers to stdout.o(.data) for __stdout
+    lcd.o(.text) refers to gpio_port.o(.text) for gpio_enable_port
+    ps2.o(.text) refers to gpio_port.o(.text) for gpio_enable_port
+    ps2.o(.text) refers to adc.o(.text) for initialize_adc
     startup_tm4c123.o(RESET) refers to startup_tm4c123.o(STACK) for __initial_sp
     startup_tm4c123.o(RESET) refers to startup_tm4c123.o(.text) for Reset_Handler
     startup_tm4c123.o(RESET) refers to serial_debug.o(.text) for UART0_Handler
@@ -331,6 +334,20 @@ Removing Unused input sections from the image.
     Removing gpio_port.o(.revsh_text), (4 bytes).
     Removing serial_debug.o(.rev16_text), (4 bytes).
     Removing serial_debug.o(.revsh_text), (4 bytes).
+    Removing ece353_images.o(.constdata), (5991 bytes).
+    Removing launchpad_io.o(.rev16_text), (4 bytes).
+    Removing launchpad_io.o(.revsh_text), (4 bytes).
+    Removing launchpad_io.o(.text), (188 bytes).
+    Removing lcd.o(.rev16_text), (4 bytes).
+    Removing lcd.o(.revsh_text), (4 bytes).
+    Removing lcd.o(.text), (1300 bytes).
+    Removing lcd_images.o(.constdata), (4864 bytes).
+    Removing ps2.o(.rev16_text), (4 bytes).
+    Removing ps2.o(.revsh_text), (4 bytes).
+    Removing ps2.o(.text), (92 bytes).
+    Removing adc.o(.rev16_text), (4 bytes).
+    Removing adc.o(.revsh_text), (4 bytes).
+    Removing adc.o(.text), (180 bytes).
     Removing system_tm4c123.o(.rev16_text), (4 bytes).
     Removing system_tm4c123.o(.revsh_text), (4 bytes).
     Removing dadd.o(.text), (334 bytes).
@@ -340,7 +357,7 @@ Removing Unused input sections from the image.
     Removing cdrcmple.o(.text), (40 bytes).
     Removing depilogue.o(.text), (182 bytes).
 
-17 unused section(s) (total 1142 bytes) removed from the image.
+31 unused section(s) (total 13789 bytes) removed from the image.
 
 ==============================================================================
 
@@ -353,53 +370,63 @@ Image Symbol Table
     RESET                                    0x00000000   Section      620  startup_tm4c123.o(RESET)
     ../clib/microlib/division.c              0x00000000   Number         0  uidiv.o ABSOLUTE
     ../clib/microlib/division.c              0x00000000   Number         0  uldiv.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
-    ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
-    ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llsshr.o ABSOLUTE
-    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  mallocr.o ABSOLUTE
-    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  malloc.o ABSOLUTE
-    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  malloca.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
     ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  mallocra.o ABSOLUTE
+    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  malloc.o ABSOLUTE
+    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  mallocr.o ABSOLUTE
+    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  malloca.o ABSOLUTE
     ../clib/microlib/malloc/mvars.c          0x00000000   Number         0  mvars.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfa.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf3.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf2.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf1.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf0.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfb.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf4.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf5.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf6.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf7.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf6.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf0.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf1.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf2.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf4.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf3.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf5.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfa.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfb.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf8.o ABSOLUTE
     ../clib/microlib/stdio/streams.c         0x00000000   Number         0  stdout.o ABSOLUTE
-    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpya.o ABSOLUTE
     ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpyb.o ABSOLUTE
+    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpya.o ABSOLUTE
     ../clib/microlib/stubs.s                 0x00000000   Number         0  iusefp.o ABSOLUTE
     ../fplib/microlib/fpadd.c                0x00000000   Number         0  dadd.o ABSOLUTE
     ../fplib/microlib/fpdiv.c                0x00000000   Number         0  ddiv.o ABSOLUTE
     ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  depilogue.o ABSOLUTE
     ../fplib/microlib/fpfix.c                0x00000000   Number         0  dfixul.o ABSOLUTE
     ../fplib/microlib/fpmul.c                0x00000000   Number         0  dmul.o ABSOLUTE
+    ..\\drivers\\c\\adc.c                    0x00000000   Number         0  adc.o ABSOLUTE
     ..\\drivers\\c\\gpio_port.c              0x00000000   Number         0  gpio_port.o ABSOLUTE
     ..\\drivers\\c\\uart.c                   0x00000000   Number         0  uart.o ABSOLUTE
+    ..\\peripherals\\c\\launchpad_io.c       0x00000000   Number         0  launchpad_io.o ABSOLUTE
+    ..\\peripherals\\c\\lcd.c                0x00000000   Number         0  lcd.o ABSOLUTE
+    ..\\peripherals\\c\\ps2.c                0x00000000   Number         0  ps2.o ABSOLUTE
     ..\\peripherals\\c\\serial_debug.c       0x00000000   Number         0  serial_debug.o ABSOLUTE
+    ..\drivers\c\adc.c                       0x00000000   Number         0  adc.o ABSOLUTE
     ..\drivers\c\gpio_port.c                 0x00000000   Number         0  gpio_port.o ABSOLUTE
     ..\drivers\c\pc_buffer.c                 0x00000000   Number         0  pc_buffer.o ABSOLUTE
     ..\drivers\c\uart.c                      0x00000000   Number         0  uart.o ABSOLUTE
+    ..\peripherals\c\ece353_images.c         0x00000000   Number         0  ece353_images.o ABSOLUTE
+    ..\peripherals\c\launchpad_io.c          0x00000000   Number         0  launchpad_io.o ABSOLUTE
+    ..\peripherals\c\lcd.c                   0x00000000   Number         0  lcd.o ABSOLUTE
+    ..\peripherals\c\lcd_images.c            0x00000000   Number         0  lcd_images.o ABSOLUTE
+    ..\peripherals\c\ps2.c                   0x00000000   Number         0  ps2.o ABSOLUTE
     ..\peripherals\c\serial_debug.c          0x00000000   Number         0  serial_debug.o ABSOLUTE
     RTE\Device\TM4C123GH6PM\startup_TM4C123.s 0x00000000   Number         0  startup_tm4c123.o ABSOLUTE
     RTE\Device\TM4C123GH6PM\system_TM4C123.c 0x00000000   Number         0  system_tm4c123.o ABSOLUTE
@@ -661,31 +688,31 @@ Memory Map of the image
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x00000000   0x0000026c   Data   RO          185    RESET               startup_tm4c123.o
-    0x0000026c   0x00000000   Code   RO          216  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
-    0x0000026c   0x00000004   Code   RO          508    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
-    0x00000270   0x00000004   Code   RO          511    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
-    0x00000274   0x00000000   Code   RO          513    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
-    0x00000274   0x00000000   Code   RO          515    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
-    0x00000274   0x00000008   Code   RO          516    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
-    0x0000027c   0x00000000   Code   RO          518    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
-    0x0000027c   0x00000000   Code   RO          520    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
-    0x0000027c   0x00000004   Code   RO          509    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
+    0x00000000   0x0000026c   Data   RO          301    RESET               startup_tm4c123.o
+    0x0000026c   0x00000000   Code   RO          332  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x0000026c   0x00000004   Code   RO          624    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
+    0x00000270   0x00000004   Code   RO          627    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x00000274   0x00000000   Code   RO          629    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x00000274   0x00000000   Code   RO          631    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x00000274   0x00000008   Code   RO          632    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x0000027c   0x00000000   Code   RO          634    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
+    0x0000027c   0x00000000   Code   RO          636    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
+    0x0000027c   0x00000004   Code   RO          625    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
     0x00000280   0x00000090   Code   RO            3    .text               main.o
     0x00000310   0x0000007c   Code   RO           88    .text               pc_buffer.o
     0x0000038c   0x00000284   Code   RO          105    .text               uart.o
     0x00000610   0x00000290   Code   RO          133    .text               gpio_port.o
     0x000008a0   0x000001fc   Code   RO          153    .text               serial_debug.o
-    0x00000a9c   0x000000fc   Code   RO          186  * .text               startup_tm4c123.o
-    0x00000b98   0x00000250   Code   RO          192    .text               system_tm4c123.o
-    0x00000de8   0x00000024   Code   RO          543    .text               mc_w.l(init.o)
-    0x00000e0c   0x00000010   Code   RO          221    i.__0printf$bare    mc_w.l(printfb.o)
-    0x00000e1c   0x0000000e   Code   RO          555    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x00000e2a   0x00000002   Code   RO          556    i.__scatterload_null  mc_w.l(handlers.o)
-    0x00000e2c   0x0000000e   Code   RO          557    i.__scatterload_zeroinit  mc_w.l(handlers.o)
-    0x00000e3a   0x00000022   Code   RO          228    i._printf_core      mc_w.l(printfb.o)
-    0x00000e5c   0x0000006c   Code   RO          481    i.malloc            mc_w.l(malloc.o)
-    0x00000ec8   0x00000020   Data   RO          553    Region$$Table       anon$$obj.o
+    0x00000a9c   0x000000fc   Code   RO          302  * .text               startup_tm4c123.o
+    0x00000b98   0x00000250   Code   RO          308    .text               system_tm4c123.o
+    0x00000de8   0x00000024   Code   RO          659    .text               mc_w.l(init.o)
+    0x00000e0c   0x00000010   Code   RO          337    i.__0printf$bare    mc_w.l(printfb.o)
+    0x00000e1c   0x0000000e   Code   RO          671    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x00000e2a   0x00000002   Code   RO          672    i.__scatterload_null  mc_w.l(handlers.o)
+    0x00000e2c   0x0000000e   Code   RO          673    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x00000e3a   0x00000022   Code   RO          344    i._printf_core      mc_w.l(printfb.o)
+    0x00000e5c   0x0000006c   Code   RO          597    i.malloc            mc_w.l(malloc.o)
+    0x00000ec8   0x00000020   Data   RO          669    Region$$Table       anon$$obj.o
 
 
     Execution Region ER_RW (Base: 0x20000000, Size: 0x00000014, Max: 0xffffffff, ABSOLUTE)
@@ -694,10 +721,10 @@ Memory Map of the image
 
     0x20000000   0x00000002   Data   RW          155    .data               serial_debug.o
     0x20000002   0x00000002   PAD
-    0x20000004   0x00000004   Data   RW          193    .data               system_tm4c123.o
-    0x20000008   0x00000004   Data   RW          219    .data               mc_w.l(stdout.o)
-    0x2000000c   0x00000004   Data   RW          530    .data               mc_w.l(mvars.o)
-    0x20000010   0x00000004   Data   RW          531    .data               mc_w.l(mvars.o)
+    0x20000004   0x00000004   Data   RW          309    .data               system_tm4c123.o
+    0x20000008   0x00000004   Data   RW          335    .data               mc_w.l(stdout.o)
+    0x2000000c   0x00000004   Data   RW          646    .data               mc_w.l(mvars.o)
+    0x20000010   0x00000004   Data   RW          647    .data               mc_w.l(mvars.o)
 
 
     Execution Region ER_ZI (Base: 0x20000014, Size: 0x0000101c, Max: 0xffffffff, ABSOLUTE)
@@ -705,8 +732,8 @@ Memory Map of the image
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x20000014   0x0000001c   Zero   RW          154    .bss                serial_debug.o
-    0x20000030   0x00000000   Zero   RW          184    HEAP                startup_tm4c123.o
-    0x20000030   0x00001000   Zero   RW          183    STACK               startup_tm4c123.o
+    0x20000030   0x00000000   Zero   RW          300    HEAP                startup_tm4c123.o
+    0x20000030   0x00001000   Zero   RW          299    STACK               startup_tm4c123.o
 
 
 ==============================================================================
