@@ -1,4 +1,4 @@
-// Copyright (c) 2015-16, Joe Krachey
+// Copyright (c) 2015, Joe Krachey
 // All rights reserved.
 //
 // Redistribution and use in source or binary form, with or without modification, 
@@ -20,53 +20,62 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
 // EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#include "main.h"
+#ifndef __PC_BUFFER_H__
+#define __PC_BUFFER_H__
 
-char group[] = "Group00";
-char individual_1[] = "Shyamal Anadkat";
-char individual_2[] = "Aaron Levin";
-char individual_3[] = "Sneha Patri";
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdlib.h>
 
-
-//*****************************************************************************
-// DISABLE INTERRUPTS 
-//*****************************************************************************
-void DisableInterrupts(void)
-{
-  __asm {
-         CPSID  I
-  }
-}
-
-//*****************************************************************************\
-// ENABLE INTERRUPTS 
-//*****************************************************************************
-void EnableInterrupts(void)
-{
-  __asm {
-    CPSIE  I
-  }
-}
-
+typedef __packed struct {
+	uint32_t produce_count;
+	uint32_t consume_count;
+	uint16_t BUFFER_SIZE;
+	char * array;
+} PC_Buffer ;
 
 //*****************************************************************************
+// Initializes a Producer-Consumer circular buffer.  Be sure to allocate 
+// memory using malloc for the array field.
+// 
+// Parameters
+//    buffer  :   The address of the circular buffer.
+//    size:       Number of entries in the circular buffer.
 //*****************************************************************************
-void initialize_hardware(void)
-{
-	EnableInterrupts();
-	init_serial_debug(true, true);
-	DisableInterrupts();
-}
+void pc_buffer_init(PC_Buffer *buffer, uint16_t buffer_size);
 
+//*****************************************************************************
+// Adds a character to the circular buffer.
+// 
+// Parameters
+//    buffer  :   The address of the circular buffer.
+//    data    :   Character to add.
+//*******************************************************************************
+void pc_buffer_add(PC_Buffer *buffer, char data);
 
 //*****************************************************************************
+// Removes the oldest character from the circular buffer.
+// 
+// Parameters
+//    buffer  :   The address of the circular buffer.
+//    data    :   Address to place the oldest character.
 //*****************************************************************************
-int 
-main(void)
-{
-  initialize_hardware();
-  
-  // Reach infinite loop
-  while(1){
-  };
-}
+void pc_buffer_remove(PC_Buffer *buffer, char *data);
+
+//*****************************************************************************
+// Returns true if the circular buffer is empty.  Returns false if it is not.
+// 
+// Parameters
+//    buffer  :   The address of the circular buffer.
+//*****************************************************************************
+bool pc_buffer_empty(PC_Buffer *buffer);
+
+//*****************************************************************************
+// Returns true if the circular buffer is full.  Returns false if it is not.
+// 
+// Parameters
+//    buffer  :   The address of the circular buffer.
+//*****************************************************************************
+bool pc_buffer_full(PC_Buffer *buffer);
+
+#endif

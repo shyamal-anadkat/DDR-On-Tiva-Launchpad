@@ -27,5 +27,6 @@
 #include <string.h>
 
 #include "TM4C123.h"
+#include "serial_debug.h"
 
 #endif
