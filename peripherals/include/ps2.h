@@ -29,8 +29,6 @@
 #include "adc.h"
 #include "driver_defines.h"
 
-
-// ADD CODE : PE3 
 // Define the base addresses for the GPIO port that is connected to the PS2 Joystick
 #define   PS2_GPIO_BASE    GPIOE_BASE
 

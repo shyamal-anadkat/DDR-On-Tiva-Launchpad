@@ -28,5 +28,7 @@
 
 #include "TM4C123.h"
 #include "serial_debug.h"
+#include "lcd.h"
+#include "ece353_images.h"
 
 #endif
