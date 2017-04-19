@@ -22,7 +22,7 @@ Dialog DLL:      TCM.DLL V1.21.0.0
  
 <h2>Project:</h2>
 C:\ECE353FinalProject\Project_F_2016\Project.uvprojx
-Project File Date:  04/17/2017
+Project File Date:  04/19/2017
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 4 (build 422)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
@@ -31,13 +31,25 @@ compiling pc_buffer.c...
 compiling main.c...
 ddr_animations.h(20): warning:  #1-D: last line of file ends without a newline
   #endif
-main.c(104): warning:  #1-D: last line of file ends without a newline
+main.c(103): warning:  #1-D: last line of file ends without a newline
   }
 main.c: 2 warnings, 0 errors
 compiling ddr_animations.c...
 ddr_animations.h(20): warning:  #1-D: last line of file ends without a newline
   #endif
-ddr_animations.c: 1 warning, 0 errors
+ddr_animations.c(71): warning:  #550-D: variable "moveLeft"  was set but never used
+  		bool moveLeft = false;
+ddr_animations.c(72): warning:  #550-D: variable "moveDown"  was set but never used
+  		bool moveDown = false;
+ddr_animations.c(73): warning:  #550-D: variable "moveUp"  was set but never used
+  		bool moveUp = false;
+ddr_animations.c(74): warning:  #550-D: variable "moveRight"  was set but never used
+  		bool moveRight = false;
+ddr_animations.c(87): warning:  #177-D: variable "arrow_image"  was declared but never referenced
+  		const uint8_t *arrow_image;
+ddr_animations.c(165): warning:  #1-D: last line of file ends without a newline
+  }
+ddr_animations.c: 7 warnings, 0 errors
 compiling uart.c...
 ..\drivers\c\uart.c(184): warning:  #188-D: enumerated type mixed with another type
          return 0;
@@ -63,13 +75,13 @@ compiling serial_debug.c...
 compiling lcd_images.c...
 compiling launchpad_io.c...
 compiling lcd.c...
-compiling ps2.c...
 assembling startup_TM4C123.s...
+compiling ps2.c...
 compiling adc.c...
 compiling system_TM4C123.c...
 linking...
-Program Size: Code=5272 RO-data=8816 RW-data=20 ZI-data=24604  
-".\obj\ece353_base_project.axf" - 0 Error(s), 10 Warning(s).
+Program Size: Code=5384 RO-data=8816 RW-data=20 ZI-data=24604  
+".\obj\ece353_base_project.axf" - 0 Error(s), 16 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -98,7 +110,7 @@ Package Vendor: Keil
       Include file:  Device\Include\TM4C123\TM4C123.h
       Source file:   Device\Source\ARM\startup_TM4C123.s
       Source file:   Device\Source\system_TM4C123.c
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>

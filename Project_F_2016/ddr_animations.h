@@ -15,6 +15,6 @@
 
 void print_arrows(void);
 void display_welcome_screen(void);
-void move_arrow(int dir, int speed, uint16_t fColor, uint16_t bColor);
+void move_arrows(int num, int dir, int speed, uint16_t fColor, uint16_t bColor);
 
 #endif

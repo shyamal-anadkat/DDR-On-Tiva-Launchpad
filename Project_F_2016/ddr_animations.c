@@ -1,12 +1,17 @@
 #include "ddr_animations.h"
 #include "timers.h"
 
+
+#define LEFT 	0
+#define DOWN 	1
+#define UP   	2
+#define RIGHT 3
 //*****************************************************************************
 // Printing arrows on the lcd screen  
 //*****************************************************************************
 void print_arrows(void) {
 	
-		const uint16_t y_pos = 275;
+		const uint16_t y_pos = 274;
 		lcd_clear_screen(LCD_COLOR_BLACK); 	// clear the screen
 	
 		// LEFT ARROW
@@ -54,83 +59,98 @@ void print_arrows(void) {
 
 
 // animation for arrows (bottom of screen to top) 
-// Takes in direction of arrow, color and speed params
-void move_arrow(int dir, int speed, uint16_t fColor, uint16_t bColor) {
-		
-		//TODO: functionality for dir and speed
+// Takes in direction of arrow, color, number of arrows to move[num] and speed params
+void move_arrows(int num, int dir, int speed, uint16_t fColor, uint16_t bColor) {
+
+		//x pos for different direction arrows
+		const uint16_t x_min_left = 195; 
+		const uint16_t x_min_down = 150;
+	  const uint16_t x_min_up   = 105;
+	  const uint16_t x_min_right= 60;
+	
+		bool moveLeft = false;
+		bool moveDown = false;
+		bool moveUp = false;
+		bool moveRight = false;
+	
+		uint16_t x_pos_left; 
+	  uint16_t x_pos_right; 
+	  uint16_t x_pos_up;
+	  uint16_t x_pos_down; 
+	
+		uint16_t y_pos;
 		
 		//TODO: make these static/global
-		uint16_t y_max = 275;
-	
-		uint16_t x_min = 195; 
-		uint16_t y_min = 5;
-	
-		uint16_t x_pos; 
-		uint16_t y_pos; 
-		const uint8_t *arrow_image;
-	
-		switch(dir) {
-			
-		 case 0 :
-				x_min = 195;
-				break; 
+		const uint16_t y_max = 275; //top of the screen 
+		const uint16_t y_min = 5; 
 		
-		 case 1 :
-				x_min = 150;
-				break; 
-		 
+		const uint8_t *arrow_image;
+		
+		switch(num) {
+		 case 1:
+			  moveLeft = true;
+			  break;
 		 case 2: 
-				x_min = 105;
+				moveDown = true;
+				moveLeft = true;
 				break;
-		 
 		 case 3:
-				x_min = 60;
+				moveDown = true;
+				moveLeft = true;
+				moveUp = true;
 				break;
-		 
+		 case 4: 
+				moveDown = true;
+				moveLeft = true;
+				moveUp =   true;
+				moveRight = true;
+				break;
 		 default : ;
 		}
 		
-		x_pos = x_min; 
+		x_pos_left = x_min_left; 
+		x_pos_right = x_min_right; 
+		x_pos_down = x_min_down; 
+		x_pos_up = x_min_up; 
+		
 		y_pos = y_min;
 				
-		//choose arrow based on direction param
+		// @Deprecated
+		// choose arrow based on direction param
 	  // 0: left || 1: down || 2: up || 3: right
-		arrow_image = (dir == 0) ? left_arrowBitmaps : (dir == 1) 
-			? down_arrowBitmaps : (dir == 2) ? up_arrowBitmaps : right_arrowBitmaps;
+		// arrow_image = (dir == 0) ? left_arrowBitmaps : (dir == 1) 
+		// ? down_arrowBitmaps : (dir == 2) ? up_arrowBitmaps : right_arrowBitmaps;
 	
-		lcd_clear_screen(LCD_COLOR_BLACK); 	// clear the screen
+		// lcd_clear_screen(LCD_COLOR_BLACK); 	// clear the screen
 		while (y_pos < y_max) {
-				
-				// this part clears the arrow at (y-1)
-				lcd_draw_image(
-                  x_pos,              // X Pos
-                  40,   							// Image Horizontal Width TODO:
-                  y_min,              // Y Pos
-                  y_pos-1,  					// Image Vertical Height
-                  arrow_image, 				// Image
-                  bColor,    				  // Foreground Color
-                  bColor              // Background Color
-                ); 
-			
-			  // Animate the given arrow 
-				lcd_draw_image(
-                  x_pos,              // X Pos
-                  40,   							// Image Horizontal Width TODO:
-                  y_pos,              // Y Pos
-                  39,  								// Image Vertical Height
-                  arrow_image, 				// Image
-                  fColor,    				  // Foreground Color
-                  bColor              // Background Color
-                ); 
 			
 				//	wait for (2nd param) number of ticks [refer to ICE 13]
 				//	timer funtionality for wait, control the speed with ticks 
-				gp_timer_wait(TIMER0_BASE, speed);
-				
+				//  gp_timer_wait(TIMER0_BASE, speed);
+			
+				// this part clears the arrow at (y-1)
+				lcd_draw_image(x_pos_left, 40, y_min, y_pos-1, left_arrowBitmaps, bColor, bColor); 
+			  // Animate the given arrow 
+			  lcd_draw_image(x_pos_left, 40, y_pos, 39, left_arrowBitmaps, fColor, bColor); 
+
+				lcd_draw_image(x_pos_down, 40, y_min, y_pos-1, down_arrowBitmaps, bColor, bColor);  
+				//gp_timer_wait(TIMER0_BASE, speed);
+			  lcd_draw_image(x_pos_down, 40, y_pos, 39, down_arrowBitmaps, fColor, bColor); 	
+			
+				lcd_draw_image(x_pos_up, 40, y_min, y_pos-1, down_arrowBitmaps, bColor, bColor);  
+				//gp_timer_wait(TIMER0_BASE, speed);
+			  lcd_draw_image(x_pos_up, 40, y_pos, 39, down_arrowBitmaps, fColor, bColor); 
+			
+				lcd_draw_image(x_pos_right, 40, y_min, y_pos-1, down_arrowBitmaps, bColor, bColor);  
+				//gp_timer_wait(TIMER0_BASE, speed);
+			  lcd_draw_image(x_pos_right, 40, y_pos, 39, down_arrowBitmaps, fColor, bColor); 
+
 			y_pos++; //increment y for animating effect 
 		}
 		
 }
+
+
 
 void display_welcome_screen(void) {
 			lcd_draw_image(
@@ -143,7 +163,3 @@ void display_welcome_screen(void) {
                   LCD_COLOR_WHITE     // Background Color
                 ); 
 }
-
-
-
-
