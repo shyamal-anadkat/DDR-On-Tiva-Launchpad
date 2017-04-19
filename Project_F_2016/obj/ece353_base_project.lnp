@@ -1,5 +1,6 @@
---cpu Cortex-M4.fp
+--cpu=Cortex-M4.fp
 ".\obj\main.o"
+".\obj\ddr_animations.o"
 ".\obj\pc_buffer.o"
 ".\obj\uart.o"
 ".\obj\gpio_port.o"
