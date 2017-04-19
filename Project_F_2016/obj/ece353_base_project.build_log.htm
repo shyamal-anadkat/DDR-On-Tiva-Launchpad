@@ -28,27 +28,28 @@ Project File Date:  04/17/2017
 *** Using Compiler 'V5.06 update 4 (build 422)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Rebuild target 'Project'
 compiling pc_buffer.c...
-compiling ddr_animations.c...
-ddr_animations.h(16): warning:  #1-D: last line of file ends without a newline
-  #endif
-ddr_animations.c: 1 warning, 0 errors
 compiling main.c...
-ddr_animations.h(16): warning:  #1-D: last line of file ends without a newline
+ddr_animations.h(20): warning:  #1-D: last line of file ends without a newline
   #endif
-main.c(93): warning:  #1-D: last line of file ends without a newline
+main.c(104): warning:  #1-D: last line of file ends without a newline
   }
 main.c: 2 warnings, 0 errors
+compiling ddr_animations.c...
+ddr_animations.h(20): warning:  #1-D: last line of file ends without a newline
+  #endif
+ddr_animations.c: 1 warning, 0 errors
 compiling uart.c...
 ..\drivers\c\uart.c(184): warning:  #188-D: enumerated type mixed with another type
          return 0;
 ..\drivers\c\uart.c(329): warning:  #940-D: missing return statement at end of non-void function "uart_init" 
   }
 ..\drivers\c\uart.c: 2 warnings, 0 errors
-compiling ece353_images.c...
 compiling gpio_port.c...
 ..\drivers\c\gpio_port.c(82): warning:  #188-D: enumerated type mixed with another type
          return 0;
 ..\drivers\c\gpio_port.c: 1 warning, 0 errors
+compiling timers.c...
+compiling ece353_images.c...
 compiling serial_debug.c...
 ..\peripherals\c\serial_debug.c(169): warning:  #177-D: variable "uart_base"  was declared but never referenced
      uint32_t uart_base;
@@ -67,7 +68,7 @@ assembling startup_TM4C123.s...
 compiling adc.c...
 compiling system_TM4C123.c...
 linking...
-Program Size: Code=4664 RO-data=8816 RW-data=20 ZI-data=4124  
+Program Size: Code=5272 RO-data=8816 RW-data=20 ZI-data=24604  
 ".\obj\ece353_base_project.axf" - 0 Error(s), 10 Warning(s).
 
 <h2>Software Packages used:</h2>
@@ -94,9 +95,9 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.0.1
 
    * Component: Keil::Device:Startup:1.0.1
+      Include file:  Device\Include\TM4C123\TM4C123.h
       Source file:   Device\Source\ARM\startup_TM4C123.s
       Source file:   Device\Source\system_TM4C123.c
-      Include file:  Device\Include\TM4C123\TM4C123.h
 Build Time Elapsed:  00:00:02
 </pre>
 </body>

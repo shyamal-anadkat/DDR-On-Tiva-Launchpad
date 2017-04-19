@@ -18,3 +18,4 @@
 .\obj\ddr_animations.o: ..\drivers\include\uart.h
 .\obj\ddr_animations.o: ..\peripherals\include\lcd.h
 .\obj\ddr_animations.o: ..\peripherals\include\ece353_images.h
+.\obj\ddr_animations.o: ..\drivers\include\timers.h

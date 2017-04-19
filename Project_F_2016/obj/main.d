@@ -20,3 +20,4 @@
 .\obj\main.o: ..\peripherals\include\lcd.h
 .\obj\main.o: ..\peripherals\include\ece353_images.h
 .\obj\main.o: ddr_animations.h
+.\obj\main.o: ..\drivers\include\timers.h

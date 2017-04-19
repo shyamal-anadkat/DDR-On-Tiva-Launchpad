@@ -31,5 +31,6 @@
 #include "lcd.h"
 #include "ece353_images.h"
 #include "ddr_animations.h"
+#include "timers.h"
 
 #endif

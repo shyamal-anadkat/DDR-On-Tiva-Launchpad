@@ -63,6 +63,13 @@ void initialize_hardware(void)
 	lcd_config_gpio();
 	lcd_config_screen();
 	
+	// Initialize the TIMER0 to be a 
+  //      32-bit
+  //      one-shot
+  //      count down
+  //      no interrupts
+  gp_timer_config_32(TIMER0_BASE, ONE_SHOT, false, false);
+	
 	//disable interrupts
 	DisableInterrupts();
 }
@@ -86,7 +93,12 @@ main(void)
 	// print_arrows();
 	
 	// display_welcome_screen();
-	display_welcome_screen();
+	
+	
+	move_arrow(0, 10000, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
+	move_arrow(1, 10000, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
+	move_arrow(2, 10000, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
+	move_arrow(3, 10000, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
 	
   // Reach infinite loop
   while(1){};
