@@ -59,4 +59,11 @@ extern const uint8_t config2HeightPixels;
 extern const uint8_t bucky2Bitmaps[];
 extern const uint8_t bucky2WidthPixels;
 extern const uint8_t bucky2HeightPixels;
+
+/* Bitmap info for ddrbw */
+extern const uint8_t ddrbwBitmaps[];
+extern const uint8_t ddrbwWidthPixels;
+extern const uint8_t ddrbwHeightPixels;
+
+
 #endif

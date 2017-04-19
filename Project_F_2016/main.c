@@ -48,7 +48,6 @@ void EnableInterrupts(void)
   }
 }
 
-
 //*****************************************************************************
 // INIT HARDWARE AND PERIPHERALS 
 //*****************************************************************************
@@ -68,59 +67,9 @@ void initialize_hardware(void)
 	DisableInterrupts();
 }
 
-//*****************************************************************************
-// Printing arrows on the lcd screen  
-//*****************************************************************************
-void print_arrows(void) {
-	
-		const uint16_t y_pos = 275;
-		lcd_clear_screen(LCD_COLOR_BLACK); 	// clear the screen
-	
-		// LEFT ARROW
-		lcd_draw_image(
-                  195,                // X Pos
-                  40,   							// Image Horizontal Width
-                  y_pos,              // Y Pos
-                  39,  								// Image Vertical Height
-                  left_arrowBitmaps, 	// Image
-                  LCD_COLOR_BLUE,     // Foreground Color
-                  LCD_COLOR_BLACK     // Background Color
-                ); 
-		// DOWN ARROW 
-		lcd_draw_image(
-                  150,                // X Pos
-                  40,   							// Image Horizontal Width
-                  y_pos,              // Y Pos
-                  39,  								// Image Vertical Height
-                  down_arrowBitmaps, 	// Image
-                  LCD_COLOR_BLUE,     // Foreground Color
-                  LCD_COLOR_BLACK     // Background Color
-                ); 
-		// UP ARROW 
-		lcd_draw_image(
-                  105,                // X Pos
-                  40,   							// Image Horizontal Width
-                  y_pos,                // Y Pos
-                  39,  								// Image Vertical Height
-                  up_arrowBitmaps, 		// Image
-                  LCD_COLOR_BLUE,     // Foreground Color
-                  LCD_COLOR_BLACK     // Background Color
-                ); 
-		// RIGHT ARROW 
-		lcd_draw_image(
-                  60,                // X Pos
-                  40,   							// Image Horizontal Width
-                  y_pos,                // Y Pos
-                  39,  								// Image Vertical Height
-                  right_arrowBitmaps, // Image
-                  LCD_COLOR_BLUE,     // Foreground Color
-                  LCD_COLOR_BLACK     // Background Color
-                ); 
-	
-}
-
 
 //*****************************************************************************
+// MAIN
 //*****************************************************************************
 int 
 main(void)
@@ -129,16 +78,16 @@ main(void)
 	
 	printf("\n\r");
   printf("**************************************\n\r");
-  printf("* ECE353 - Final Project\n\r");
+  printf("* ECE353 - Final Project - Debug\n\r");
   printf("**************************************\n\r");
   printf("\n\r");
-	print_arrows();
-
+	
+	// print game arrows on top left of the lcd 
+	// print_arrows();
+	
+	// display_welcome_screen();
+	display_welcome_screen();
 	
   // Reach infinite loop
   while(1){};
 }
-
-
-
-
