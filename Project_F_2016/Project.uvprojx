@@ -414,6 +414,11 @@
               <FileType>1</FileType>
               <FilePath>..\drivers\c\gpio_port.c</FilePath>
             </File>
+            <File>
+              <FileName>timers.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\c\timers.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

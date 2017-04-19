@@ -4,6 +4,7 @@
 ".\obj\pc_buffer.o"
 ".\obj\uart.o"
 ".\obj\gpio_port.o"
+".\obj\timers.o"
 ".\obj\serial_debug.o"
 ".\obj\ece353_images.o"
 ".\obj\launchpad_io.o"
