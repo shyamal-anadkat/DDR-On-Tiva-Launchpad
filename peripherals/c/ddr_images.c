@@ -20,7 +20,7 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
 // EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#include "ece353_images.h"
+#include "ddr_images.h"
 
 /* 
 **  Image data for right_arrow
