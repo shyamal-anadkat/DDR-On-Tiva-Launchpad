@@ -10,7 +10,7 @@
       <TargetName>Project</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060300::V5.06 update 3 (build 300)::ARMCC</pCCUsed>
+      <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
       <TargetOption>
         <TargetCommonOption>
           <Device>TM4C123GH6PM</Device>
@@ -389,13 +389,77 @@
               <FileType>5</FileType>
               <FilePath>.\main.h</FilePath>
             </File>
+            <File>
+              <FileName>ddr_animations.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ddr_animations.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>drivers</GroupName>
+          <Files>
+            <File>
+              <FileName>pc_buffer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\c\pc_buffer.c</FilePath>
+            </File>
+            <File>
+              <FileName>uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\c\uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>gpio_port.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\c\gpio_port.c</FilePath>
+            </File>
+            <File>
+              <FileName>timers.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\c\timers.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>peripherals</GroupName>
+          <Files>
+            <File>
+              <FileName>serial_debug.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\peripherals\c\serial_debug.c</FilePath>
+            </File>
+            <File>
+              <FileName>ece353_images.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\peripherals\c\ece353_images.c</FilePath>
+            </File>
+            <File>
+              <FileName>launchpad_io.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\peripherals\c\launchpad_io.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\peripherals\c\lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd_images.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\peripherals\c\lcd_images.c</FilePath>
+            </File>
+            <File>
+              <FileName>ps2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\peripherals\c\ps2.c</FilePath>
+            </File>
+            <File>
+              <FileName>adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\drivers\c\adc.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>lib</GroupName>

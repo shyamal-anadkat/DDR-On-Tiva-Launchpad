@@ -2,115 +2,113 @@
 <body>
 <pre>
 <h1>µVision Build Log</h1>
-<h2>Tool Versions:</h2>
-IDE-Version: µVision V5.22.0.0
-Copyright (C) 2016 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Shyamal Anadkat, UW-Madison, LIC=----
- 
-Tool Versions:
-Toolchain:       MDK-Lite  Version: 5.22
-Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
-C Compiler:      Armcc.exe V5.06 update 4 (build 422)
-Assembler:       Armasm.exe V5.06 update 4 (build 422)
-Linker/Locator:  ArmLink.exe V5.06 update 4 (build 422)
-Library Manager: ArmAr.exe V5.06 update 4 (build 422)
-Hex Converter:   FromElf.exe V5.06 update 4 (build 422)
-CPU DLL:         SARMCM3.DLL V5.22
-Dialog DLL:      DCM.DLL V1.13.9.0
-Target DLL:      lmidk-agdi.dll V???
-Dialog DLL:      TCM.DLL V1.21.0.0
- 
 <h2>Project:</h2>
-C:\ECE353FinalProject\Project_F_2016\Project.uvprojx
-Project File Date:  04/19/2017
+I:\WIN\Desktop\ECE353FinalProject\Project_F_2016\Project.uvprojx
+Project File Date:  04/21/2017
 
 <h2>Output:</h2>
-*** Using Compiler 'V5.06 update 4 (build 422)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
-Rebuild target 'Project'
-compiling pc_buffer.c...
-compiling main.c...
-ddr_animations.h(20): warning:  #1-D: last line of file ends without a newline
-  #endif
-main.c(103): warning:  #1-D: last line of file ends without a newline
-  }
-main.c: 2 warnings, 0 errors
+Build target 'Project'
 compiling ddr_animations.c...
-ddr_animations.h(20): warning:  #1-D: last line of file ends without a newline
+ddr_game.h(45): warning:  #1-D: last line of file ends without a newline
   #endif
-ddr_animations.c(71): warning:  #550-D: variable "moveLeft"  was set but never used
-  		bool moveLeft = false;
-ddr_animations.c(72): warning:  #550-D: variable "moveDown"  was set but never used
-  		bool moveDown = false;
-ddr_animations.c(73): warning:  #550-D: variable "moveUp"  was set but never used
-  		bool moveUp = false;
-ddr_animations.c(74): warning:  #550-D: variable "moveRight"  was set but never used
-  		bool moveRight = false;
-ddr_animations.c(87): warning:  #177-D: variable "arrow_image"  was declared but never referenced
-  		const uint8_t *arrow_image;
-ddr_animations.c(165): warning:  #1-D: last line of file ends without a newline
+ddr_animations.h(29): warning:  #1-D: last line of file ends without a newline
+  #endif
+ddr_animations.c(14): warning:  #177-D: variable "y_pos" was declared but never referenced
+        uint16_t y_pos;
+ddr_animations.c(270): warning:  #1-D: last line of file ends without a newline
   }
-ddr_animations.c: 7 warnings, 0 errors
-compiling uart.c...
-..\drivers\c\uart.c(184): warning:  #188-D: enumerated type mixed with another type
-         return 0;
-..\drivers\c\uart.c(329): warning:  #940-D: missing return statement at end of non-void function "uart_init" 
-  }
-..\drivers\c\uart.c: 2 warnings, 0 errors
-compiling gpio_port.c...
-..\drivers\c\gpio_port.c(82): warning:  #188-D: enumerated type mixed with another type
-         return 0;
-..\drivers\c\gpio_port.c: 1 warning, 0 errors
-compiling timers.c...
-compiling ece353_images.c...
-compiling serial_debug.c...
-..\peripherals\c\serial_debug.c(169): warning:  #177-D: variable "uart_base"  was declared but never referenced
-     uint32_t uart_base;
-..\peripherals\c\serial_debug.c(170): warning:  #177-D: variable "tx_buffer"  was declared but never referenced
-     PC_Buffer *tx_buffer;
-..\peripherals\c\serial_debug.c(229): warning:  #177-D: variable "c"  was declared but never referenced
-      char c;
-..\peripherals\c\serial_debug.c(263): warning:  #177-D: variable "uart"  was declared but never referenced
-  		UART0_Type *uart = (UART0_Type *)(UART0_BASE);
-..\peripherals\c\serial_debug.c: 4 warnings, 0 errors
-compiling lcd_images.c...
-compiling launchpad_io.c...
-compiling lcd.c...
-assembling startup_TM4C123.s...
-compiling ps2.c...
-compiling adc.c...
-compiling system_TM4C123.c...
+ddr_animations.c: 4 warnings, 0 errors
 linking...
-Program Size: Code=5384 RO-data=8816 RW-data=20 ZI-data=24604  
-".\obj\ece353_base_project.axf" - 0 Error(s), 16 Warning(s).
+Program Size: Code=5276 RO-data=8816 RW-data=20 ZI-data=24708  
+".\obj\ece353_base_project.axf" - 0 Error(s), 4 Warning(s).
 
 <h2>Software Packages used:</h2>
 
 Package Vendor: ARM
-                http://www.keil.com/pack/ARM.CMSIS.5.0.1.pack
-                ARM::CMSIS:CORE:5.0.1
+                http://www.keil.com/pack/ARM.CMSIS.4.1.1.pack
+                ARM::CMSIS:CORE:3.30.0
                 CMSIS (Cortex Microcontroller Software Interface Standard)
-   * Component: CORE Version: 5.0.1
+   * Component: CORE Version: 3.30.0
 
 Package Vendor: Keil
-                http://www.keil.com/pack/Keil.TM4C_DFP.1.1.0.pack
-                Keil::Device:Startup:1.0.1
+                http://www.keil.com/pack/Keil.TM4C_DFP.1.0.0.pack
+                Keil::Device:Startup:1.0.0
                 Texas Instruments Tiva C Series Device Support and Examples
-   * Component: Startup Version: 1.0.1
+   * Component: Startup Version: 1.0.0
 
 <h2>Collection of Component include folders:</h2>
-  C:\ECE353FinalProject\Project_F_2016\RTE\_Project
-  C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include
-  C:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123
+  I:\WIN\Desktop\ECE353FinalProject\Project_F_2016\RTE
+  C:\AppV\mdk_510\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include
+  C:\AppV\mdk_510\ARM\PACK\Keil\TM4C_DFP\1.0.0\Device\Include\TM4C123
 
 <h2>Collection of Component Files used:</h2>
 
-   * Component: ARM::CMSIS:CORE:5.0.1
+   * Component: ARM::CMSIS:CORE:3.30.0
+      Source file:   CMSIS\UserCodeTemplates\ARM\ITM_Retarget.c
 
-   * Component: Keil::Device:Startup:1.0.1
-      Include file:  Device\Include\TM4C123\TM4C123.h
+   * Component: Keil::Device:Startup:1.0.0
       Source file:   Device\Source\ARM\startup_TM4C123.s
+      Include file:  Device\Include\TM4C123\TM4C123.h
       Source file:   Device\Source\system_TM4C123.c
-Build Time Elapsed:  00:00:01
-</pre>
-</body>
-</html>
+Load "I:\\WIN\\Desktop\\ECE353FinalProject\\Project_F_2016\\obj\\ece353_base_project.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+artup_TM4C123.s
+      Include file:  Device\Include\TM4C123\TM4C123.h
+      Source file:   Device\Source\system_TM4C123.c
+Load "I:\\WIN\\Desktop\\ECE353FinalProject\\Project_F_2016\\obj\\ece353_base_project.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+iling lcd.c...
+compiling lcd_images.c...
+compiling ps2.c...
+compiling adc.c...
+compiling ddr_images.c...
+assembling startup_TM4C123.s...
+compiling system_TM4C123.c...
+".\obj\ece353_base_project.axf" - 1 Error(s), 15 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.4.1.1.pack
+                ARM::CMSIS:CORE:3.30.0
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: CORE Version: 3.30.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.TM4C_DFP.1.0.0.pack
+                Keil::Device:Startup:1.0.0
+                Texas Instruments Tiva C Series Device Support and Examples
+   * Component: Startup Version: 1.0.0
+
+<h2>Collection of Component include folders:</h2>
+  I:\WIN\Desktop\ECE353FinalProject\Project_F_2016\RTE
+  C:\AppV\mdk_510\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include
+  C:\AppV\mdk_510\ARM\PACK\Keil\TM4C_DFP\1.0.0\Device\Include\TM4C123
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:3.30.0
+      Source file:   CMSIS\UserCodeTemplates\ARM\ITM_Retarget.c
+
+   * Component: Keil::Device:Startup:1.0.0
+      Source file:   Device\Source\ARM\startup_TM4C123.s
+      Include file:  Device\Include\TM4C123\TM4C123.h
+      Source file:   Device\Source\system_TM4C123.c
+Target not created
+oject_F_2016\\obj\\ece353_base_project.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+Project_F_2016\\obj\\ece353_base_project.axf" 
+Connecting: Mode=JTAG, Speed=1000000Hz
+Erase Done.
+Programming Done.
+Verify OK.
+leting intermediate output files for target 'Project'

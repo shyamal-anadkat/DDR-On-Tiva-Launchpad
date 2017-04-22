@@ -90,14 +90,34 @@ main(void)
   printf("\n\r");
 	
 	// print game arrows on top left of the lcd 
-	print_arrows();
+	// print_arrows();
 	
 	// display_welcome_screen();
 	
-	move_arrows(0, 0, 100000, LCD_COLOR_MAGENTA, LCD_COLOR_BLACK); 
+	// move_arrows(0, 0, 100000, LCD_COLOR_MAGENTA, LCD_COLOR_BLACK); 
 	
 	// print_arrows();
 	
   // Reach infinite loop
-  while(1){};
+	
+	add_arrow(ARROW_UP);
+	add_arrow(ARROW_DOWN);
+	update_ui();
+	update_ui();
+	update_ui();
+	update_ui();
+	update_ui();
+	update_ui();
+	update_ui();
+	update_ui();
+	update_ui();
+	add_two_arrows(ARROW_LEFT, ARROW_RIGHT);
+
+
+	
+	
+  while(1){
+		update_ui();
+		
+	};
 }
