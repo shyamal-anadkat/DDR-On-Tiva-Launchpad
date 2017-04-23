@@ -34,13 +34,18 @@
 *******************************************************************************/
 static void initialize_adc_gpio_pins(void)
 {
+	// Enable GPIO Port
 	gpio_enable_port(PS2_GPIO_BASE);
 	
-	gpio_config_enable_input(PS2_GPIO_BASE, PS2_X_DIR_MASK |PS2_Y_DIR_MASK );
+	// Enable the pins as input pins
+	gpio_config_enable_input(PS2_GPIO_BASE, PS2_X_DIR_MASK | PS2_Y_DIR_MASK);
 	
+	// Configure the pins as analog pins
 	gpio_config_analog_enable(PS2_GPIO_BASE, PS2_X_DIR_MASK | PS2_Y_DIR_MASK);
 	
+	// Configure alternate function
 	gpio_config_alternate_function(PS2_GPIO_BASE, PS2_X_DIR_MASK | PS2_Y_DIR_MASK);
+	
 }
 
 /*******************************************************************************
@@ -56,6 +61,21 @@ void ps2_initialize(void)
 }
 
 /*******************************************************************************
+* Function Name: ps2_initialize
+********************************************************************************
+* Initializes the GPIO pins connected to the PS2 Joystick.  It also configures
+* ADC0 to use Sample Sequencer #2 to convert a programmable channel number.
+*******************************************************************************/
+void ps2_initialize_hw3()
+{
+	initialize_adc_gpio_pins();
+	initialize_adc_hw3();
+}
+
+
+
+
+/*******************************************************************************
 * Function Name: ps2_get_x
 ********************************************************************************
 *Returns the most current reading of the X direction  Only the lower 12-bits
@@ -64,9 +84,8 @@ void ps2_initialize(void)
 uint16_t ps2_get_x(void)
 {
   uint16_t adc_val;
-	adc_val = get_adc_value(PS2_ADC_BASE ,PS2_X_ADC_CHANNEL);
-  
-  return adc_val & 0xFFF;
+  adc_val = get_adc_value(PS2_ADC_BASE, PS2_X_ADC_CHANNEL);
+  return adc_val;
 }
 
 /*******************************************************************************
@@ -78,8 +97,7 @@ uint16_t ps2_get_x(void)
 uint16_t ps2_get_y(void)
 {
   uint16_t adc_val;
-	adc_val = get_adc_value(PS2_ADC_BASE ,PS2_Y_ADC_CHANNEL);
-  
-  return adc_val & 0xFFF;
+  adc_val = get_adc_value(PS2_ADC_BASE, PS2_Y_ADC_CHANNEL);
+  return adc_val;
 }
 

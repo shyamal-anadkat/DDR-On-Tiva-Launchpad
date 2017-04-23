@@ -29,9 +29,12 @@
 #include "adc.h"
 #include "driver_defines.h"
 
-// Define the base addresses for the GPIO port that is connected to the PS2 Joystick
-#define   PS2_GPIO_BASE    GPIOE_BASE
 
+// ADD CODE
+// Define the base addresses for the GPIO port that is connected to the PS2 Joystick
+#define   PS2_GPIO_BASE    0x40024000
+
+// ADD CODE
 // Define which bit number ( 0 through 7) each signal is connected to on the GPIO port.
 // This bit number is NOT the value listed in the Pin Number column of the datasheet.  
 // As an example, if the analog input was connected to pin PD2, you would set the bit
@@ -43,10 +46,12 @@
 #define   PS2_X_DIR_MASK     (1 << PS2_X_BIT_NUM)
 #define   PS2_Y_DIR_MASK     (1 << PS2_Y_BIT_NUM)
 
+// ADD CODE
 // Define the base addresses of the the ADC you are going to use to either ADC0 or ADC1.
 // Either will work.
 #define   PS2_ADC_BASE     ADC0_BASE
 
+// ADD CODE
 // Set the analog channel for each direction.  Each analog channel is associated with a
 // single GPIO pin.  Make sure to see table 13-1 to see how the GPIO pin maps to an 
 // analog channel.  Specifically, look at the column Pin Name.
@@ -60,6 +65,14 @@
 * ADC0 to use Sample Sequencer #3 to convert a programmable channel number.
 *******************************************************************************/
 void ps2_initialize(void);
+
+/*******************************************************************************
+* Function Name: ps2_initialize_hw2
+********************************************************************************
+* Initializes the GPIO pins connected to the PS2 Joystick.  It also configures
+* ADC0 to use Sample Sequencer #2 to convert a programmable channel number.
+*******************************************************************************/
+void ps2_initialize_hw3(void);
 
 /*******************************************************************************
 * Function Name: ps2_get_x
