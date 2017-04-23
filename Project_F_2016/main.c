@@ -27,7 +27,6 @@ char individual_1[] = "Shyamal Anadkat";
 char individual_2[] = "Aaron Levin";
 char individual_3[] = "Sneha Patri";
 
-
 //*****************************************************************************
 // DISABLE INTERRUPTS 
 //*****************************************************************************
@@ -70,6 +69,8 @@ void initialize_hardware(void)
   //      no interrupts
   gp_timer_config_32(TIMER0_BASE, ONE_SHOT, false, false);
 	
+	ps2_initialize(); 
+	
 	//disable interrupts
 	DisableInterrupts();
 }
@@ -81,6 +82,8 @@ void initialize_hardware(void)
 int 
 main(void)
 {
+	uint16_t x_adc_data, y_adc_data;
+  char msg[80];
   initialize_hardware();
 	
 	printf("\n\r");
@@ -89,35 +92,20 @@ main(void)
   printf("**************************************\n\r");
   printf("\n\r");
 	
-	// print game arrows on top left of the lcd 
-	// print_arrows();
-	
-	// display_welcome_screen();
-	
-	// move_arrows(0, 0, 100000, LCD_COLOR_MAGENTA, LCD_COLOR_BLACK); 
-	
-	// print_arrows();
-	
-  // Reach infinite loop
-	
-	add_arrow(ARROW_UP);
-	add_arrow(ARROW_DOWN);
-	update_ui();
-	update_ui();
-	update_ui();
-	update_ui();
-	update_ui();
-	update_ui();
-	update_ui();
-	update_ui();
-	update_ui();
-	add_two_arrows(ARROW_LEFT, ARROW_RIGHT);
-
-
-	
+	printMenu(); 
+	select_menuItem(1);
 	
   while(1){
-		update_ui();
+		
+		//get x and y adc values 
+		x_adc_data = ps2_get_x();
+    y_adc_data = ps2_get_y();
+		
+		//print x,y adc values for debug
+    //printf("X Dir value : 0x%03x  Y Dir value : 0x%03x\r",x_adc_data, y_adc_data);
+
+		//navigate menu.todo: make stateful 
+	  navigate_menu(y_adc_data);
 		
 	};
 }
