@@ -29,8 +29,9 @@
 #include "TM4C123.h"
 #include "serial_debug.h"
 #include "lcd.h"
-#include "ddr_images.h"
+#include "ece353_images.h"
 #include "ddr_animations.h"
 #include "timers.h"
+//#include "ece353_hw2_fonts.h"
 
 #endif

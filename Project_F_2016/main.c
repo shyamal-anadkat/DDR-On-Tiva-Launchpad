@@ -27,6 +27,16 @@ char individual_1[] = "Shyamal Anadkat";
 char individual_2[] = "Aaron Levin";
 char individual_3[] = "Sneha Patri";
 
+extern volatile bool Alert_Timer0A;
+extern volatile bool Alert_Timer0B;
+extern volatile bool Alert_ADC0_Conversion;
+
+uint16_t curr_x_px, curr_y_px;
+uint16_t x_left_threshold = (0xFFF / 4) * 3;
+uint16_t y_up_threshold = (0xFFF / 4) * 3;
+uint16_t x_right_threshold = (0xFFF / 4);
+uint16_t y_down_threshold = (0xFFF / 4);
+
 
 //*****************************************************************************
 // DISABLE INTERRUPTS 
@@ -58,6 +68,19 @@ void initialize_hardware(void)
 	
 	//init serial debug for printf
 	init_serial_debug(true, true);
+	
+	  // Initialize switches and LEDs
+  lp_io_init();
+
+  // Enable PS2 joystick
+  ps2_initialize_hw3();
+
+  // Enable TIMER0 A and B for HW3
+  timer_config_hw3();
+
+  // Start TIMER0 A and B for HW3
+  timer_start_hw3();
+
 
 	//LCD init sequence: gpio + screen config 
 	lcd_config_gpio();
@@ -75,49 +98,61 @@ void initialize_hardware(void)
 }
 
 
+	void navigate_menu(void) {
+		if (curr_y_px >= y_up_threshold) {
+				select_menuItem(1);
+		} 
+		else if (curr_y_px <= y_down_threshold) {
+				select_menuItem(0);
+		} 			
+	}
+
+
 //*****************************************************************************
 // MAIN
 //*****************************************************************************
 int 
 main(void)
 {
+	
+	char msg[180];
   initialize_hardware();
-	
-	printf("\n\r");
-  printf("**************************************\n\r");
-  printf("* ECE353 - Final Project - Debug\n\r");
-  printf("**************************************\n\r");
-  printf("\n\r");
-	
-	// print game arrows on top left of the lcd 
-	// print_arrows();
-	
-	// display_welcome_screen();
-	
-	// move_arrows(0, 0, 100000, LCD_COLOR_MAGENTA, LCD_COLOR_BLACK); 
-	
-	// print_arrows();
-	
-  // Reach infinite loop
-	
-	add_arrow(ARROW_UP);
-	add_arrow(ARROW_DOWN);
-	update_ui();
-	update_ui();
-	update_ui();
-	update_ui();
-	update_ui();
-	update_ui();
-	update_ui();
-	update_ui();
-	update_ui();
-	add_two_arrows(ARROW_LEFT, ARROW_RIGHT);
+	sprintf(msg,"X Dir value : 0x%03x \ Y Dir value : 0x%03x\r",curr_x_px, curr_y_px);
 
-
-	
-	
-  while(1){
-		update_ui();
+	  // TIMER0B HANDLER
+    if (Alert_Timer0B) {
+			
+			// Start SS2 conversion
+      ADC0 -> PSSI |= ADC_PSSI_SS2;
+			
+      Alert_Timer0B = false;
+    }
 		
-	};
+		
+	  // ADC COMPUTATION HANDLER (UPDATES PS2 X/Y VALUES)
+    if (Alert_ADC0_Conversion) {
+
+      // Toggle ADC0 Conversion notifier
+      Alert_ADC0_Conversion = false;
+
+      // Update current x position with current PS2 joystick ADC value
+      curr_y_px = ADC0 -> SSFIFO2 & ADC_SSFIFO2_DATA_M;
+
+      // Update current y position with current PS2 joystick ADC value
+      curr_x_px = ADC0 -> SSFIFO2 & ADC_SSFIFO2_DATA_M;
+		}
+		
+		
+		sprintf(msg,"X Dir value : 0x%03x \ Y Dir value : 0x%03x\r",curr_x_px, curr_y_px);
+		
+		
+
+	
+  printMenu(); 
+
+	navigate_menu();
+	
+
+  while(1){
+		};
 }
