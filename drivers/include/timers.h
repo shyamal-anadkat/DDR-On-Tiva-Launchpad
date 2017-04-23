@@ -6,7 +6,6 @@
 
 #include "driver_defines.h"
 
-
 //*****************************************************************************
 // Configure a general purpose timer to be a 32-bit timer.  
 //
@@ -34,5 +33,11 @@ bool gp_timer_config_32(uint32_t base_addr, uint32_t mode, bool count_up, bool e
 //*****************************************************************************
 bool gp_timer_wait(uint32_t base_addr, uint32_t ticks);
 
+
+
+
+void timer_config_hw3(void);
+void timer_start_hw3(void);
+void timer_nvic_config_hw3(void);
 
 #endif
