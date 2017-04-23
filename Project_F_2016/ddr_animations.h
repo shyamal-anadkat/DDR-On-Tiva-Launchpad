@@ -13,17 +13,25 @@
 #define SEC_ONE     50000000
 #define WAIT_TIME   500000
 #define ONE_SHOT    TIMER_TAMR_TAMR_1_SHOT
+#define x_left_threshold  (0xFFF / 4) * 3
+#define y_up_threshold  	(0xFFF / 4) * 3
+#define x_right_threshold (0xFFF / 4)
+#define y_down_threshold  (0xFFF / 4)
 
 void display_welcome_screen(void);
 void print_arrow(arrow_t arrow);
 bool add_arrow(arrow_dir_t dir);
 bool add_two_arrows(arrow_dir_t dir1, arrow_dir_t dir2);
 void update_ui(void);
-
+void lcd_print_stringXY(char *msg, int8_t X,int8_t Y,uint16_t fg_color, uint16_t bg_color);
+void printMenu(); 
+void print_PlayNow(); 
+void draw_line(uint8_t y);
+void select_menuItem();
+void navigate_menu(uint16_t y_adc_data);
 
 // DEPRECATED
 // void print_arrows(void);
 // void move_arrows(int num, int dir, int speed, uint16_t fColor, uint16_t bColor);
-
 
 #endif

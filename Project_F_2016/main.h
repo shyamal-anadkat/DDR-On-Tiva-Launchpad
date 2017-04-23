@@ -32,5 +32,5 @@
 #include "ddr_images.h"
 #include "ddr_animations.h"
 #include "timers.h"
-
+#include "ps2.h"
 #endif

@@ -65,5 +65,7 @@ extern const uint8_t ddrbwBitmaps[];
 extern const uint8_t ddrbwWidthPixels;
 extern const uint8_t ddrbwHeightPixels;
 
+extern const uint8_t sitkaSmall_12ptBitmaps[];
+
 
 #endif
