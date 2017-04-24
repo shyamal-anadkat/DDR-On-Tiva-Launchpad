@@ -27,6 +27,18 @@ char individual_1[] = "Shyamal Anadkat";
 char individual_2[] = "Aaron Levin";
 char individual_3[] = "Sneha Patri";
 
+extern bool playSelected;
+
+
+//************ENUMS********************//
+typedef enum {
+  DEBOUNCE_ONE,
+  DEBOUNCE_1ST_ZERO,
+  DEBOUNCE_2ND_ZERO,
+  DEBOUNCE_PRESSED
+}
+DEBOUNCE_STATES;
+
 //*****************************************************************************
 // DISABLE INTERRUPTS 
 //*****************************************************************************
@@ -57,6 +69,9 @@ void initialize_hardware(void)
 	
 	//init serial debug for printf
 	init_serial_debug(true, true);
+	
+	//init leds and switches
+	lp_io_init();
 
 	//LCD init sequence: gpio + screen config 
 	lcd_config_gpio();
@@ -73,6 +88,26 @@ void initialize_hardware(void)
 	
 	//disable interrupts
 	DisableInterrupts();
+}
+
+
+int debounce_sw1(void) {
+  static uint16_t sw1_count = 0;
+	bool return_value = false;
+	
+	
+	if (lp_io_read_pin(SW1_BIT)) {
+		sw1_count = 0;
+	} else if (sw1_count <= 6) {
+		sw1_count++;
+	}
+	
+  if (!lp_io_read_pin(SW1_BIT)) {
+		sw1_count++;
+  } else {
+		sw1_count = 0;
+	}
+	return sw1_count == 6;
 }
 
 
@@ -94,6 +129,7 @@ main(void)
 	
 	printMenu(); 
 	select_menuItem(1);
+	playSelected = true; 
 	
   while(1){
 		
@@ -104,8 +140,15 @@ main(void)
 		//print x,y adc values for debug
     //printf("X Dir value : 0x%03x  Y Dir value : 0x%03x\r",x_adc_data, y_adc_data);
 
-		//navigate menu.todo: make stateful 
+		//navigate menu.todo: make stateful 	
 	  navigate_menu(y_adc_data);
 		
+		if(debounce_sw1()) {
+			if(playSelected) {
+				printf("PRESSED: IN PLAY\n");
+			} else {
+				printf("IN HIGH SCORE MODE\n");
+			}
+		}
 	};
 }

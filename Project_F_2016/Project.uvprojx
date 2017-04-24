@@ -464,6 +464,16 @@
               <FileType>1</FileType>
               <FilePath>..\drivers\c\adc.c</FilePath>
             </File>
+            <File>
+              <FileName>push_buttons.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\push_buttons.c</FilePath>
+            </File>
+            <File>
+              <FileName>push_buttons.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\push_buttons.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

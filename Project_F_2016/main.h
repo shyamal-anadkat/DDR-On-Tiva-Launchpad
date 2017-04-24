@@ -33,4 +33,5 @@
 #include "ddr_animations.h"
 #include "timers.h"
 #include "ps2.h"
+#include "launchpad_io.h"
 #endif
