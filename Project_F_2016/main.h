@@ -34,4 +34,9 @@
 #include "timers.h"
 #include "ps2.h"
 #include "launchpad_io.h"
+#include "menu_nav.h"
+
+void detect_button_press_main_menu(void);
+
+
 #endif

@@ -6,6 +6,7 @@
 #include <string.h>
 
 #include "serial_debug.h"
+#include "ddr_animations.h"
 
 //
 //	DECLARE CONSTANTS
@@ -22,21 +23,14 @@
 
 
 typedef enum {
-	MENU, PLAYING, WIN, LOSE
-} game_state;
+	MENU, PLAY, WIN, LOSE
+} game_state_fsm;
 
 
-typedef enum {ARROW_UP, ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT} arrow_dir_t;
-
-// Defines an arrow that will be placed on the screen.
-// Assumes bitmaps for each arrow type are stored elsewhere
-// Assumes x coordinates for each arrow type are stored elsewhere
-typedef struct{
-	arrow_dir_t arrow_type;
-	uint16_t y_pos;
-}arrow_t;
 
 
+void update_ui_init_play(void);
+void update_ui_play(void);
 
 
 
