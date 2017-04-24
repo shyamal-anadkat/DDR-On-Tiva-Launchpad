@@ -24,8 +24,19 @@
 #define __LCD_H__
 
 #include <stdint.h>
+#include <string.h>
 #include "driver_defines.h"
 #include "gpio_port.h"
+#include "ddr_images.h"
+
+
+void lcd_print_stringXY(
+    char *msg, 
+    int8_t X,
+		int8_t Y,
+    uint16_t fg_color, 
+    uint16_t bg_color
+);
 
 typedef enum {
   LEFT,
