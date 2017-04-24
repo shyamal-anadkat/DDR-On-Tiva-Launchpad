@@ -394,6 +394,16 @@
               <FileType>1</FileType>
               <FilePath>.\ddr_animations.c</FilePath>
             </File>
+            <File>
+              <FileName>ddr_game.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ddr_game.c</FilePath>
+            </File>
+            <File>
+              <FileName>ddr_images.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\peripherals\c\ddr_images.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -430,11 +440,6 @@
               <FilePath>..\peripherals\c\serial_debug.c</FilePath>
             </File>
             <File>
-              <FileName>ece353_images.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\peripherals\c\ece353_images.c</FilePath>
-            </File>
-            <File>
               <FileName>launchpad_io.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\peripherals\c\launchpad_io.c</FilePath>
@@ -458,6 +463,16 @@
               <FileName>adc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\drivers\c\adc.c</FilePath>
+            </File>
+            <File>
+              <FileName>push_buttons.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\push_buttons.c</FilePath>
+            </File>
+            <File>
+              <FileName>push_buttons.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\push_buttons.h</FilePath>
             </File>
           </Files>
         </Group>
