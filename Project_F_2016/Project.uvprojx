@@ -429,6 +429,11 @@
               <FileType>1</FileType>
               <FilePath>..\peripherals\c\ddr_images.c</FilePath>
             </File>
+            <File>
+              <FileName>menu_nav.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\menu_nav.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
