@@ -6,7 +6,7 @@
 #include "i2c.h"
 #include "gpio_port.h"
 
-#define MCP24LC32AT_DEV_ID			0
+#define MCP24LC32AT_DEV_ID			0x50
 #define EEPROM_TEST_NUM_BYTES    20
 
 //*****************************************************************************

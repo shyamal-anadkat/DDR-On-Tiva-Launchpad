@@ -35,6 +35,7 @@
 #include "ps2.h"
 #include "launchpad_io.h"
 #include "menu_nav.h"
+#include "mcp23017.h"
 
 void detect_button_press_main_menu(void);
 
