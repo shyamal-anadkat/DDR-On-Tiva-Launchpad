@@ -4,6 +4,7 @@
 
 arrow_t arrows_on_screen[MAX_ARROWS_ON_SCREEN];
 uint8_t num_arrows_on_screen;
+bool playSelected;
 
 //*****************************************************************************
 // Updates the entire user interface according to the current state of the game
@@ -232,10 +233,13 @@ void select_menuItem(int item) {
 }
 
 void navigate_menu(uint16_t y_adc_data) {
-		if (y_adc_data >= y_up_threshold) {
+		
+	  if (y_adc_data >= y_up_threshold) {
 				select_menuItem(1);
+				playSelected = true;
 		} 
 		else if (y_adc_data <= y_down_threshold) {
 				select_menuItem(0);
+				playSelected = false; 
 		} 			
 	}

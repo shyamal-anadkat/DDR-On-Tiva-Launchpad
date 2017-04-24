@@ -24,3 +24,4 @@
 .\obj\main.o: ..\drivers\include\timers.h
 .\obj\main.o: ..\peripherals\include\ps2.h
 .\obj\main.o: ..\drivers\include\adc.h
+.\obj\main.o: ..\peripherals\include\launchpad_io.h
