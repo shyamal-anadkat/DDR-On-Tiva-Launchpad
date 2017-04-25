@@ -19,6 +19,4 @@
 .\obj\ddr_animations.o: ..\drivers\include\uart.h
 .\obj\ddr_animations.o: ..\peripherals\include\lcd.h
 .\obj\ddr_animations.o: ..\peripherals\include\ddr_images.h
-.\obj\ddr_animations.o: ddr_game.h
-.\obj\ddr_animations.o: ddr_animations.h
 .\obj\ddr_animations.o: ..\drivers\include\timers.h
