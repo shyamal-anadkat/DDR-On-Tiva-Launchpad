@@ -30,7 +30,6 @@ char individual_3[] = "Sneha Patri";
 extern game_state_fsm game_state;
 extern SELECTED_ITEM selected_item;
 
-
 //************ENUMS********************//
 typedef enum {
   DEBOUNCE_ONE,
@@ -121,7 +120,10 @@ void detect_button_press_main_menu() {
 		case HIGH_SCORES:
 			game_state = HIGH_SCORES;
 			break;
+		default:
+			break;
 		}
+		
 	}
 }
 
