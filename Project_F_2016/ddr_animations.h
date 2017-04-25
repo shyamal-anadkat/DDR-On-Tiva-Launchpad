@@ -28,7 +28,11 @@
 #define ARROW_WIDTH						 40
 #define ARROW_HEIGHT					 39
 
-typedef enum {ARROW_UP, ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT} arrow_dir_t;
+typedef enum {ARROW_DIR_UP, ARROW_DIR_DOWN, ARROW_DIR_LEFT, ARROW_DIR_RIGHT} arrow_dir_t;
+typedef enum {
+	EXCELLENT, GOOD, OK, BAD, 
+} arrow_rgn_t;
+
 
 // Defines an arrow that will be placed on the screen.
 // Assumes bitmaps for each arrow type are stored elsewhere
@@ -36,7 +40,9 @@ typedef enum {ARROW_UP, ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT} arrow_dir_t;
 typedef struct{
 	arrow_dir_t arrow_type;
 	uint16_t y_pos;
+	uint16_t color; // LCD_COLOR MACROS
 }arrow_t;
+
 
 
 //*****************************************************************************
@@ -55,6 +61,7 @@ typedef struct queue {
 	queue_node *tail;
 } queue_t;
 
+void init_arrow_queue(void);
 queue_node *new_node(arrow_t *arrow);
 queue_t *create_queue(void);
 void enqueue(queue_t *queue, arrow_t *arrow);
@@ -77,6 +84,7 @@ void animate_arrows();
 //*****************************************************************************
 
 void update_ui_init_play(void);
+void init_play_top_arrows(void);
 void update_ui_play(void);
 
 

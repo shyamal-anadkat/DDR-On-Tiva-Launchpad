@@ -1,6 +1,5 @@
 #include "mcp23017.h"
 
-
 /*IO EXPANDER INIT FOR LEDs AND PUSH BUTTONS*/
 bool ioexpander_init()
 {
@@ -107,7 +106,12 @@ i2c_status_t status;
 	
   return status;
 }
-																		
+												
+
+//*****************************************************************************
+// PORT EXPANDER (DIRECTIONAL BUTTON PAD) FUNCTIONALITY
+//*****************************************************************************
+
 /*returns data returned by button presses*/
 uint8_t detect_button_press() {
 	uint8_t data;
@@ -120,9 +124,61 @@ uint8_t detect_button_press() {
 	i2cSendByte(I2C1_BASE, IO_BUTTON_GPIO_BASE, I2C_MCS_START | I2C_MCS_RUN);
 	i2cSetSlaveAddr(I2C1_BASE, MCP23017_DEV_ID, I2C_READ);
 	i2cGetByte(I2C1_BASE, &data, I2C_MCS_START | I2C_MCS_RUN | I2C_MCS_DATACK | I2C_MCS_STOP);
-	
 	return data;
 }
+
+void debounce_expander_fsm(button_dir_t buttons_pressed) {
+	static DEBOUNCE_STATES debounce_state = DEBOUNCE_ONE;	
+	
+	switch(buttons_pressed){
+		
+	}
+	
+}
+
+
+/* tells us which button is pressed. please use the enum AARON !! */
+button_dir_t buttons_pressed() {
+	switch( detect_button_press()){
+		case BTN_D:
+			printf("DOWN BTN PRESSED\n");
+			return BTN_DOWN;
+		case BTN_U:
+			printf("UP BTN PRESSED\n");
+			return BTN_UP;
+		case BTN_L:
+			printf("LEFT BTN PRESSED\n");
+			return BTN_LEFT;
+		case BTN_R:
+			printf("RIGHT BTN PRESSED\n");
+			return BTN_RIGHT;
+		case BTN_UD:
+			printf("BTN_UD PRESSED\n");
+			return BTN_UP_DOWN;
+		case BTN_UL:
+			printf("BTN_UL PRESSED\n");
+			return BTN_UP_LEFT;
+		case BTN_UR:
+			printf("BTN_UR PRESSED\n");
+			return BTN_UP_RIGHT;
+		case BTN_LR:
+			printf("BTN_LR PRESSED\n");
+			return BTN_LEFT_RIGHT;
+		case BTN_LD:
+			printf("BTN_LD PRESSED\n");
+			return BTN_LEFT_DOWN;
+		case BTN_DR:
+			printf("BTN_DR PRESSED\n");
+			return BTN_DOWN_RIGHT;
+		default:
+			return NONE;
+			break;
+	}
+}
+
+//*****************************************************************************
+// PORT EXPANDER LED FUNCTIONALITY
+//*****************************************************************************
 
 /* turns off all LEDs by writing a 0x00 */
 void turn_off_leds() {
@@ -139,27 +195,4 @@ void control_leds(uint8_t data) {
 	ioexpander_byte_write(IOEXPANDER_I2C_BASE, IO_LED_GPIO_BASE , data);
 }
 
-/* tells us which button is pressed. please use the enum AARON !! */
-button_dir_t is_button_pressed() {
-	switch( detect_button_press()){
-		case 0x0D:
-			printf("DOWN BTN PRESSED\n");
-			return BTN_DOWN;
-			break;
-		case 0x0E:
-			printf("UP BTN PRESSED\n");
-			return BTN_UP;
-			break;
-		case 0x0B:
-			printf("LEFT BTN PRESSED\n");
-			return BTN_LEFT;
-			break;
-		case 0x07:
-			printf("RIGHT BTN PRESSED\n");
-			return BTN_RIGHT;
-			break;
-		default:
-			return NONE;
-			break;
-	}
-}
+
