@@ -2,7 +2,6 @@
 #define __MENU_NAV_H__
 
 #include "lcd.h"
-#include "ddr_game.h"
 #include "ddr_animations.h"
 
 #define x_left_threshold  (0xFFF / 4) * 3
@@ -17,6 +16,9 @@ typedef enum {
 	HIGH_SCORES
 } SELECTED_ITEM;
 
+typedef enum {
+	MENU, PLAY, WIN, LOSE
+} game_state_fsm;
 
 void display_selected_menu_item();
 void navigate_main_menu(uint16_t y_adc_data);

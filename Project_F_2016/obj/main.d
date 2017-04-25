@@ -21,8 +21,6 @@
 .\obj\main.o: ..\peripherals\include\lcd.h
 .\obj\main.o: ..\peripherals\include\ddr_images.h
 .\obj\main.o: ddr_animations.h
-.\obj\main.o: ddr_game.h
-.\obj\main.o: ddr_animations.h
 .\obj\main.o: ..\drivers\include\timers.h
 .\obj\main.o: ..\peripherals\include\ps2.h
 .\obj\main.o: ..\drivers\include\adc.h
