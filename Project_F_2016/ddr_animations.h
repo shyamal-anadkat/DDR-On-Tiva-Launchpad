@@ -13,7 +13,13 @@
 #define SEC_ONE     50000000
 #define WAIT_TIME   500000
 #define ONE_SHOT    TIMER_TAMR_TAMR_1_SHOT
+#define PERIODIC    TIMER_TAMR_TAMR_PERIOD
 
+
+// DIFFICULTY MODE - ANIMATION SPEEDS
+#define DIFFICULTY_TIMER_EASY		5
+#define DIFFICULTY_TIMER_MEDIUM	3
+#define DIFFICULTY_TIMER_HARD		1
 
 
 //*****************************************************************************
