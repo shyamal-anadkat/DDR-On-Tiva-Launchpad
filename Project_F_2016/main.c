@@ -72,8 +72,9 @@ void initialize_hardware(void)
   //      32-bit
   //      one-shot
   //      count down
-  //      no interrupts
-  gp_timer_config_32(TIMER0_BASE, ONE_SHOT, false, false);
+  //      enable interrupts?
+  //gp_timer_config_32(TIMER0_BASE, PERIODIC, false, true);
+	timer_config_hw3();
 	
 	ps2_initialize(); 
 	

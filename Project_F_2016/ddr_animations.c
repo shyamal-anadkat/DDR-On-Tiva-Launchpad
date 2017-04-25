@@ -1,8 +1,10 @@
 #include "ddr_animations.h"
 
 static queue_t *queue;
+extern bool Alert_Timer0A;
 
 void animate_arrows() {	
+	
 	// MOVE ALL ONSCREEN ARROWS UP BY 1
 	queue_node *curr_node = queue->head;
 	
@@ -156,6 +158,7 @@ void update_ui_init_play(void) {
 	
 	add_arrow(ARROW_DIR_UP);
 	add_arrow(ARROW_DIR_DOWN);
+	timer_start_hw3();
 
 }
 
@@ -164,7 +167,15 @@ void update_ui_init_play(void) {
 // Increments all of the onscreen arrows by 1		  // Increments all of the onscreen arrows by 1
 //*****************************************************************************
 void update_ui_play(void) {
-	animate_arrows();
+	if(Alert_Timer0A) {
+		static uint8_t ticks = 0;
+		ticks++;
+		if(ticks == DIFFICULTY_TIMER_HARD) {
+			animate_arrows();
+			ticks = 0;
+		}
+		Alert_Timer0A = false;
+	}
 }
 
 void init_arrow_queue(void) {
