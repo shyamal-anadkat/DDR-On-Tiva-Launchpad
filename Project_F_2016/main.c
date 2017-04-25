@@ -30,15 +30,6 @@ char individual_3[] = "Sneha Patri";
 extern game_state_fsm game_state;
 extern SELECTED_ITEM selected_item;
 
-//************ENUMS********************//
-typedef enum {
-  DEBOUNCE_ONE,
-  DEBOUNCE_1ST_ZERO,
-  DEBOUNCE_2ND_ZERO,
-  DEBOUNCE_PRESSED
-}
-DEBOUNCE_STATES;
-
 //*****************************************************************************
 // DISABLE INTERRUPTS 
 //*****************************************************************************
@@ -137,6 +128,7 @@ main(void)
 	uint16_t y_adc_data;
   char msg[80];
   initialize_hardware();
+	init_arrow_queue();
 
 	
 	printf("\n\r");
@@ -154,7 +146,7 @@ main(void)
 		// START: State Change Logic
 		static game_state_fsm last_state = MENU;
 		
-		is_button_pressed();
+		buttons_pressed();
 
 		
 		// If a state transition has occurred... initialize new state

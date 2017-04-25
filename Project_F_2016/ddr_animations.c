@@ -16,16 +16,22 @@ void animate_arrows() {
 	}
 }
 
+// TODO: This doesn't have to be a boolean anymore
 bool add_arrow(arrow_dir_t dir) {
 	arrow_t *arrow = malloc(sizeof(arrow_t));
 	
 	// Instantiate arrow structs to add to arrows_on_screen array
 	arrow->arrow_type = dir;
 	arrow->y_pos = ARROW_POS_START_Y;
+	arrow->color = LCD_COLOR_BLUE;
 	
 	enqueue(queue, arrow);
 	return true;
 }
+
+//void remove_arrow(void) {
+//	
+//}
 
 bool add_two_arrows(arrow_dir_t dir1, arrow_dir_t dir2) {
 	arrow_t *arrow1 = malloc(sizeof(arrow_t));
@@ -47,19 +53,19 @@ void print_arrow(arrow_t arrow) {
 	const uint8_t *arrow_bitmap;
 	
 	switch(arrow.arrow_type) {
-		case ARROW_UP:
+		case ARROW_DIR_UP:
 			x_pos = ARROW_POS_X_UP;
 			arrow_bitmap = up_arrowBitmaps;
 			break;
-		case ARROW_DOWN:
+		case ARROW_DIR_DOWN:
 			x_pos = ARROW_POS_X_DOWN;
 			arrow_bitmap = down_arrowBitmaps;
 			break;
-		case ARROW_LEFT:
+		case ARROW_DIR_LEFT:
 			x_pos = ARROW_POS_X_LEFT;
 			arrow_bitmap = left_arrowBitmaps;
 			break;
-		case ARROW_RIGHT:
+		case ARROW_DIR_RIGHT:
 			x_pos = ARROW_POS_X_RIGHT;
 			arrow_bitmap = right_arrowBitmaps;
 			break;
@@ -72,7 +78,7 @@ void print_arrow(arrow_t arrow) {
                   arrow.y_pos,        // Y Pos
                   ARROW_HEIGHT,  			// Image Vertical Height
                   arrow_bitmap, 			// Image
-                  LCD_COLOR_BLUE,     // Foreground Color
+                  arrow.color,     // Foreground Color
                   LCD_COLOR_BLACK     // Background Color
                 );
 	
@@ -144,10 +150,13 @@ queue_node *dequeue(queue_t *queue) {
 // Initializes the UI for PLAY mode
 //*****************************************************************************
 void update_ui_init_play(void) {
-	queue = create_queue();
- 	lcd_clear_screen(LCD_COLOR_BLACK);
-	add_arrow(ARROW_UP);
-	add_arrow(ARROW_DOWN);
+ 	int i;
+	lcd_clear_screen(LCD_COLOR_BLACK);
+	init_play_top_arrows();
+	
+	add_arrow(ARROW_DIR_UP);
+	add_arrow(ARROW_DIR_DOWN);
+
 }
 
 //*****************************************************************************
@@ -156,4 +165,36 @@ void update_ui_init_play(void) {
 //*****************************************************************************
 void update_ui_play(void) {
 	animate_arrows();
+}
+
+void init_arrow_queue(void) {
+	queue = create_queue();
+}
+
+void init_play_top_arrows(void) {
+	arrow_t arrow_up;
+	arrow_t arrow_down;
+	arrow_t arrow_left;
+	arrow_t arrow_right;
+	
+	arrow_up.arrow_type = ARROW_DIR_UP;
+	arrow_up.y_pos = ARROW_POS_END_Y;
+	arrow_up.color = LCD_COLOR_RED;
+	
+	arrow_down.arrow_type = ARROW_DIR_DOWN;
+	arrow_down.y_pos = ARROW_POS_END_Y;
+	arrow_down.color = LCD_COLOR_RED;
+	
+	arrow_left.arrow_type = ARROW_DIR_LEFT;
+	arrow_left.y_pos = ARROW_POS_END_Y;
+	arrow_left.color = LCD_COLOR_RED;
+	
+	arrow_right.arrow_type = ARROW_DIR_RIGHT;
+	arrow_right.y_pos = ARROW_POS_END_Y;
+	arrow_right.color = LCD_COLOR_RED;
+	
+	print_arrow(arrow_up);	
+	print_arrow(arrow_down);
+	print_arrow(arrow_left);
+	print_arrow(arrow_right);
 }
