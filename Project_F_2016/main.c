@@ -137,6 +137,7 @@ main(void)
 	uint16_t y_adc_data;
   char msg[80];
   initialize_hardware();
+
 	
 	printf("\n\r");
   printf("**************************************\n\r");
@@ -146,10 +147,15 @@ main(void)
 	
 	update_ui_init_main_menu();
 	
+	ioexpander_init();
+	
   while(1){
 		
 		// START: State Change Logic
 		static game_state_fsm last_state = MENU;
+		
+		is_button_pressed();
+
 		
 		// If a state transition has occurred... initialize new state
 		if( game_state != last_state) {
