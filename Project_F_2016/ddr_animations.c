@@ -1,5 +1,6 @@
 #include "ddr_animations.h"
 
+
 static queue_t *queue;
 extern bool Alert_Timer0A;
 
@@ -153,19 +154,22 @@ queue_node *dequeue(queue_t *queue) {
 // Initializes the UI for PLAY mode
 //*****************************************************************************
 void update_ui_init_play(void) {
- 	int i;
+ 	uint16_t i = 0;
 	lcd_clear_screen(LCD_COLOR_BLACK);
 	init_play_top_arrows();
 	
 	add_arrow(ARROW_DIR_UP);
 	add_arrow(ARROW_DIR_DOWN);
+	
 	timer_start_hw3();
+	
+	update_ui_play();
 
 }
 
 //*****************************************************************************
 // Updates the entire user interface of the game in PLAY mode
-// Increments all of the onscreen arrows by 1		  // Increments all of the onscreen arrows by 1
+// Increments all of the onscreen arrows by 1	
 //*****************************************************************************
 void update_ui_play(void) {
 	if(Alert_Timer0A) {
