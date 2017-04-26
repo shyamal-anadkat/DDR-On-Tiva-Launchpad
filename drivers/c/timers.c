@@ -202,8 +202,8 @@ void timer_config_hw3(void)
   TIMER0_Type *timer_t = (TIMER0_Type *) TIMER0_BASE;
 	
 	// Declare constants
-	const uint8_t TIMER0A_PRESCALAR = 8;
-	const uint8_t TIMER0B_PRESCALAR = 32;
+	// const uint8_t TIMER0A_PRESCALAR = 8;
+	// const uint8_t TIMER0B_PRESCALAR = 32;
 	const uint16_t TIMER0A_LOAD_VALUE = 62500;
 	const uint16_t TIMER0B_LOAD_VALUE = 46875;
 
@@ -239,8 +239,8 @@ void timer_config_hw3(void)
 	timer_t->TBILR = TIMER0B_LOAD_VALUE;
 	
 	// Set TIMER0A and TIMER0B prescalars
-	timer_t->TAPR = TIMER0A_PRESCALAR;
-	timer_t->TBPR = TIMER0B_PRESCALAR;
+	//timer_t->TAPR = TIMER0A_PRESCALAR;
+	//timer_t->TBPR = TIMER0B_PRESCALAR;
 	
 	// Set NVIC interrupts for TIMER0A and TIMER0B
 	timer_nvic_config_hw3();

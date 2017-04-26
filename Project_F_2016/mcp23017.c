@@ -1,5 +1,7 @@
 #include "mcp23017.h"
 
+uint8_t multi_button_val = BTN_NONE;
+
 /*IO EXPANDER INIT FOR LEDs AND PUSH BUTTONS*/
 bool ioexpander_init()
 {
@@ -113,6 +115,7 @@ i2c_status_t status;
 //*****************************************************************************
 
 /*returns data returned by button presses*/
+/* CHECK MACROS FOR UINT8_VALUES FOR BUTTON COMBINATIONS */
 uint8_t detect_button_press() {
 	uint8_t data;
 	
@@ -127,11 +130,58 @@ uint8_t detect_button_press() {
 	return data;
 }
 
-void debounce_expander_fsm(button_dir_t buttons_pressed) {
+void debounce_expander_fsm(uint8_t buttons_pressed) {
 	static DEBOUNCE_STATES debounce_state = DEBOUNCE_ONE;	
-	
-	switch(buttons_pressed){
+	static uint8_t curr_btn_val = BTN_NONE;
+	static uint8_t last_btn_val = BTN_NONE;
 		
+	curr_btn_val = buttons_pressed;
+	
+	switch(debounce_state) {
+		case DEBOUNCE_ONE:
+			if(curr_btn_val != BTN_NONE) {
+				debounce_state = DEBOUNCE_1ST_ZERO;
+				last_btn_val = curr_btn_val;
+			}
+			else {
+				multi_button_val = BTN_NONE;
+			}; // state stay debounce_one
+			break;
+		case DEBOUNCE_1ST_ZERO:
+			if(curr_btn_val == last_btn_val) debounce_state = DEBOUNCE_2ND_ZERO;
+			else {
+				last_btn_val = curr_btn_val;
+				debounce_state = DEBOUNCE_ONE;
+			}
+			break;
+		case DEBOUNCE_2ND_ZERO:
+			if(curr_btn_val == last_btn_val) debounce_state = DEBOUNCE_PRESSED;
+			else {
+				last_btn_val = curr_btn_val;
+				debounce_state = DEBOUNCE_ONE;
+			}
+			break;
+		case DEBOUNCE_PRESSED:
+			if(curr_btn_val == last_btn_val) {
+				debounce_state = DEBOUNCE_DONE;
+				multi_button_val = curr_btn_val;
+			}
+			else {
+				last_btn_val = curr_btn_val;
+				debounce_state = DEBOUNCE_ONE;
+				multi_button_val = BTN_NONE;
+			}
+			break;
+		case DEBOUNCE_DONE:
+			if(curr_btn_val == last_btn_val) {
+				debounce_state = DEBOUNCE_DONE;
+				multi_button_val = BTN_NONE;
+			}
+			else {
+				last_btn_val = curr_btn_val;
+				debounce_state = DEBOUNCE_ONE;
+			}
+			break;
 	}
 	
 }
@@ -139,7 +189,10 @@ void debounce_expander_fsm(button_dir_t buttons_pressed) {
 
 /* tells us which button is pressed. please use the enum AARON !! */
 button_dir_t buttons_pressed() {
-	switch( detect_button_press()){
+	
+	debounce_expander_fsm(detect_button_press());
+	
+	switch( multi_button_val ){
 		case BTN_D:
 			printf("DOWN BTN PRESSED\n");
 			return BTN_DOWN;
@@ -171,6 +224,7 @@ button_dir_t buttons_pressed() {
 			printf("BTN_DR PRESSED\n");
 			return BTN_DOWN_RIGHT;
 		default:
+			//printf("NONE\n");
 			return NONE;
 			break;
 	}
