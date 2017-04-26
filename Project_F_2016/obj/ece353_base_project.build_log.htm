@@ -2,109 +2,164 @@
 <body>
 <pre>
 <h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: µVision V5.22.0.0
+Copyright (C) 2016 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Shyamal Anadkat, UW-Madison, LIC=----
+ 
+Tool Versions:
+Toolchain:       MDK-Lite  Version: 5.22
+Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 4 (build 422)
+Assembler:       Armasm.exe V5.06 update 4 (build 422)
+Linker/Locator:  ArmLink.exe V5.06 update 4 (build 422)
+Library Manager: ArmAr.exe V5.06 update 4 (build 422)
+Hex Converter:   FromElf.exe V5.06 update 4 (build 422)
+CPU DLL:         SARMCM3.DLL V5.22
+Dialog DLL:      DCM.DLL V1.13.9.0
+Target DLL:      lmidk-agdi.dll V???
+Dialog DLL:      TCM.DLL V1.21.0.0
+ 
 <h2>Project:</h2>
-I:\WIN\Desktop\ECE353FinalProject\Project_F_2016\Project.uvprojx
-Project File Date:  04/25/2017
+C:\ECE353FinalProject\Project_F_2016\Project.uvprojx
+Project File Date:  04/26/2017
 
 <h2>Output:</h2>
-Build target 'Project'
-compiling timers.c...
-linking...
-Program Size: Code=8384 RO-data=13376 RW-data=80 ZI-data=24608  
-".\obj\ece353_base_project.axf" - 0 Error(s), 0 Warning(s).
-
-<h2>Software Packages used:</h2>
-
-Package Vendor: ARM
-                http://www.keil.com/pack/ARM.CMSIS.4.1.1.pack
-                ARM::CMSIS:CORE:3.30.0
-                CMSIS (Cortex Microcontroller Software Interface Standard)
-   * Component: CORE Version: 3.30.0
-
-Package Vendor: Keil
-                http://www.keil.com/pack/Keil.TM4C_DFP.1.0.0.pack
-                Keil::Device:Startup:1.0.0
-                Texas Instruments Tiva C Series Device Support and Examples
-   * Component: Startup Version: 1.0.0
-
-<h2>Collection of Component include folders:</h2>
-  I:\WIN\Desktop\ECE353FinalProject\Project_F_2016\RTE
-  C:\AppV\mdk_510\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include
-  C:\AppV\mdk_510\ARM\PACK\Keil\TM4C_DFP\1.0.0\Device\Include\TM4C123
-
-<h2>Collection of Component Files used:</h2>
-
-   * Component: ARM::CMSIS:CORE:3.30.0
-      Source file:   CMSIS\UserCodeTemplates\ARM\ITM_Retarget.c
-
-   * Component: Keil::Device:Startup:1.0.0
-      Include file:  Device\Include\TM4C123\TM4C123.h
-      Source file:   Device\Source\ARM\startup_TM4C123.s
-      Source file:   Device\Source\system_TM4C123.c
-Load "I:\\WIN\\Desktop\\ECE353FinalProject\\Project_F_2016\\obj\\ece353_base_project.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
-ent: ARM::CMSIS:CORE:3.30.0
-      Source file:   CMSIS\UserCodeTemplates\ARM\ITM_Retarget.c
-
-   * Component: Keil::Device:Startup:1.0.0
-      Include file:  Device\Include\TM4C123\TM4C123.h
-      Source file:   Device\Source\ARM\startup_TM4C123.s
-      Source file:   Device\Source\system_TM4C123.c
-Load "I:\\WIN\\Desktop\\ECE353FinalProject\\Project_F_2016\\obj\\ece353_base_project.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
-errors
+*** Using Compiler 'V5.06 update 4 (build 422)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+Rebuild target 'Project'
+compiling ddr_game.c...
+ddr_game.c(1): warning:  #1-D: last line of file ends without a newline
+  #include "ddr_game.h"
+ddr_game.h(12): warning:  #1-D: last line of file ends without a newline
+  #endif
+ddr_game.c: 2 warnings, 0 errors
+compiling ddr_animations.c...
+ddr_animations.h(84): warning:  #1295-D: Deprecated declaration animate_arrows - give arg types
+  void animate_arrows();
+ddr_animations.h(99): warning:  #1-D: last line of file ends without a newline
+  #endif
+ddr_animations.c(50): warning:  #940-D: missing return statement at end of non-void function "add_two_arrows" 
+  }
+ddr_animations.c(155): warning:  #177-D: variable "i"  was declared but never referenced
+   	int i;
+ddr_animations.c: 4 warnings, 0 errors
+compiling main.c...
+ddr_animations.h(84): warning:  #1295-D: Deprecated declaration animate_arrows - give arg types
+  void animate_arrows();
+ddr_animations.h(99): warning:  #1-D: last line of file ends without a newline
+  #endif
+menu_nav.h(24): warning:  #1295-D: Deprecated declaration display_selected_menu_item - give arg types
+  void display_selected_menu_item();
+menu_nav.h(32): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\peripherals\include\mcp23017.h(84): warning:  #1295-D: Deprecated declaration ioexpander_init - give arg types
+  
+ool ioexpander_init(); //default : I2C1 BASE
+..\peripherals\include\mcp23017.h(98): warning:  #1295-D: Deprecated declaration buttons_pressed - give arg types
+  button_dir_t buttons_pressed();
+..\peripherals\include\mcp23017.h(100): warning:  #1-D: last line of file ends without a newline
+  #endif
+main.c(87): warning:  #177-D: variable "return_value"  was declared but never referenced
+  	bool return_value = false;
+main.c(110): warning:  #188-D: enumerated type mixed with another type
+  			game_state = PLAY_NOW;
+main.c(113): warning:  #188-D: enumerated type mixed with another type
+  			game_state = HIGH_SCORES;
+main.c(182): warning:  #1-D: last line of file ends without a newline
+  }
+main.c(130): warning:  #177-D: variable "msg"  was declared but never referenced
+    char msg[80];
+main.c: 12 warnings, 0 errors
+compiling ddr_images.c...
+compiling pc_buffer.c...
 compiling menu_nav.c...
 ddr_animations.h(84): warning:  #1295-D: Deprecated declaration animate_arrows - give arg types
   void animate_arrows();
 ddr_animations.h(99): warning:  #1-D: last line of file ends without a newline
   #endif
-menu_nav.h(23): warning:  #1295-D: Deprecated declaration display_selected_menu_item - give arg types
+menu_nav.h(24): warning:  #1295-D: Deprecated declaration display_selected_menu_item - give arg types
   void display_selected_menu_item();
-menu_nav.h(31): warning:  #1-D: last line of file ends without a newline
+menu_nav.h(32): warning:  #1-D: last line of file ends without a newline
   #endif
 menu_nav.c: 4 warnings, 0 errors
+compiling uart.c...
+..\drivers\c\uart.c(184): warning:  #188-D: enumerated type mixed with another type
+         return 0;
+..\drivers\c\uart.c(329): warning:  #940-D: missing return statement at end of non-void function "uart_init" 
+  }
+..\drivers\c\uart.c: 2 warnings, 0 errors
+compiling gpio_port.c...
+..\drivers\c\gpio_port.c(82): warning:  #188-D: enumerated type mixed with another type
+         return 0;
+..\drivers\c\gpio_port.c: 1 warning, 0 errors
+compiling timers.c...
+compiling i2c.c...
+compiling serial_debug.c...
+..\peripherals\c\serial_debug.c(169): warning:  #177-D: variable "uart_base"  was declared but never referenced
+     uint32_t uart_base;
+..\peripherals\c\serial_debug.c(170): warning:  #177-D: variable "tx_buffer"  was declared but never referenced
+     PC_Buffer *tx_buffer;
+..\peripherals\c\serial_debug.c(229): warning:  #177-D: variable "c"  was declared but never referenced
+      char c;
+..\peripherals\c\serial_debug.c(263): warning:  #177-D: variable "uart"  was declared but never referenced
+  		UART0_Type *uart = (UART0_Type *)(UART0_BASE);
+..\peripherals\c\serial_debug.c: 4 warnings, 0 errors
+compiling lcd_images.c...
+compiling launchpad_io.c...
+compiling lcd.c...
+compiling ps2.c...
+compiling adc.c...
+assembling startup_TM4C123.s...
+compiling mcp23017.c...
+..\peripherals\include\mcp23017.h(84): warning:  #1295-D: Deprecated declaration ioexpander_init - give arg types
+  
+ool ioexpander_init(); //default : I2C1 BASE
+..\peripherals\include\mcp23017.h(98): warning:  #1295-D: Deprecated declaration buttons_pressed - give arg types
+  button_dir_t buttons_pressed();
+..\peripherals\include\mcp23017.h(100): warning:  #1-D: last line of file ends without a newline
+  #endif
+mcp23017.c(131): warning:  #177-D: variable "debounce_state"  was declared but never referenced
+  	static DEBOUNCE_STATES debounce_state = DEBOUNCE_ONE;	
+mcp23017.c(175): warning:  #111-D: statement is unreachable
+  			break;
+mcp23017.c: 5 warnings, 0 errors
+compiling eeprom.c...
+..\peripherals\c\eeprom.c(232): warning:  #1-D: last line of file ends without a newline
+  }
+..\peripherals\c\eeprom.c: 1 warning, 0 errors
+compiling system_TM4C123.c...
 linking...
-Program Size: Code=8384 RO-data=13376 RW-data=80 ZI-data=24608  
-".\obj\ece353_base_project.axf" - 0 Error(s), 20 Warning(s).
+Program Size: Code=8380 RO-data=17412 RW-data=80 ZI-data=24608  
+".\obj\ece353_base_project.axf" - 0 Error(s), 35 Warning(s).
 
 <h2>Software Packages used:</h2>
 
 Package Vendor: ARM
-                http://www.keil.com/pack/ARM.CMSIS.4.1.1.pack
-                ARM::CMSIS:CORE:3.30.0
+                http://www.keil.com/pack/ARM.CMSIS.5.0.1.pack
+                ARM::CMSIS:CORE:5.0.1
                 CMSIS (Cortex Microcontroller Software Interface Standard)
-   * Component: CORE Version: 3.30.0
+   * Component: CORE Version: 5.0.1
 
 Package Vendor: Keil
-                http://www.keil.com/pack/Keil.TM4C_DFP.1.0.0.pack
-                Keil::Device:Startup:1.0.0
+                http://www.keil.com/pack/Keil.TM4C_DFP.1.1.0.pack
+                Keil::Device:Startup:1.0.1
                 Texas Instruments Tiva C Series Device Support and Examples
-   * Component: Startup Version: 1.0.0
+   * Component: Startup Version: 1.0.1
 
 <h2>Collection of Component include folders:</h2>
-  I:\WIN\Desktop\ECE353FinalProject\Project_F_2016\RTE
-  C:\AppV\mdk_510\ARM\PACK\ARM\CMSIS\4.1.1\CMSIS\Include
-  C:\AppV\mdk_510\ARM\PACK\Keil\TM4C_DFP\1.0.0\Device\Include\TM4C123
+  C:\ECE353FinalProject\Project_F_2016\RTE\_Project
+  C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include
+  C:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123
 
 <h2>Collection of Component Files used:</h2>
 
-   * Component: ARM::CMSIS:CORE:3.30.0
-      Source file:   CMSIS\UserCodeTemplates\ARM\ITM_Retarget.c
+   * Component: ARM::CMSIS:CORE:5.0.1
 
-   * Component: Keil::Device:Startup:1.0.0
+   * Component: Keil::Device:Startup:1.0.1
       Include file:  Device\Include\TM4C123\TM4C123.h
       Source file:   Device\Source\ARM\startup_TM4C123.s
       Source file:   Device\Source\system_TM4C123.c
-Load "I:\\WIN\\Desktop\\ECE353FinalProject\\Project_F_2016\\obj\\ece353_base_project.axf" 
-Connecting: Mode=JTAG, Speed=1000000Hz
-Erase Done.
-Programming Done.
-Verify OK.
-ing Done.
-Verify OK.
+Build Time Elapsed:  00:00:03
+</pre>
+</body>
+</html>

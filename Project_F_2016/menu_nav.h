@@ -2,6 +2,7 @@
 #define __MENU_NAV_H__
 
 #include "lcd.h"
+#include "ddr_images.h"
 #include "ddr_animations.h"
 
 #define x_left_threshold  (0xFFF / 4) * 3

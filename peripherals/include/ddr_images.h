@@ -67,5 +67,9 @@ extern const uint8_t ddrbwHeightPixels;
 
 extern const uint8_t sitkaSmall_12ptBitmaps[];
 
+/* Bitmap info for ddrlogo */
+extern const uint8_t ddrlogoBitmaps[];
+extern const uint8_t ddrlogoWidthPixels;
+extern const uint8_t ddrlogoHeightPixels;
 
 #endif

@@ -80,7 +80,7 @@ void print_arrow(arrow_t arrow) {
                   arrow.y_pos,        // Y Pos
                   ARROW_HEIGHT,  			// Image Vertical Height
                   arrow_bitmap, 			// Image
-                  arrow.color,     // Foreground Color
+                  arrow.color,        // Foreground Color
                   LCD_COLOR_BLACK     // Background Color
                 );
 	
@@ -90,8 +90,8 @@ void print_arrow(arrow_t arrow) {
                   ARROW_WIDTH,   			// Image Horizontal Width
                   arrow.y_pos - ARROW_HEIGHT + 1,// Y Pos of bottom of image
                   ARROW_HEIGHT,  			// Image Vertical Height
-                  arrow_bitmap, 			// DON'T CARE
-                  LCD_COLOR_BLACK,     // Foreground Color
+                  0x0, 								// DON'T CARE
+                  LCD_COLOR_BLACK,    // Foreground Color
                   LCD_COLOR_BLACK     // Background Color
                 );
 }
