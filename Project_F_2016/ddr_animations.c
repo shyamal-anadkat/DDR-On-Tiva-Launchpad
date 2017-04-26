@@ -31,9 +31,6 @@ bool add_arrow(arrow_dir_t dir) {
 	return true;
 }
 
-//void remove_arrow(void) {
-//	
-//}
 
 bool add_two_arrows(arrow_dir_t dir1, arrow_dir_t dir2) {
 	arrow_t *arrow1 = malloc(sizeof(arrow_t));
@@ -74,6 +71,7 @@ void print_arrow(arrow_t arrow) {
 	}
 	
 	// DRAW ARROW
+	if(arrow.y_pos < (ARROW_POS_END_Y)) {
 	lcd_draw_image(
                   x_pos,              // X Pos
                   ARROW_WIDTH,   			// Image Horizontal Width
@@ -83,9 +81,10 @@ void print_arrow(arrow_t arrow) {
                   arrow.color,        // Foreground Color
                   LCD_COLOR_BLACK     // Background Color
                 );
+	}
 	
-	// CLEAR GLITCHY BLUE TRAIL
-		lcd_draw_image(
+		// CLEAR GLITCHY BLUE TRAIL : KEEP THE TRAIL ?
+		/*lcd_draw_image(
                   x_pos,              // X Pos
                   ARROW_WIDTH,   			// Image Horizontal Width
                   arrow.y_pos - ARROW_HEIGHT + 1,// Y Pos of bottom of image
@@ -93,14 +92,16 @@ void print_arrow(arrow_t arrow) {
                   0x0, 								// DON'T CARE
                   LCD_COLOR_BLACK,    // Foreground Color
                   LCD_COLOR_BLACK     // Background Color
-                );
+                ); */
+	
+		if(arrow.y_pos == (ARROW_POS_END_Y)) {
+				init_play_top_arrows();
+		}
 }
-
 
 //*****************************************************************************
 // ARROW QUEUE
 //*****************************************************************************
-
 queue_node *new_node(arrow_t *arrow) {
 	queue_node *temp = (queue_node *)malloc(sizeof(queue_node));
 	temp->key = arrow;
@@ -183,29 +184,8 @@ void init_arrow_queue(void) {
 }
 
 void init_play_top_arrows(void) {
-	arrow_t arrow_up;
-	arrow_t arrow_down;
-	arrow_t arrow_left;
-	arrow_t arrow_right;
-	
-	arrow_up.arrow_type = ARROW_DIR_UP;
-	arrow_up.y_pos = ARROW_POS_END_Y;
-	arrow_up.color = LCD_COLOR_RED;
-	
-	arrow_down.arrow_type = ARROW_DIR_DOWN;
-	arrow_down.y_pos = ARROW_POS_END_Y;
-	arrow_down.color = LCD_COLOR_RED;
-	
-	arrow_left.arrow_type = ARROW_DIR_LEFT;
-	arrow_left.y_pos = ARROW_POS_END_Y;
-	arrow_left.color = LCD_COLOR_RED;
-	
-	arrow_right.arrow_type = ARROW_DIR_RIGHT;
-	arrow_right.y_pos = ARROW_POS_END_Y;
-	arrow_right.color = LCD_COLOR_RED;
-	
-	print_arrow(arrow_up);	
-	print_arrow(arrow_down);
-	print_arrow(arrow_left);
-	print_arrow(arrow_right);
+	lcd_draw_image(ARROW_POS_X_UP, ARROW_WIDTH, ARROW_POS_END_Y, ARROW_HEIGHT, up_arrowBitmaps, LCD_COLOR_CYAN,LCD_COLOR_BLACK);
+	lcd_draw_image(ARROW_POS_X_DOWN, ARROW_WIDTH, ARROW_POS_END_Y, ARROW_HEIGHT, down_arrowBitmaps, LCD_COLOR_ORANGE,LCD_COLOR_BLACK);
+	lcd_draw_image(ARROW_POS_X_LEFT, ARROW_WIDTH, ARROW_POS_END_Y, ARROW_HEIGHT, left_arrowBitmaps, LCD_COLOR_RED,LCD_COLOR_BLACK);
+	lcd_draw_image(ARROW_POS_X_RIGHT, ARROW_WIDTH, ARROW_POS_END_Y, ARROW_HEIGHT, right_arrowBitmaps, LCD_COLOR_YELLOW,LCD_COLOR_BLACK);
 }
