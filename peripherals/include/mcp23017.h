@@ -87,7 +87,7 @@ i2c_status_t ioexpander_byte_write( uint32_t  i2c_base, uint16_t  addr, uint8_t 
 
 i2c_status_t ioexpander_byte_read ( uint32_t  i2c_base, uint16_t  addr, uint8_t *data);
 
-uint8_t get_button_data(void);
+uint8_t detect_button_press(void);
 
 void turn_on_all_leds(void);
 

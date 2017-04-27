@@ -128,11 +128,12 @@ void detect_button_press_main_menu() {
 int 
 main(void)
 {
+	uint8_t button_vals = 0;
 	uint16_t y_adc_data;
   char msg[80];
   initialize_hardware();
 	init_arrow_queue();
-
+	
 	
 	printf("\n\r");
   printf("**************************************\n\r");
@@ -168,7 +169,8 @@ main(void)
 				break;
 			
 			case PLAY:
-				update_ui_play(buttons_pressed());
+				button_vals = buttons_pressed();
+				update_ui_play(button_vals);
 				break;
 			
 			case WIN:

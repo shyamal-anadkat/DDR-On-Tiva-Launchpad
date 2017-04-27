@@ -10,6 +10,8 @@
 #include "ddr_images.h"
 #include "timers.h"
 #include "mcp23017.h"
+#include "arrow.h"
+#include "arrow_printing.h"
 
 #define SEC_ONE     50000000
 #define WAIT_TIME   500000
@@ -20,37 +22,7 @@
 // DIFFICULTY MODE - ANIMATION SPEEDS
 #define DIFFICULTY_TIMER_EASY		3
 #define DIFFICULTY_TIMER_MEDIUM	2
-#define DIFFICULTY_TIMER_HARD		1
-
-
-//*****************************************************************************
-// ARROW CONSTANTS AND FUNCTIONALITY
-//*****************************************************************************
-#define ARROW_POS_START_Y				5
-#define ARROW_POS_END_Y 			275
-#define ARROW_POS_TRGT_Y			250
-#define ARROW_POS_X_UP				105
-#define ARROW_POS_X_DOWN			150
-#define ARROW_POS_X_LEFT			195
-#define ARROW_POS_X_RIGHT			 60
-#define ARROW_WIDTH						 40
-#define ARROW_HEIGHT					 39
-
-typedef enum {ARROW_DIR_UP, ARROW_DIR_DOWN, ARROW_DIR_LEFT, ARROW_DIR_RIGHT} arrow_dir_t;
-typedef enum {
-	EXCELLENT, GOOD, OK, BAD, 
-} arrow_rgn_t;
-
-
-// Defines an arrow that will be placed on the screen.
-// Assumes bitmaps for each arrow type are stored elsewhere
-// Assumes x coordinates for each arrow type are stored elsewhere
-typedef struct{
-	arrow_dir_t arrow_type;
-	uint16_t y_pos;
-	uint16_t color; // LCD_COLOR MACROS
-}arrow_t;
-
+#define DIFFICULTY_TIMER_HARD		8
 
 
 //*****************************************************************************
@@ -80,11 +52,9 @@ queue_node *dequeue(queue_t *queue);
 // ARROW FUNCTIONALITY
 //*****************************************************************************
 
-void print_arrow(arrow_t arrow);
 bool add_arrow(arrow_dir_t dir);
 bool add_two_arrows(arrow_dir_t dir1, arrow_dir_t dir2);
-void animate_arrows();
-
+void animate_arrows(uint8_t button_val);
 
 
 //*****************************************************************************
@@ -97,5 +67,18 @@ void update_ui_play(uint8_t button_data);
 
 
 
+//*****************************************************************************
+// PROCESS ARROW FUNCTIONALITY
+//*****************************************************************************
+
+// PROCESSES THE FIRST ARROW IN THE QUEUE
+// THIS FUNCTION WILL REMOVE THE FIRST ARROW IF IT IS IN A VALID REGION
+// *** AND WILL MOVE THE 
+print_type_t process_arrow(arrow_t *arrow, uint8_t button_val);
+
+// returns the new head node before continuing updating arrows
+bool correct_button_pressed(arrow_t * arrow, uint8_t button_val);
+print_type_t determine_button_outcome(uint16_t difference, uint16_t arrow_y_pos_top);
+queue_node *process_print(print_type_t print_type);
 
 #endif

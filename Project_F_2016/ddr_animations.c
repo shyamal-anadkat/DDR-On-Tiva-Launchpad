@@ -4,28 +4,32 @@
 static queue_t *queue;
 extern bool Alert_Timer0A;
 
-void animate_arrows() {	
-	
-	// MOVE ALL ONSCREEN ARROWS UP BY 1
+void animate_arrows(uint8_t button_val) {	
+	print_type_t print_type;
 	queue_node *curr_node = queue->head;
 	
+	arrow_t *arrow = curr_node->key;
+
+	
+	// nothing to animate if the queue is empty!
+	if(queue->head == NULL_VALUE) return;
+	
+	// evaluate arrow position and button values together
+	arrow->y_pos++;
+	print_type = process_arrow(arrow, button_val);
+	
+	// process print returns new head node
+	curr_node = process_print(print_type);
+	
+	// MOVE THE REST OF THE ARROWS UP
 	while(curr_node != NULL_VALUE) {
-		arrow_t *arrow = curr_node->key;
+		arrow = curr_node->key;
 		arrow->y_pos++;
-		
-		if(arrow->y_pos == ARROW_POS_END_Y) {
-			arrow->color = LCD_COLOR_BLACK;
-			print_arrow(*arrow);
-			curr_node = curr_node->next;
-			dequeue(queue);
-		} else {
-			print_arrow(*arrow);
-			curr_node = curr_node->next;
-		}
-		
-		
+		print_arrow(arrow);
+		curr_node = curr_node->next;
 	}
 }
+
 
 // TODO: This doesn't have to be a boolean anymore
 bool add_arrow(arrow_dir_t dir) {
@@ -58,56 +62,7 @@ bool add_two_arrows(arrow_dir_t dir1, arrow_dir_t dir2) {
 	enqueue(queue, arrow2);
 }
 
-// ASSUMES Y POSITION OF ARROW HAS ALREADY BEEN UPDATED
-void print_arrow(arrow_t arrow) {
-	uint16_t x_pos;
-	const uint8_t *arrow_bitmap;
-	
-	switch(arrow.arrow_type) {
-		case ARROW_DIR_UP:
-			x_pos = ARROW_POS_X_UP;
-			arrow_bitmap = up_arrowBitmaps;
-			break;
-		case ARROW_DIR_DOWN:
-			x_pos = ARROW_POS_X_DOWN;
-			arrow_bitmap = down_arrowBitmaps;
-			break;
-		case ARROW_DIR_LEFT:
-			x_pos = ARROW_POS_X_LEFT;
-			arrow_bitmap = left_arrowBitmaps;
-			break;
-		case ARROW_DIR_RIGHT:
-			x_pos = ARROW_POS_X_RIGHT;
-			arrow_bitmap = right_arrowBitmaps;
-			break;
-	}
-	
-	// DRAW ARROW
-	if(arrow.y_pos <= (ARROW_POS_END_Y)) {
-		lcd_draw_image(
-                  x_pos,              // X Pos
-                  ARROW_WIDTH,   			// Image Horizontal Width
-                  arrow.y_pos,        // Y Pos
-                  ARROW_HEIGHT,  			// Image Vertical Height
-                  arrow_bitmap, 			// Image
-                  arrow.color,        // Foreground Color
-                  LCD_COLOR_BLACK     // Background Color
-                );
-	}
-	
-		// CLEAR GLITCHY BLUE TRAIL : KEEP THE TRAIL ?
-		/*lcd_draw_image(
-                  x_pos,              // X Pos
-                  ARROW_WIDTH,   			// Image Horizontal Width
-                  arrow.y_pos - ARROW_HEIGHT + 1,// Y Pos of bottom of image
-                  ARROW_HEIGHT,  			// Image Vertical Height
-                  0x0, 								// DON'T CARE
-                  LCD_COLOR_BLACK,    // Foreground Color
-                  LCD_COLOR_BLACK     // Background Color
-                ); */
-	
 
-}
 
 //*****************************************************************************
 // ARROW QUEUE
@@ -168,12 +123,9 @@ void update_ui_init_play(void) {
 	init_play_top_arrows();
 	
 	add_arrow(ARROW_DIR_UP);
-	add_arrow(ARROW_DIR_DOWN);
+
 	//add_two_arrows(ARROW_DIR_LEFT, ARROW_DIR_RIGHT);
 	timer_start_hw3();
-	
-	update_ui_play(BTN_NONE);
-
 }
 
 //*****************************************************************************
@@ -185,7 +137,7 @@ void update_ui_play(uint8_t button_data) {
 		static uint8_t ticks = 0;
 		ticks++;
 		if(ticks == DIFFICULTY_TIMER_HARD) {
-			animate_arrows();
+			animate_arrows(button_data);
 			ticks = 0;
 		}
 		Alert_Timer0A = false;
@@ -197,8 +149,111 @@ void init_arrow_queue(void) {
 }
 
 void init_play_top_arrows(void) {
-	lcd_draw_image(ARROW_POS_X_UP, ARROW_WIDTH, ARROW_POS_TRGT_Y, ARROW_HEIGHT, up_arrowBitmaps, LCD_COLOR_CYAN,LCD_COLOR_BLACK);
-	lcd_draw_image(ARROW_POS_X_DOWN, ARROW_WIDTH, ARROW_POS_TRGT_Y, ARROW_HEIGHT, down_arrowBitmaps, LCD_COLOR_ORANGE,LCD_COLOR_BLACK);
-	lcd_draw_image(ARROW_POS_X_LEFT, ARROW_WIDTH, ARROW_POS_TRGT_Y, ARROW_HEIGHT, left_arrowBitmaps, LCD_COLOR_RED,LCD_COLOR_BLACK);
-	lcd_draw_image(ARROW_POS_X_RIGHT, ARROW_WIDTH, ARROW_POS_TRGT_Y, ARROW_HEIGHT, right_arrowBitmaps, LCD_COLOR_YELLOW,LCD_COLOR_BLACK);
+	print_top_arrow(ARROW_DIR_UP);
+	print_top_arrow(ARROW_DIR_DOWN);
+	print_top_arrow(ARROW_DIR_LEFT);
+	print_top_arrow(ARROW_DIR_RIGHT);
+}
+
+
+
+//*****************************************************************************
+// ARROW PROCESSING FUNCTIONS
+//*****************************************************************************
+print_type_t process_arrow(arrow_t *arrow, uint8_t button_val) {
+	uint16_t y_pos_top = arrow->y_pos + ARROW_HEIGHT;
+	uint16_t y_pos_trgt_top	= ARROW_POS_TRGT_TOP_Y;
+	uint16_t difference;
+	
+	// we had to use this if-else to decide which order to subtract because they're unsigned
+	// also had to use tops of each image in case the arrow went offscreen (MISS)
+	difference = (y_pos_trgt_top >= y_pos_top) ? 
+	(y_pos_trgt_top - y_pos_top) : (y_pos_top - y_pos_trgt_top );
+	
+	// correct button, but need to see what region it was in (level of correctness)
+	if (correct_button_pressed(arrow, button_val)) {
+		return determine_button_outcome(difference, y_pos_top);
+	} 
+	
+	// nothing pressed, but need to check if offscreen or just far away from target region
+	else if(button_val == BTN_NONE) {
+		return (y_pos_top >= ARROW_POS_END_Y) ? MISS : NONE;
+	}
+	
+	// wrong button and on screen
+	else return BOO;
+}
+
+bool correct_button_pressed(arrow_t * arrow, uint8_t button_val) {
+	switch (arrow->arrow_type) {
+		case ARROW_DIR_UP:
+			return (button_val == BTN_U) ? true : false;
+		case ARROW_DIR_DOWN:
+			return (button_val == BTN_D) ? true : false;
+		case ARROW_DIR_LEFT:
+			return (button_val == BTN_L) ? true : false;
+		case ARROW_DIR_RIGHT:
+			return (button_val == BTN_R) ? true : false;
+	}
+}
+
+print_type_t determine_button_outcome(uint16_t difference, uint16_t arrow_y_pos_top) {
+	// miss case, goes off screen 
+	if(arrow_y_pos_top >= RGN_MISS) {
+		printf("MISS\n");
+		return MISS;
+	}else if (difference <= RGN_GOOD) {
+		printf("GOOD\n");
+		return GOOD; 
+		//within the GOOD and BAD region 
+	} else if (difference > RGN_GOOD && difference <= BAD) {
+		printf("BAD\n");
+		return BAD;
+		//within the BAD and BOO region 
+	} else if (difference > BAD && difference > RGN_BOO) {
+		printf("BOO\n");
+		return BOO;
+		//none region 
+	} else {
+		printf("NONE\n");
+		return NONE;
+	}
+}
+
+// Returns either the first node in the queue or the next node after removing head
+queue_node *process_print(print_type_t print_type) {
+	arrow_t *arrow;
+	
+	// if NONE don't dequeue
+	switch(print_type) {
+		case NONE:
+			//printf("process_print=none\n");
+			break;
+		case GOOD:
+			printf("process_print=good\n");
+			arrow = dequeue(queue)->key;
+			clear_arrow(arrow);
+			print_top_arrow(arrow->arrow_type);
+			break;
+		case BAD:
+			printf("process_print=bad\n");
+			arrow = dequeue(queue)->key;
+			clear_arrow(arrow);
+			print_top_arrow(arrow->arrow_type);
+			break;
+		case MISS:
+			printf("process_print=miss\n");
+			arrow = dequeue(queue)->key;
+			clear_arrow(arrow);
+			print_top_arrow(arrow->arrow_type);
+			break;
+		case BOO:
+			printf("process_print=boo\n");
+			break;
+		default:
+			printf("process_print=default\n");
+			break;
+	}
+	
+	return queue->head;
 }
