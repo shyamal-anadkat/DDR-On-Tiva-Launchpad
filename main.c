@@ -1,4 +1,4 @@
- // Copyright (c) 2015-16, Joe Krachey
+// Copyright (c) 2015-16, Joe Krachey
 // All rights reserved.
 //
 // Redistribution and use in source or binary form, with or without modification, 
@@ -27,19 +27,8 @@ char individual_1[] = "Shyamal Anadkat";
 char individual_2[] = "Aaron Levin";
 char individual_3[] = "Sneha Patri";
 
-extern bool playSelected;
-extern bool backSelected;
-
-
-
-//************ENUMS********************//
-typedef enum {
-  DEBOUNCE_ONE,
-  DEBOUNCE_1ST_ZERO,
-  DEBOUNCE_2ND_ZERO,
-  DEBOUNCE_PRESSED
-}
-DEBOUNCE_STATES;
+extern game_state_fsm game_state;
+extern SELECTED_ITEM selected_item;
 
 //*****************************************************************************
 // DISABLE INTERRUPTS 
@@ -83,15 +72,17 @@ void initialize_hardware(void)
   //      32-bit
   //      one-shot
   //      count down
-  //      no interrupts
-  gp_timer_config_32(TIMER0_BASE, ONE_SHOT, false, false);
+  //      enable interrupts?
+  //gp_timer_config_32(TIMER0_BASE, PERIODIC, false, true);
+	timer_config_hw3();
+	
+	timer_start_hw3();
 	
 	ps2_initialize(); 
 	
 	//disable interrupts
 	DisableInterrupts();
 }
-
 
 int debounce_sw1(void) {
   static uint16_t sw1_count = 0;
@@ -112,6 +103,24 @@ int debounce_sw1(void) {
 	return sw1_count == 6;
 }
 
+void detect_button_press_main_menu() {
+	//navigate menu.todo: make stateful 	
+	if(debounce_sw1()) {
+		
+	switch(selected_item) {
+		case PLAY_NOW:
+			game_state = PLAY_NOW;
+			break;
+		case HIGH_SCORES:
+			game_state = HIGH_SCORES;
+			break;
+		default:
+			break;
+		}
+		
+	}
+}
+
 
 //*****************************************************************************
 // MAIN
@@ -119,46 +128,65 @@ int debounce_sw1(void) {
 int 
 main(void)
 {
-	uint16_t x_adc_data, y_adc_data;
+	uint16_t y_adc_data;
   char msg[80];
   initialize_hardware();
-	
+	init_arrow_queue();
+
 	printf("\n\r");
   printf("**************************************\n\r");
   printf("* ECE353 - Final Project - Debug\n\r");
   printf("**************************************\n\r");
   printf("\n\r");
 	
-	printMenu(); 
-	select_menuItem(1);
-	playSelected = true; 
+	update_ui_init_main_menu();
+	
+	ioexpander_init();
+
+	//print_miss_second(); 
 	
   while(1){
+		// START: State Change Logic
+		static game_state_fsm last_state = MENU;
 		
-		//get x and y adc values 
-		x_adc_data = ps2_get_x();
-    y_adc_data = ps2_get_y();
+		//io_expander_blink_state(MEDIUM, LED7);
 		
-		//print x,y adc values for debug
-    //printf("X Dir value : 0x%03x  Y Dir value : 0x%03x\r",x_adc_data, y_adc_data);
+		buttons_pressed();
 
-		//navigate menu.todo: make stateful 	
-	  navigate_menu(y_adc_data);
+	
 		
-		if(debounce_sw1()) {
-			if(playSelected) {
-				//printf("PRESSED: IN PLAY\n");
-			} else {
-				//printf("IN HIGH SCORE MODE\n");
-					print_highscores();
-					navigate_back(y_adc_data);
-				
-					if(debounce_sw1()) {
-							if(backSelected) {
-								printf("PRESSED: IN MENU\n");
-							}
-					}
-			}
+		
+		// If a state transition has occurred... initialize new state
+		if( game_state != last_state) {
+			last_state = game_state; // update last state to current state
+			update_ui_init_new_state(game_state); // initialize the new state
 		}
+		// END: State Change Logic
+ 			
+		// This part handles the current state
+		switch(game_state) {
+			
+			case MENU:
+				//get x and y adc values 
+				y_adc_data = ps2_get_y();
+				navigate_main_menu(y_adc_data);
+				detect_button_press_main_menu();
+				//io_expander_blink_state(SLOW, LED7);
+				print_hit_second();
+				break;
+			
+			case PLAY:
+				update_ui_play();
+				break;
+			
+			case WIN:
+				break;
+			
+			case LOSE:
+				break;
+		}
+
+
+		
 	}
 }
