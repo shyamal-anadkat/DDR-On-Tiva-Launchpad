@@ -30,6 +30,8 @@ char individual_3[] = "Sneha Patri";
 extern game_state_fsm game_state;
 extern SELECTED_ITEM selected_item;
 
+bool debugFlag = true;
+
 //*****************************************************************************
 // DISABLE INTERRUPTS 
 //*****************************************************************************
@@ -147,9 +149,6 @@ main(void)
 		// START: State Change Logic
 		static game_state_fsm last_state = MENU;
 		
-		buttons_pressed();
-
-		
 		// If a state transition has occurred... initialize new state
 		if( game_state != last_state) {
 			last_state = game_state; // update last state to current state
@@ -169,7 +168,7 @@ main(void)
 				break;
 			
 			case PLAY:
-				update_ui_play();
+				update_ui_play(buttons_pressed());
 				break;
 			
 			case WIN:
