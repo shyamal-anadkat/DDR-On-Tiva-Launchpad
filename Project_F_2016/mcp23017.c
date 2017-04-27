@@ -1,6 +1,8 @@
 #include "mcp23017.h"
 
-uint8_t multi_button_val = BTN_NONE;
+//uint8_t multi_button_val = BTN_NONE;
+
+extern bool debugFlag;
 
 /*IO EXPANDER INIT FOR LEDs AND PUSH BUTTONS*/
 bool ioexpander_init()
@@ -116,7 +118,7 @@ i2c_status_t status;
 
 /*returns data returned by button presses*/
 /* CHECK MACROS FOR UINT8_VALUES FOR BUTTON COMBINATIONS */
-uint8_t detect_button_press() {
+uint8_t get_button_data() {
 	uint8_t data;
 	
 	//wait
@@ -130,7 +132,7 @@ uint8_t detect_button_press() {
 	return data;
 }
 
-void debounce_expander_fsm(uint8_t buttons_pressed) {
+uint8_t debounce_expander_fsm(uint8_t buttons_pressed) {
 	static DEBOUNCE_STATES debounce_state = DEBOUNCE_ONE;	
 	static uint8_t curr_btn_val = BTN_NONE;
 	static uint8_t last_btn_val = BTN_NONE;
@@ -143,10 +145,7 @@ void debounce_expander_fsm(uint8_t buttons_pressed) {
 				debounce_state = DEBOUNCE_1ST_ZERO;
 				last_btn_val = curr_btn_val;
 			}
-			else {
-				multi_button_val = BTN_NONE;
-			}; // state stay debounce_one
-			break;
+			return BTN_NONE;
 		case DEBOUNCE_1ST_ZERO:
 			if(curr_btn_val == last_btn_val) debounce_state = DEBOUNCE_2ND_ZERO;
 			else {
@@ -160,74 +159,75 @@ void debounce_expander_fsm(uint8_t buttons_pressed) {
 				last_btn_val = curr_btn_val;
 				debounce_state = DEBOUNCE_ONE;
 			}
-			break;
+			return BTN_NONE;
 		case DEBOUNCE_PRESSED:
 			if(curr_btn_val == last_btn_val) {
 				debounce_state = DEBOUNCE_DONE;
-				multi_button_val = curr_btn_val;
 			}
 			else {
 				last_btn_val = curr_btn_val;
 				debounce_state = DEBOUNCE_ONE;
-				multi_button_val = BTN_NONE;
 			}
-			break;
+			return curr_btn_val;
 		case DEBOUNCE_DONE:
 			if(curr_btn_val == last_btn_val) {
 				debounce_state = DEBOUNCE_DONE;
-				multi_button_val = BTN_NONE;
 			}
 			else {
 				last_btn_val = curr_btn_val;
 				debounce_state = DEBOUNCE_ONE;
 			}
-			break;
+			return BTN_NONE;
 	}
 	
 }
 
 
 /* tells us which button is pressed. please use the enum AARON !! */
-button_dir_t buttons_pressed() {
+uint8_t buttons_pressed() {
 	
-	debounce_expander_fsm(detect_button_press());
+	uint8_t btn_data = debounce_expander_fsm(get_button_data());
 	
-	switch( multi_button_val ){
-		case BTN_D:
-			printf("DOWN BTN PRESSED\n");
-			return BTN_DOWN;
-		case BTN_U:
-			printf("UP BTN PRESSED\n");
-			return BTN_UP;
-		case BTN_L:
-			printf("LEFT BTN PRESSED\n");
-			return BTN_LEFT;
-		case BTN_R:
-			printf("RIGHT BTN PRESSED\n");
-			return BTN_RIGHT;
-		case BTN_UD:
-			printf("BTN_UD PRESSED\n");
-			return BTN_UP_DOWN;
-		case BTN_UL:
-			printf("BTN_UL PRESSED\n");
-			return BTN_UP_LEFT;
-		case BTN_UR:
-			printf("BTN_UR PRESSED\n");
-			return BTN_UP_RIGHT;
-		case BTN_LR:
-			printf("BTN_LR PRESSED\n");
-			return BTN_LEFT_RIGHT;
-		case BTN_LD:
-			printf("BTN_LD PRESSED\n");
-			return BTN_LEFT_DOWN;
-		case BTN_DR:
-			printf("BTN_DR PRESSED\n");
-			return BTN_DOWN_RIGHT;
-		default:
-			//printf("NONE\n");
-			return NONE;
-			break;
+	if(debugFlag) {
+		switch( btn_data ){
+			case BTN_D:
+				printf("DOWN BTN PRESSED\n");
+				break;
+			case BTN_U:
+				printf("UP BTN PRESSED\n");
+				break;
+			case BTN_L:
+				printf("LEFT BTN PRESSED\n");
+				break;
+			case BTN_R:
+				printf("RIGHT BTN PRESSED\n");
+				break;
+			case BTN_UD:
+				printf("BTN_UD PRESSED\n");
+				break;
+			case BTN_UL:
+				printf("BTN_UL PRESSED\n");
+				break;
+			case BTN_UR:
+				printf("BTN_UR PRESSED\n");
+				break;
+			case BTN_LR:
+				printf("BTN_LR PRESSED\n");
+				break;
+			case BTN_LD:
+				printf("BTN_LD PRESSED\n");
+				break;
+			case BTN_DR:
+				printf("BTN_DR PRESSED\n");
+				break;
+			default:
+				//printf("NONE\n");
+				break;
+		}
 	}
+	
+	return btn_data;
+
 }
 
 //*****************************************************************************

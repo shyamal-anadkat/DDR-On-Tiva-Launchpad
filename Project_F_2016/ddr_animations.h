@@ -9,6 +9,7 @@
 #include "lcd.h"
 #include "ddr_images.h"
 #include "timers.h"
+#include "mcp23017.h"
 
 #define SEC_ONE     50000000
 #define WAIT_TIME   500000
@@ -27,6 +28,7 @@
 //*****************************************************************************
 #define ARROW_POS_START_Y				5
 #define ARROW_POS_END_Y 			275
+#define ARROW_POS_TRGT_Y			250
 #define ARROW_POS_X_UP				105
 #define ARROW_POS_X_DOWN			150
 #define ARROW_POS_X_LEFT			195
@@ -91,7 +93,7 @@ void animate_arrows();
 
 void update_ui_init_play(void);
 void init_play_top_arrows(void);
-void update_ui_play(void);
+void update_ui_play(uint8_t button_data);
 
 
 

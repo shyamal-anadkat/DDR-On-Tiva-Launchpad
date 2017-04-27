@@ -13,9 +13,17 @@ void animate_arrows() {
 		arrow_t *arrow = curr_node->key;
 		arrow->y_pos++;
 		
-		print_arrow(*arrow);
+		if(arrow->y_pos == ARROW_POS_END_Y) {
+			arrow->color = LCD_COLOR_BLACK;
+			print_arrow(*arrow);
+			curr_node = curr_node->next;
+			dequeue(queue);
+		} else {
+			print_arrow(*arrow);
+			curr_node = curr_node->next;
+		}
 		
-		curr_node = curr_node->next;
+		
 	}
 }
 
@@ -40,8 +48,11 @@ bool add_two_arrows(arrow_dir_t dir1, arrow_dir_t dir2) {
 	// Instantiate arrow structs to add to arrows_on_screen array
 	arrow1->arrow_type = dir1;
 	arrow1->y_pos = ARROW_POS_START_Y;
+	arrow1->color = LCD_COLOR_BLUE;
+
 	arrow2->arrow_type = dir2;
 	arrow2->y_pos = ARROW_POS_START_Y;
+	arrow2->color = LCD_COLOR_BLUE;
 	
 	enqueue(queue, arrow1);
 	enqueue(queue, arrow2);
@@ -72,8 +83,8 @@ void print_arrow(arrow_t arrow) {
 	}
 	
 	// DRAW ARROW
-	if(arrow.y_pos < (ARROW_POS_END_Y)) {
-	lcd_draw_image(
+	if(arrow.y_pos <= (ARROW_POS_END_Y)) {
+		lcd_draw_image(
                   x_pos,              // X Pos
                   ARROW_WIDTH,   			// Image Horizontal Width
                   arrow.y_pos,        // Y Pos
@@ -95,9 +106,7 @@ void print_arrow(arrow_t arrow) {
                   LCD_COLOR_BLACK     // Background Color
                 ); */
 	
-		if(arrow.y_pos == (ARROW_POS_END_Y)) {
-				init_play_top_arrows();
-		}
+
 }
 
 //*****************************************************************************
@@ -160,10 +169,10 @@ void update_ui_init_play(void) {
 	
 	add_arrow(ARROW_DIR_UP);
 	add_arrow(ARROW_DIR_DOWN);
-	
+	//add_two_arrows(ARROW_DIR_LEFT, ARROW_DIR_RIGHT);
 	timer_start_hw3();
 	
-	update_ui_play();
+	update_ui_play(BTN_NONE);
 
 }
 
@@ -171,7 +180,7 @@ void update_ui_init_play(void) {
 // Updates the entire user interface of the game in PLAY mode
 // Increments all of the onscreen arrows by 1	
 //*****************************************************************************
-void update_ui_play(void) {
+void update_ui_play(uint8_t button_data) {
 	if(Alert_Timer0A) {
 		static uint8_t ticks = 0;
 		ticks++;
@@ -188,8 +197,8 @@ void init_arrow_queue(void) {
 }
 
 void init_play_top_arrows(void) {
-	lcd_draw_image(ARROW_POS_X_UP, ARROW_WIDTH, ARROW_POS_END_Y, ARROW_HEIGHT, up_arrowBitmaps, LCD_COLOR_CYAN,LCD_COLOR_BLACK);
-	lcd_draw_image(ARROW_POS_X_DOWN, ARROW_WIDTH, ARROW_POS_END_Y, ARROW_HEIGHT, down_arrowBitmaps, LCD_COLOR_ORANGE,LCD_COLOR_BLACK);
-	lcd_draw_image(ARROW_POS_X_LEFT, ARROW_WIDTH, ARROW_POS_END_Y, ARROW_HEIGHT, left_arrowBitmaps, LCD_COLOR_RED,LCD_COLOR_BLACK);
-	lcd_draw_image(ARROW_POS_X_RIGHT, ARROW_WIDTH, ARROW_POS_END_Y, ARROW_HEIGHT, right_arrowBitmaps, LCD_COLOR_YELLOW,LCD_COLOR_BLACK);
+	lcd_draw_image(ARROW_POS_X_UP, ARROW_WIDTH, ARROW_POS_TRGT_Y, ARROW_HEIGHT, up_arrowBitmaps, LCD_COLOR_CYAN,LCD_COLOR_BLACK);
+	lcd_draw_image(ARROW_POS_X_DOWN, ARROW_WIDTH, ARROW_POS_TRGT_Y, ARROW_HEIGHT, down_arrowBitmaps, LCD_COLOR_ORANGE,LCD_COLOR_BLACK);
+	lcd_draw_image(ARROW_POS_X_LEFT, ARROW_WIDTH, ARROW_POS_TRGT_Y, ARROW_HEIGHT, left_arrowBitmaps, LCD_COLOR_RED,LCD_COLOR_BLACK);
+	lcd_draw_image(ARROW_POS_X_RIGHT, ARROW_WIDTH, ARROW_POS_TRGT_Y, ARROW_HEIGHT, right_arrowBitmaps, LCD_COLOR_YELLOW,LCD_COLOR_BLACK);
 }
