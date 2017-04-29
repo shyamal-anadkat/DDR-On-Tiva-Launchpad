@@ -27,7 +27,7 @@
 #include <stdbool.h>
 #include "TM4C123GH6PM.h"
 #include "driver_defines.h"
-
+#include "ps2.h"
 
 /******************************************************************************
  * Initializes ADC to use Sample Sequencer #3, triggered by software, no IRQs
@@ -53,5 +53,18 @@ bool initialize_adc(  uint32_t adc_base );
  *   analog reading
  *****************************************************************************/
 uint32_t get_adc_value( uint32_t adc_base, uint8_t channel);
+
+
+/******************************************************************************
+ * Initializes ADC to use Sample Sequencer #3, triggered by software, no IRQs
+ *
+ * Parameters:
+ *  adc_base - The user must pass ADC0_BASE or ADC1_BASE.
+ *
+ * Returns:
+ *  true  - if an valid base address was passed in
+ *  false - if an invalid base address was passed in
+ *****************************************************************************/
+bool initialize_adc_hw3();
 
 #endif

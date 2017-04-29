@@ -22,6 +22,8 @@
 
 #include "launchpad_io.h"
 
+volatile bool Alert_PortF = false;
+
 //*****************************************************************************
 // Enabling PortF will require the following steps                          
 //    1. Turn on the clock for PORTF in RCGCGPIO
@@ -200,5 +202,25 @@ void lp_io_init(void)
 	
 	port_f_enable_input(SW1_M | SW2_M);
 	port_f_enable_pull_up(SW1_M | SW2_M);
+}
+
+/*Initialize interrupt enable for SW1 button on port F */
+void init_interrupt_sw1(void){
+	GPIOF->ICR |= PF4;
+	GPIOF->IM |= PF4;
+	NVIC_SetPriority(GPIOF_IRQn, 1);
+	NVIC_EnableIRQ(GPIOF_IRQn);
+}
+
+
+/*********************************************************************************
+* Interrupt handler for SW1 on Port F
+********************************************************************************/
+void GPIOF_Handler(void) {
+	
+	Alert_PortF = true;
+		
+	// Clear any outstanding interrupts
+	GPIOF->ICR |= PF4;
 }
 

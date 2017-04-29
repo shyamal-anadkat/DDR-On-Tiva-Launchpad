@@ -77,5 +77,7 @@ uint16_t ps2_get_x(void);
 ********************************************************************************/
 uint16_t ps2_get_y(void);
 
+void ps2_initialize_hw3(void);
+
 #endif
 
