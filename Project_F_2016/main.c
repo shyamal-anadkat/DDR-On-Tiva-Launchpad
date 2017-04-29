@@ -78,6 +78,8 @@ void initialize_hardware(void)
   //gp_timer_config_32(TIMER0_BASE, PERIODIC, false, true);
 	timer_config_hw3();
 	
+	timer_start_hw3();
+	
 	ps2_initialize(); 
 	
 	//disable interrupts
