@@ -21,6 +21,7 @@
 .\obj\main.o: ..\peripherals\include\lcd.h
 .\obj\main.o: ..\peripherals\include\ddr_images.h
 .\obj\main.o: ddr_animations.h
+.\obj\main.o: C:\ProgramData\App-V\61A5EFCB-2A44-465D-90CC-A7A4A41DA0A8\D50B82DC-885B-4BF1-9479-31B1EC1F01B7\Root\ARM\ARMCC\bin\..\include\time.h
 .\obj\main.o: ..\drivers\include\timers.h
 .\obj\main.o: ..\peripherals\include\mcp23017.h
 .\obj\main.o: ..\drivers\include\i2c.h
@@ -29,6 +30,7 @@
 .\obj\main.o: menu_nav.h
 .\obj\main.o: ddr_animations.h
 .\obj\main.o: io_expander_led.h
+.\obj\main.o: arrow_queue.h
 .\obj\main.o: ..\peripherals\include\ps2.h
 .\obj\main.o: ..\drivers\include\adc.h
 .\obj\main.o: ..\peripherals\include\ps2.h

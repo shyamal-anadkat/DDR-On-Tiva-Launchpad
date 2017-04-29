@@ -1,11 +1,64 @@
 #include "ddr_animations.h"
 
+extern queue_t *queue;
 
-static queue_t *queue;
 extern bool Alert_Timer0A;
 extern bool Alert_Timer0B;
+extern uint16_t score;
 
-int score; 
+
+//*****************************************************************************
+// 
+//
+// PLAY MODE ANIMATIONS
+//
+//
+//*****************************************************************************
+
+//*****************************************************************************
+// Initializes the UI for PLAY mode
+//*****************************************************************************
+void update_ui_init_play(void) {
+ 	uint16_t i = 0;
+	lcd_clear_screen(LCD_COLOR_BLACK);
+	init_play_top_arrows();
+	score = 0; 
+	
+	add_arrow(ARROW_DIR_UP);
+	
+	
+	// add_arrow(ARROW_DIR_DOWN);
+	// add_arrow(ARROW_DIR_LEFT);
+	// add_arrow(ARROW_DIR_RIGHT);
+
+}
+
+//*****************************************************************************
+// Updates the entire user interface of the game in PLAY mode
+// Increments all of the onscreen arrows by 1	
+//*****************************************************************************
+void update_ui_play(button_dir_t button_data) {
+	// need button to be stateful so it can be handled when timer goes off
+	static button_dir_t button_val = BTN_NONE; 
+	
+	// handle glitchy '2' that appears in button data before correct value appears
+	if(button_data != BTN_NONE && button_data != 2) {
+		button_val = button_data;
+	}
+	
+	if(Alert_Timer0A) {
+		print_score();
+		animate_arrows(button_val);
+		button_val = BTN_NONE; // after processing the button value, reset it to NONE
+		Alert_Timer0A = false;
+	}
+	
+	//clear miss/hit message on LCD
+	clear_hit_miss_message();
+	
+	//led_blink(FAST);
+}
+
 
 void animate_arrows(uint8_t button_val) {	
 	print_type_t print_type;
@@ -31,151 +84,17 @@ void animate_arrows(uint8_t button_val) {
 	}
 }
 
-
-// TODO: This doesn't have to be a boolean anymore
-bool add_arrow(arrow_dir_t dir) {
-	arrow_t *arrow = malloc(sizeof(arrow_t));
-	
-	// Instantiate arrow structs to add to arrows_on_screen array
-	arrow->arrow_type = dir;
-	arrow->y_pos = ARROW_POS_START_Y;
-	arrow->color = LCD_COLOR_BLUE;
-	
-	enqueue(queue, arrow);
-	return true;
+void arrow_delay(void) {
+		if(Alert_Timer0A) {
+				static int ticks = 0;
+				ticks++;
+				if(ticks == ARROW_DELAY){
+					ticks = 0;
+				}
+				Alert_Timer0A = false; 
+		}
 }
 
-
-bool add_two_arrows(arrow_dir_t dir1, arrow_dir_t dir2) {
-	arrow_t *arrow1 = malloc(sizeof(arrow_t));
-	arrow_t *arrow2 = malloc(sizeof(arrow_t));
-	
-	// Instantiate arrow structs to add to arrows_on_screen array
-	arrow1->arrow_type = dir1;
-	arrow1->y_pos = ARROW_POS_START_Y;
-	arrow1->color = LCD_COLOR_BLUE;
-
-	arrow2->arrow_type = dir2;
-	arrow2->y_pos = ARROW_POS_START_Y;
-	arrow2->color = LCD_COLOR_BLUE;
-	
-	enqueue(queue, arrow1);
-	enqueue(queue, arrow2);
-}
-
-
-//*****************************************************************************
-// ARROW QUEUE
-//*****************************************************************************
-queue_node *new_node(arrow_t *arrow) {
-	queue_node *temp = (queue_node *)malloc(sizeof(queue_node));
-	temp->key = arrow;
-	temp->next = NULL_VALUE;
-	return temp;
-}
-
-queue_t *create_queue(void) {
-	queue_t *queue = (queue_t *)malloc(sizeof(queue_t));
-	queue->head = queue->tail = NULL_VALUE;
-	return queue;
-}
-
-void enqueue(queue_t *queue, arrow_t *arrow) {
-	queue_node *temp = new_node(arrow);
-	if(queue->tail == NULL_VALUE) {
-		queue->head = queue->tail = temp;
-		return;
-	}
-	
-	queue->tail->next = temp;
-	queue->tail = temp;
-}
-
-queue_node *dequeue(queue_t *queue) {
-	queue_node *temp;
-	
-	if(queue->head == NULL_VALUE) return NULL_VALUE;
-	
-	temp = queue->head;
-	queue->head = queue->head->next;
-	
-	if(queue->head == NULL_VALUE) queue->tail = NULL_VALUE;
-	
-	return temp;
-	
-}
-
-
-//*****************************************************************************
-// 
-//
-// PLAY MODE ANIMATIONS
-//
-//
-//*****************************************************************************
-
-//*****************************************************************************
-// Initializes the UI for PLAY mode
-//*****************************************************************************
-void update_ui_init_play(void) {
- 	uint16_t i = 0;
-	lcd_clear_screen(LCD_COLOR_BLACK);
-	init_play_top_arrows();
-	score = 0; 
-	
-	add_arrow(ARROW_DIR_UP);
-	arrow_delay();
-	add_arrow(ARROW_DIR_DOWN);
-	arrow_delay();
-	arrow_delay();
-	add_arrow(ARROW_DIR_LEFT);
-	arrow_delay();
-	arrow_delay();
-	add_arrow(ARROW_DIR_RIGHT);
-
-}
-
-	void arrow_delay(void) {
-			if(Alert_Timer0A) {
-					static int ticks = 0;
-					ticks++;
-					if(ticks == ARROW_DELAY){
-						ticks = 0;
-					}
-					Alert_Timer0A = false; 
-			}
-			
-	}
-
-//*****************************************************************************
-// Updates the entire user interface of the game in PLAY mode
-// Increments all of the onscreen arrows by 1	
-//*****************************************************************************
-void update_ui_play(button_dir_t button_data) {
-	// need button to be stateful so it can be handled when timer goes off
-	static button_dir_t button_val = BTN_NONE; 
-	
-	// handle glitchy '2' that appears in button data before correct value appears
-	if(button_data != BTN_NONE && button_data != 2) {
-		button_val = button_data;
-	}
-	
-	if(Alert_Timer0A) {
-		print_score();
-		animate_arrows(button_val);
-		button_val = BTN_NONE; // after processing the button value, reset it to NONE
-		Alert_Timer0A = false;
-	}
-	
-	//clear miss/hit message on LCD
-	clear_print_message();
-	
-	//led_blink(FAST);
-}
-
-void init_arrow_queue(void) {
-	queue = create_queue();
-}
 
 void init_play_top_arrows(void) {
 	print_top_arrow(ARROW_DIR_UP);
@@ -281,23 +200,4 @@ queue_node *process_print(print_type_t print_type) {
 	return queue->head;
 }
 
-void print_score(void) {
-	char score_arr[4]; 
-	//printf("Current Score: %d", score);
-	sprintf(score_arr,"%ld",(int)score);
-	lcd_print_stringXY("score:",5,0, LCD_COLOR_ORANGE,LCD_COLOR_BLACK);
-	lcd_print_stringXY(score_arr,11,0, LCD_COLOR_ORANGE,LCD_COLOR_BLACK);
-}
 
-void clear_print_message(void){
-	//this is to clear the hit/miss message on LCD
-	if(Alert_Timer0B) {
-		static int ticks = 0;
-		ticks++;
-		if(ticks == PRINT_MESSAGE_DELAY){
-			clear_boo();
-			ticks = 0;
-		}
-		Alert_Timer0B = false; 
-	}
-}

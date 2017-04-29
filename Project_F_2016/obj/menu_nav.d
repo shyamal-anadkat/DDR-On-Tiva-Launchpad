@@ -16,6 +16,7 @@
 .\obj\menu_nav.o: ..\drivers\include\gpio_port.h
 .\obj\menu_nav.o: ..\peripherals\include\ddr_images.h
 .\obj\menu_nav.o: ddr_animations.h
+.\obj\menu_nav.o: C:\ProgramData\App-V\61A5EFCB-2A44-465D-90CC-A7A4A41DA0A8\D50B82DC-885B-4BF1-9479-31B1EC1F01B7\Root\ARM\ARMCC\bin\..\include\time.h
 .\obj\menu_nav.o: ..\peripherals\include\serial_debug.h
 .\obj\menu_nav.o: ..\drivers\include\pc_buffer.h
 .\obj\menu_nav.o: C:\ProgramData\App-V\61A5EFCB-2A44-465D-90CC-A7A4A41DA0A8\D50B82DC-885B-4BF1-9479-31B1EC1F01B7\Root\ARM\ARMCC\bin\..\include\stdlib.h
@@ -28,3 +29,4 @@
 .\obj\menu_nav.o: arrow_printing.h
 .\obj\menu_nav.o: menu_nav.h
 .\obj\menu_nav.o: io_expander_led.h
+.\obj\menu_nav.o: arrow_queue.h

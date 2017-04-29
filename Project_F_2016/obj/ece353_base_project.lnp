@@ -7,6 +7,7 @@
 ".\obj\arrow_printing.o"
 ".\obj\arrow.o"
 ".\obj\io_expander_led.o"
+".\obj\arrow_queue.o"
 ".\obj\pc_buffer.o"
 ".\obj\uart.o"
 ".\obj\gpio_port.o"

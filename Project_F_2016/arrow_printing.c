@@ -1,5 +1,8 @@
 #include "arrow_printing.h"
 
+extern uint16_t score;
+extern bool Alert_Timer0B;
+
 // ASSUMES Y POSITION OF ARROW HAS ALREADY BEEN UPDATED
 void print_arrow(arrow_t *arrow) {
 	uint16_t x_pos;
@@ -125,4 +128,57 @@ void clear_arrow(arrow_t *arrow) {
                   LCD_COLOR_BLACK     // Background Color
                 );
 	}
+}
+
+void print_score(void) {
+	char score_arr[4]; 
+	//printf("Current Score: %d", score);
+	sprintf(score_arr,"%ld",(long)score);
+	lcd_print_stringXY("score:",5,0, LCD_COLOR_ORANGE,LCD_COLOR_BLACK);
+	lcd_print_stringXY(score_arr,11,0, LCD_COLOR_ORANGE,LCD_COLOR_BLACK);
+}
+
+void clear_hit_miss_message(void){
+	//this is to clear the hit/miss message on LCD
+	if(Alert_Timer0B) {
+		static int ticks = 0;
+		ticks++;
+		if(ticks == PRINT_MESSAGE_DELAY){
+			clear_boo();
+			ticks = 0;
+		}
+		Alert_Timer0B = false; 
+	}
+}
+
+void print_hit() {
+	char hit[] = "HIT";
+	lcd_print_stringXY(hit,10,10, LCD_COLOR_GREEN,LCD_COLOR_BLACK);
+}
+
+void print_boo() {
+	char boo[] = "BOO!";
+	lcd_print_stringXY(boo,10,10, LCD_COLOR_GREEN,LCD_COLOR_BLACK);
+}
+
+void clear_boo() {
+	char miss[] = "BOOO!";
+	lcd_print_stringXY(miss,10,10, LCD_COLOR_BLACK,LCD_COLOR_BLACK);
+}
+
+void print_miss() {
+	char miss[] = "MISS!";
+	lcd_print_stringXY(miss,10,10, LCD_COLOR_GREEN,LCD_COLOR_BLACK);
+}
+
+void print_hit_second() {
+		print_hit();
+}
+
+void print_boo_second() {
+		print_boo();
+}
+
+void print_miss_second() {
+		print_miss();
 }

@@ -3,6 +3,7 @@
 .\obj\ddr_animations.o: C:\ProgramData\App-V\61A5EFCB-2A44-465D-90CC-A7A4A41DA0A8\D50B82DC-885B-4BF1-9479-31B1EC1F01B7\Root\ARM\ARMCC\bin\..\include\stdio.h
 .\obj\ddr_animations.o: C:\ProgramData\App-V\61A5EFCB-2A44-465D-90CC-A7A4A41DA0A8\D50B82DC-885B-4BF1-9479-31B1EC1F01B7\Root\ARM\ARMCC\bin\..\include\stdint.h
 .\obj\ddr_animations.o: C:\ProgramData\App-V\61A5EFCB-2A44-465D-90CC-A7A4A41DA0A8\D50B82DC-885B-4BF1-9479-31B1EC1F01B7\Root\ARM\ARMCC\bin\..\include\string.h
+.\obj\ddr_animations.o: C:\ProgramData\App-V\61A5EFCB-2A44-465D-90CC-A7A4A41DA0A8\D50B82DC-885B-4BF1-9479-31B1EC1F01B7\Root\ARM\ARMCC\bin\..\include\time.h
 .\obj\ddr_animations.o: ..\peripherals\include\serial_debug.h
 .\obj\ddr_animations.o: ..\drivers\include\gpio_port.h
 .\obj\ddr_animations.o: ..\drivers\include\driver_defines.h
@@ -28,3 +29,4 @@
 .\obj\ddr_animations.o: menu_nav.h
 .\obj\ddr_animations.o: ddr_animations.h
 .\obj\ddr_animations.o: io_expander_led.h
+.\obj\ddr_animations.o: arrow_queue.h
