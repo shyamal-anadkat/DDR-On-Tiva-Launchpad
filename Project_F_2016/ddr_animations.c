@@ -17,7 +17,6 @@ void animate_arrows(uint8_t button_val) {
 	if(queue->head == NULL_VALUE) return;
 	
 	// evaluate arrow position and button values together
-	arrow->y_pos++;
 	print_type = process_arrow(arrow, button_val);
 	
 	// process print returns new head node
