@@ -84,6 +84,7 @@ void initialize_hardware(void)
 	//GPIOF INTERRUPT SET for SW1
 	init_interrupt_sw1();
  
+	ft6x06_init();
 	
 	//disable interrupts
 	DisableInterrupts();
@@ -115,8 +116,12 @@ main(void)
 	uint8_t button_vals = 0;
 	uint16_t y_adc_data;
   char msg[80];
+	uint16_t x,y;
+  uint8_t touch_event;
+	
   initialize_hardware();
 	init_arrow_queue();
+	
 	
 	
 	printf("\n\r");
@@ -175,6 +180,15 @@ main(void)
 			case PLAY:
 				button_vals = buttons_pressed();
 				update_ui_play(button_vals);
+			
+				touch_event = ft6x06_read_td_status();
+				//printf("td status read: %d\n\r", touch_event); //DEBUG
+				if(touch_event > 0 && touch_event!=255) {
+					//print out x and y coordinates 
+					x = ft6x06_read_x();
+					y = ft6x06_read_y();
+					printf("Touch Events :\tX: %d\t||\tY: %d \n\r", x, y);
+				}
 				break;
 			
 			case WIN:

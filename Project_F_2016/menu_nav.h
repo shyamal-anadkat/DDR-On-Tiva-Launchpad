@@ -10,6 +10,8 @@
 #define x_right_threshold (0xFFF / 4)
 #define y_down_threshold  (0xFFF / 4)
 
+#define PRINT_MESSAGE_DELAY 300
+
 
 typedef enum {
 	NOTHING,
@@ -28,5 +30,12 @@ void update_ui_init_new_state(game_state_fsm new_state);
 void update_ui_init_main_menu(void);
 void draw_line(uint8_t y);
 void clear_line(uint8_t y);
+
+void print_hit_second(void);
+void print_boo_second(void);
+void print_miss_second(void);
+
+void clear_hit(void);
+void clear_boo(void);
 
 #endif

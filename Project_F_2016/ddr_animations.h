@@ -12,11 +12,14 @@
 #include "mcp23017.h"
 #include "arrow.h"
 #include "arrow_printing.h"
+#include "menu_nav.h"
+#include "io_expander_led.h"
 
 #define SEC_ONE     50000000
 #define WAIT_TIME   500000
 #define ONE_SHOT    TIMER_TAMR_TAMR_1_SHOT
 #define PERIODIC    TIMER_TAMR_TAMR_PERIOD
+#define ARROW_DELAY 10000
 
 
 // DIFFICULTY MODE - ANIMATION SPEEDS
@@ -65,6 +68,10 @@ void update_ui_init_play(void);
 void init_play_top_arrows(void);
 void update_ui_play(uint8_t button_data);
 
+void arrow_delay(void);
+void print_score(void);
+
+void clear_print_message(void);
 
 
 //*****************************************************************************

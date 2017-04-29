@@ -6,8 +6,7 @@
 game_state_fsm game_state;
 SELECTED_ITEM selected_item = PLAY_NOW;
 
-
-
+extern bool Alert_Timer0B;
 
 
 //*****************************************************************************
@@ -88,6 +87,38 @@ void navigate_main_menu(uint16_t y_adc_data) {
 				selected_item = HIGH_SCORES;
 		}
 		display_selected_menu_item();
+}
+
+void print_hit() {
+	char hit[] = "HIT";
+	lcd_print_stringXY(hit,10,10, LCD_COLOR_GREEN,LCD_COLOR_BLACK);
+}
+
+void print_boo() {
+	char boo[] = "BOO!";
+	lcd_print_stringXY(boo,10,10, LCD_COLOR_GREEN,LCD_COLOR_BLACK);
+}
+
+void clear_boo() {
+	char miss[] = "BOOO!";
+	lcd_print_stringXY(miss,10,10, LCD_COLOR_BLACK,LCD_COLOR_BLACK);
+}
+
+void print_miss() {
+	char miss[] = "MISS!";
+	lcd_print_stringXY(miss,10,10, LCD_COLOR_GREEN,LCD_COLOR_BLACK);
+}
+
+void print_hit_second() {
+		print_hit();
+}
+
+void print_boo_second() {
+		print_boo();
+}
+
+void print_miss_second() {
+		print_miss();
 }
 
 	

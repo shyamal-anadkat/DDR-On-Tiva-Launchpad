@@ -36,6 +36,7 @@
 #include "launchpad_io.h"
 #include "menu_nav.h"
 #include "mcp23017.h"
+#include "ft6x06.h"
 
 void detect_button_press_main_menu(void);
 

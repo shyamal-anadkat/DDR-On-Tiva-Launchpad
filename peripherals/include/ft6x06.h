@@ -6,7 +6,7 @@
 #include "gpio_port.h"
 #include "i2c.h"
 
-#define FT6X06_DEV_ID                  0x00
+#define FT6X06_DEV_ID                   0x38
 
 //*****************************************************************************
 // Fill out the #defines below to configure which pins are connected to
