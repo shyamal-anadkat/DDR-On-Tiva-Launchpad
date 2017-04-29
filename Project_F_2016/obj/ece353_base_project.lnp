@@ -1,4 +1,4 @@
---cpu Cortex-M4.fp
+--cpu=Cortex-M4.fp
 ".\obj\main.o"
 ".\obj\ddr_animations.o"
 ".\obj\ddr_game.o"

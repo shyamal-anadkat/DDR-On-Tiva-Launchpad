@@ -158,7 +158,7 @@ void print_hit() {
 
 void print_boo() {
 	char boo[] = "BOO!";
-	lcd_print_stringXY(boo,10,10, LCD_COLOR_GREEN,LCD_COLOR_BLACK);
+	lcd_print_stringXY(boo,10,10, LCD_COLOR_ORANGE,LCD_COLOR_BLACK);
 }
 
 void clear_boo() {
@@ -167,8 +167,8 @@ void clear_boo() {
 }
 
 void print_miss() {
-	char miss[] = "MISS!";
-	lcd_print_stringXY(miss,10,10, LCD_COLOR_GREEN,LCD_COLOR_BLACK);
+	char miss[] = "MISS";
+	lcd_print_stringXY(miss,10,10, LCD_COLOR_RED,LCD_COLOR_BLACK);
 }
 
 void print_hit_second() {

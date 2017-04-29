@@ -40,6 +40,7 @@
 #include "mcp23017.h"
 #include "ft6x06.h"
 #include "ddr_game.h"
+#include "eeprom.h"
 
 void detect_button_press_main_menu(void);
 
