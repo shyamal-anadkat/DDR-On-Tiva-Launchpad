@@ -19,17 +19,13 @@ extern uint16_t score;
 // Initializes the UI for PLAY mode
 //*****************************************************************************
 void update_ui_init_play(void) {
+	uint16_t timer_val = get_timer0A_current_value();
  	uint16_t i = 0;
 	lcd_clear_screen(LCD_COLOR_BLACK);
 	init_play_top_arrows();
 	score = 0; 
-	
-	add_arrow(ARROW_DIR_UP);
-	
-	
-	// add_arrow(ARROW_DIR_DOWN);
-	// add_arrow(ARROW_DIR_LEFT);
-	// add_arrow(ARROW_DIR_RIGHT);
+		
+	srand(timer_val); // TODO: This might be bad to call multiple times
 
 }
 
@@ -49,12 +45,14 @@ void update_ui_play(button_dir_t button_data) {
 	if(Alert_Timer0A) {
 		print_score();
 		animate_arrows(button_val);
+		add_random_arrow();
 		button_val = BTN_NONE; // after processing the button value, reset it to NONE
 		Alert_Timer0A = false;
 	}
 	
 	//clear miss/hit message on LCD
 	clear_hit_miss_message();
+	
 	
 	//led_blink(FAST);
 }
@@ -72,8 +70,10 @@ void animate_arrows(uint8_t button_val) {
 	// evaluate arrow position and button values together
 	print_type = process_arrow(arrow, button_val);
 	
-	// process print returns new head node
+	// process print returns new head node, function itself handles outcome of button press
 	curr_node = process_print(print_type);
+	// change_LED_expander_state(print_type);
+	
 	
 	// MOVE THE REST OF THE ARROWS UP
 	while(curr_node != NULL_VALUE) {

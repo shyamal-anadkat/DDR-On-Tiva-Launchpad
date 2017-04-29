@@ -37,4 +37,7 @@ typedef struct{
 	uint16_t y_pos;
 	uint16_t color; // LCD_COLOR MACROS
 }arrow_t;
+
+arrow_dir_t convert_int_to_arrow(uint16_t);
+
 #endif

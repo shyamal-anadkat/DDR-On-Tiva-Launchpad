@@ -25,6 +25,8 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
+#include <stdlib.h>
+#include <time.h>
 
 #include "TM4C123.h"
 #include "serial_debug.h"
@@ -37,6 +39,7 @@
 #include "menu_nav.h"
 #include "mcp23017.h"
 #include "ft6x06.h"
+#include "ddr_game.h"
 
 void detect_button_press_main_menu(void);
 

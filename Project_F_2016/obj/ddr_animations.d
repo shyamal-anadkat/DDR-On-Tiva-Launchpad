@@ -30,3 +30,4 @@
 .\obj\ddr_animations.o: ddr_animations.h
 .\obj\ddr_animations.o: io_expander_led.h
 .\obj\ddr_animations.o: arrow_queue.h
+.\obj\ddr_animations.o: ddr_game.h

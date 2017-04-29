@@ -16,6 +16,7 @@
 #include "menu_nav.h"
 #include "io_expander_led.h"
 #include "arrow_queue.h"
+#include "ddr_game.h"
 
 #define SEC_ONE     50000000
 #define WAIT_TIME   500000
