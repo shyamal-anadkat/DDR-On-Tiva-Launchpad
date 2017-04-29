@@ -121,7 +121,49 @@ void print_miss_second() {
 		print_miss();
 }
 
+void print_pause_screen() {
 	
+	uint8_t x = 0; 
+	
+	char dot[] = "--------------";
+	
+	char msg1[] = "CONTINUE";
+	char msg2[] = "MENU";
+	
+	lcd_clear_screen(LCD_COLOR_BLACK);
+	
+	lcd_print_stringXY(msg1,3,5, LCD_COLOR_GREEN,LCD_COLOR_BLACK);
+  	lcd_print_stringXY(msg2,5,10, LCD_COLOR_RED,LCD_COLOR_BLACK);
+	
+	lcd_print_stringXY(dot, x, 4, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
+	lcd_print_stringXY(dot, x, 6, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
+	
+	lcd_print_stringXY(dot, x, 9, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
+	lcd_print_stringXY(dot, x, 11, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
+}
+
+
+
+void end_screen() {
+	
+	uint8_t x = 0; 
+	
+	char dot[] = "--------------";
+	
+	char msg1[] = "PLAY AGAIN";
+	char msg2[] = "HIGH SCORES";
+	
+	lcd_clear_screen(LCD_COLOR_BLACK);
+	
+	lcd_print_stringXY(msg1,2,5, LCD_COLOR_GREEN,LCD_COLOR_BLACK);
+  	lcd_print_stringXY(msg2,2,10, LCD_COLOR_RED,LCD_COLOR_BLACK);
+		
+	lcd_print_stringXY(dot, x, 4, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
+	lcd_print_stringXY(dot, x, 6, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
+	
+	lcd_print_stringXY(dot, x, 9, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
+	lcd_print_stringXY(dot, x, 11, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
+}	
 // *******************************************************************************
 // * UTILITY FUNCTIONS
 // ********************************************************************************
