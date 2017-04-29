@@ -419,6 +419,11 @@
               <FileType>1</FileType>
               <FilePath>.\arrow.c</FilePath>
             </File>
+            <File>
+              <FileName>io_expander_led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\io_expander_led.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -493,6 +498,11 @@
               <FileName>eeprom.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\peripherals\c\eeprom.c</FilePath>
+            </File>
+            <File>
+              <FileName>ft6x06.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>C:\ECE353\peripherals\c\ft6x06.c</FilePath>
             </File>
           </Files>
         </Group>

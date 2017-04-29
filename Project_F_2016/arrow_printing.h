@@ -8,13 +8,12 @@
 #include "lcd.h"
 
 //*****************************************************************************
-// ARROW REGION CONSTANTS
+// ARROW REGION CONSTANTS (IN HEX !!!)
 //*****************************************************************************
-#define 	RGN_GOOD	20
-#define 	RGN_BAD		40
+#define 	RGN_GOOD	0x24
 #define		RGN_MISS	ARROW_POS_END_Y // top of LCD
-#define		RGN_BOO		60
-#define		RGN_NONE	80
+#define		RGN_BOO		0xd0
+#define		RGN_NONE	0xf0
 
 
 void print_arrow(arrow_t *arrow);

@@ -3,6 +3,9 @@
 
 static queue_t *queue;
 extern bool Alert_Timer0A;
+extern bool Alert_Timer0B;
+
+int score; 
 
 void animate_arrows(uint8_t button_val) {	
 	print_type_t print_type;
@@ -10,7 +13,6 @@ void animate_arrows(uint8_t button_val) {
 	
 	arrow_t *arrow = curr_node->key;
 
-	
 	// nothing to animate if the queue is empty!
 	if(queue->head == NULL_VALUE) return;
 	
@@ -61,7 +63,6 @@ bool add_two_arrows(arrow_dir_t dir1, arrow_dir_t dir2) {
 	enqueue(queue, arrow1);
 	enqueue(queue, arrow2);
 }
-
 
 
 //*****************************************************************************
@@ -121,11 +122,31 @@ void update_ui_init_play(void) {
  	uint16_t i = 0;
 	lcd_clear_screen(LCD_COLOR_BLACK);
 	init_play_top_arrows();
+	score = 0; 
 	
 	add_arrow(ARROW_DIR_UP);
-
+	arrow_delay();
+	add_arrow(ARROW_DIR_DOWN);
+	arrow_delay();
+	arrow_delay();
+	add_arrow(ARROW_DIR_LEFT);
+	arrow_delay();
+	arrow_delay();
+	add_arrow(ARROW_DIR_RIGHT);
 
 }
+
+	void arrow_delay(void) {
+			if(Alert_Timer0A) {
+					static int ticks = 0;
+					ticks++;
+					if(ticks == ARROW_DELAY){
+						ticks = 0;
+					}
+					Alert_Timer0A = false; 
+			}
+			
+	}
 
 //*****************************************************************************
 // Updates the entire user interface of the game in PLAY mode
@@ -141,11 +162,16 @@ void update_ui_play(button_dir_t button_data) {
 	}
 	
 	if(Alert_Timer0A) {
-		
+		print_score();
 		animate_arrows(button_val);
 		button_val = BTN_NONE; // after processing the button value, reset it to NONE
 		Alert_Timer0A = false;
 	}
+	
+	//clear miss/hit message on LCD
+	clear_print_message();
+	
+	//led_blink(FAST);
 }
 
 void init_arrow_queue(void) {
@@ -174,6 +200,7 @@ print_type_t process_arrow(arrow_t *arrow, button_dir_t button_val) {
 	difference = (y_pos_trgt_top >= y_pos_top) ? 
 	(y_pos_trgt_top - y_pos_top) : (y_pos_top - y_pos_trgt_top );
 	
+	// printf("difference: %x\n", difference);
 	// correct button, but need to see what region it was in (level of correctness)
 	if (correct_button_pressed(arrow, button_val)) {
 		return determine_button_outcome(difference, y_pos_top);
@@ -204,22 +231,21 @@ bool correct_button_pressed(arrow_t * arrow, uint8_t button_val) {
 print_type_t determine_button_outcome(uint16_t difference, uint16_t arrow_y_pos_top) {
 	// miss case, goes off screen 
 	if(arrow_y_pos_top >= RGN_MISS) {
-		printf("MISS\n");
+		print_miss_second();
+		printf("MISS: %x\n", difference);
 		return MISS;
-	}else if (difference <= RGN_GOOD) {
-		printf("GOOD\n");
+	} else if (difference <= RGN_GOOD) {
+		print_hit_second();
+		printf("GOOD: %x\n", difference);
+		score += 10;
 		return GOOD; 
-		//within the GOOD and BAD region 
-	} else if (difference > RGN_GOOD && difference <= BAD) {
-		printf("BAD\n");
-		return BAD;
-		//within the BAD and BOO region 
-	} else if (difference > BAD && difference > RGN_BOO) {
-		printf("BOO\n");
+	} else if (difference > RGN_GOOD) {
+		print_boo_second();
+		printf("BOO: %x\n", difference);
 		return BOO;
-		//none region 
+		//none region (would never come here)
 	} else {
-		printf("NONE\n");
+		printf("NONE: %x\n", difference);
 		return NONE;
 	}
 }
@@ -239,12 +265,6 @@ queue_node *process_print(print_type_t print_type) {
 			clear_arrow(arrow);
 			print_top_arrow(arrow->arrow_type);
 			break;
-		case BAD:
-			printf("process_print=bad\n");
-			arrow = dequeue(queue)->key;
-			clear_arrow(arrow);
-			print_top_arrow(arrow->arrow_type);
-			break;
 		case MISS:
 			printf("process_print=miss\n");
 			arrow = dequeue(queue)->key;
@@ -260,4 +280,25 @@ queue_node *process_print(print_type_t print_type) {
 	}
 	
 	return queue->head;
+}
+
+void print_score(void) {
+	char score_arr[4]; 
+	//printf("Current Score: %d", score);
+	sprintf(score_arr,"%ld",(int)score);
+	lcd_print_stringXY("score:",5,0, LCD_COLOR_ORANGE,LCD_COLOR_BLACK);
+	lcd_print_stringXY(score_arr,11,0, LCD_COLOR_ORANGE,LCD_COLOR_BLACK);
+}
+
+void clear_print_message(void){
+	//this is to clear the hit/miss message on LCD
+	if(Alert_Timer0B) {
+		static int ticks = 0;
+		ticks++;
+		if(ticks == PRINT_MESSAGE_DELAY){
+			clear_boo();
+			ticks = 0;
+		}
+		Alert_Timer0B = false; 
+	}
 }
