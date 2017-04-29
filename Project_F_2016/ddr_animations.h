@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
+#include <time.h>
 
 #include "serial_debug.h"
 #include "lcd.h"
@@ -14,6 +15,7 @@
 #include "arrow_printing.h"
 #include "menu_nav.h"
 #include "io_expander_led.h"
+#include "arrow_queue.h"
 
 #define SEC_ONE     50000000
 #define WAIT_TIME   500000
@@ -28,35 +30,12 @@
 #define DIFFICULTY_TIMER_HARD		8
 
 
-//*****************************************************************************
-// ARROW QUEUE
-//*****************************************************************************
-
-#define NULL_VALUE	0
-
-typedef struct QNode {
-	arrow_t *key;
-	struct QNode *next;
-} queue_node;
-
-typedef struct queue {
-	queue_node *head;
-	queue_node *tail;
-} queue_t;
-
-void init_arrow_queue(void);
-queue_node *new_node(arrow_t *arrow);
-queue_t *create_queue(void);
-void enqueue(queue_t *queue, arrow_t *arrow);
-queue_node *dequeue(queue_t *queue);
 
 
 //*****************************************************************************
 // ARROW FUNCTIONALITY
 //*****************************************************************************
 
-bool add_arrow(arrow_dir_t dir);
-bool add_two_arrows(arrow_dir_t dir1, arrow_dir_t dir2);
 void animate_arrows(uint8_t button_val);
 
 
@@ -70,9 +49,6 @@ void update_ui_play(uint8_t button_data);
 
 void arrow_delay(void);
 void print_score(void);
-
-void clear_print_message(void);
-
 
 //*****************************************************************************
 // PROCESS ARROW FUNCTIONALITY

@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\obj\ece353_base_project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\obj\ece353_base_project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5040049: Last Updated: Sat Apr 29 14:00:47 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5040049: Last Updated: Sat Apr 29 14:50:12 2017
 <BR><P>
 <H3>Maximum Stack Usage =        248 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -332,130 +332,65 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
-<P><STRONG><a name="[97]"></a>dequeue</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, ddr_animations.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_print
-</UL>
-
-<P><STRONG><a name="[96]"></a>process_print</STRONG> (Thumb, 108 bytes, Stack size 16 bytes, ddr_animations.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = process_print &rArr; print_top_arrow &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
-</UL>
-<BR>[Calls]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_top_arrow
-<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_arrow
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dequeue
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
-</UL>
-<BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;animate_arrows
-</UL>
-
-<P><STRONG><a name="[9a]"></a>determine_button_outcome</STRONG> (Thumb, 90 bytes, Stack size 16 bytes, ddr_animations.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = determine_button_outcome &rArr; print_miss_second &rArr; print_miss &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
-</UL>
-<BR>[Calls]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_miss_second
-<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_hit_second
-<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_boo_second
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
-</UL>
-<BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_arrow
-</UL>
-
-<P><STRONG><a name="[9f]"></a>correct_button_pressed</STRONG> (Thumb, 72 bytes, Stack size 0 bytes, ddr_animations.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_arrow
-</UL>
-
-<P><STRONG><a name="[9e]"></a>process_arrow</STRONG> (Thumb, 76 bytes, Stack size 24 bytes, ddr_animations.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = process_arrow &rArr; determine_button_outcome &rArr; print_miss_second &rArr; print_miss &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
-</UL>
-<BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;correct_button_pressed
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;determine_button_outcome
-</UL>
-<BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;animate_arrows
-</UL>
-
-<P><STRONG><a name="[a0]"></a>animate_arrows</STRONG> (Thumb, 70 bytes, Stack size 24 bytes, ddr_animations.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 240<LI>Call Chain = animate_arrows &rArr; process_arrow &rArr; determine_button_outcome &rArr; print_miss_second &rArr; print_miss &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
-</UL>
-<BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_arrow
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_arrow
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_print
-</UL>
-<BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_ui_play
-</UL>
-
-<P><STRONG><a name="[a2]"></a>new_node</STRONG> (Thumb, 22 bytes, Stack size 16 bytes, ddr_animations.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = new_node &rArr; malloc
-</UL>
-<BR>[Calls]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
-</UL>
-<BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enqueue
-</UL>
-
-<P><STRONG><a name="[a4]"></a>enqueue</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, ddr_animations.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = enqueue &rArr; new_node &rArr; malloc
-</UL>
-<BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;new_node
-</UL>
-<BR>[Called By]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_two_arrows
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_arrow
-</UL>
-
-<P><STRONG><a name="[a5]"></a>add_arrow</STRONG> (Thumb, 36 bytes, Stack size 16 bytes, ddr_animations.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = add_arrow &rArr; enqueue &rArr; new_node &rArr; malloc
-</UL>
-<BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enqueue
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
-</UL>
-<BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_ui_init_play
-</UL>
-
-<P><STRONG><a name="[a6]"></a>add_two_arrows</STRONG> (Thumb, 68 bytes, Stack size 24 bytes, ddr_animations.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enqueue
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
-</UL>
-
-<P><STRONG><a name="[a7]"></a>create_queue</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, ddr_animations.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = create_queue &rArr; malloc
-</UL>
-<BR>[Calls]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
-</UL>
-<BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_arrow_queue
-</UL>
-
-<P><STRONG><a name="[ab]"></a>arrow_delay</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, ddr_animations.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_ui_init_play
-</UL>
-
-<P><STRONG><a name="[a8]"></a>init_play_top_arrows</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, ddr_animations.o(.text))
+<P><STRONG><a name="[96]"></a>init_play_top_arrows</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, ddr_animations.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = init_play_top_arrows &rArr; print_top_arrow &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_top_arrow
+<BR>[Calls]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_top_arrow
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_ui_init_play
+<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_ui_init_play
 </UL>
 
-<P><STRONG><a name="[a9]"></a>update_ui_init_play</STRONG> (Thumb, 64 bytes, Stack size 8 bytes, ddr_animations.o(.text))
+<P><STRONG><a name="[98]"></a>update_ui_init_play</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, ddr_animations.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = update_ui_init_play &rArr; init_play_top_arrows &rArr; print_top_arrow &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_clear_screen
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_play_top_arrows
-<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arrow_delay
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_arrow
+<BR>[Calls]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_clear_screen
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_arrow
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_play_top_arrows
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_ui_init_new_state
 </UL>
 
-<P><STRONG><a name="[ac]"></a>clear_print_message</STRONG> (Thumb, 46 bytes, Stack size 8 bytes, ddr_animations.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = clear_print_message &rArr; clear_boo &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
+<P><STRONG><a name="[9b]"></a>process_print</STRONG> (Thumb, 108 bytes, Stack size 16 bytes, ddr_animations.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = process_print &rArr; print_top_arrow &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_boo
+<BR>[Calls]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_top_arrow
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dequeue
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_arrow
+<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_ui_play
+<BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;animate_arrows
 </UL>
 
-<P><STRONG><a name="[ae]"></a>print_score</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, ddr_animations.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = print_score &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
+<P><STRONG><a name="[9e]"></a>determine_button_outcome</STRONG> (Thumb, 90 bytes, Stack size 16 bytes, ddr_animations.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = determine_button_outcome &rArr; print_miss_second &rArr; print_miss &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_print_stringXY
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
+<BR>[Calls]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_miss_second
+<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_hit_second
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_boo_second
+<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+</UL>
+<BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_arrow
+</UL>
+
+<P><STRONG><a name="[a3]"></a>correct_button_pressed</STRONG> (Thumb, 72 bytes, Stack size 0 bytes, ddr_animations.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_arrow
+</UL>
+
+<P><STRONG><a name="[a2]"></a>process_arrow</STRONG> (Thumb, 76 bytes, Stack size 24 bytes, ddr_animations.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = process_arrow &rArr; determine_button_outcome &rArr; print_miss_second &rArr; print_miss &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
+</UL>
+<BR>[Calls]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;correct_button_pressed
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;determine_button_outcome
+</UL>
+<BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;animate_arrows
+</UL>
+
+<P><STRONG><a name="[a4]"></a>animate_arrows</STRONG> (Thumb, 70 bytes, Stack size 24 bytes, ddr_animations.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 240<LI>Call Chain = animate_arrows &rArr; process_arrow &rArr; determine_button_outcome &rArr; print_miss_second &rArr; print_miss &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
+</UL>
+<BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_arrow
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_arrow
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_print
 </UL>
 <BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_ui_play
 </UL>
@@ -463,27 +398,21 @@ Global Symbols
 <P><STRONG><a name="[92]"></a>update_ui_play</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, ddr_animations.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = update_ui_play &rArr; animate_arrows &rArr; process_arrow &rArr; determine_button_outcome &rArr; print_miss_second &rArr; print_miss &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_score
-<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_print_message
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;animate_arrows
+<BR>[Calls]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_score
+<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_hit_miss_message
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;animate_arrows
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[8a]"></a>init_arrow_queue</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, ddr_animations.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = init_arrow_queue &rArr; create_queue &rArr; malloc
-</UL>
-<BR>[Calls]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;create_queue
-</UL>
-<BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
+<P><STRONG><a name="[109]"></a>arrow_delay</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, ddr_animations.o(.text), UNUSED)
 
 <P><STRONG><a name="[8c]"></a>update_ui_init_main_menu</STRONG> (Thumb, 96 bytes, Stack size 40 bytes, menu_nav.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = update_ui_init_main_menu &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_image
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_print_stringXY
-<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_clear_screen
+<BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_print_stringXY
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_image
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_clear_screen
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_ui_init_new_state
 <LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -492,33 +421,33 @@ Global Symbols
 <P><STRONG><a name="[8e]"></a>update_ui_init_new_state</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, menu_nav.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = update_ui_init_new_state &rArr; update_ui_init_main_menu &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_ui_init_play
+<BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_ui_init_play
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_ui_init_main_menu
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[b2]"></a>draw_line</STRONG> (Thumb, 36 bytes, Stack size 32 bytes, menu_nav.o(.text))
+<P><STRONG><a name="[aa]"></a>draw_line</STRONG> (Thumb, 36 bytes, Stack size 32 bytes, menu_nav.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = draw_line &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_print_stringXY
+<BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_print_stringXY
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;display_selected_menu_item
+<BR>[Called By]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;display_selected_menu_item
 </UL>
 
-<P><STRONG><a name="[b3]"></a>clear_line</STRONG> (Thumb, 36 bytes, Stack size 32 bytes, menu_nav.o(.text))
+<P><STRONG><a name="[ab]"></a>clear_line</STRONG> (Thumb, 36 bytes, Stack size 32 bytes, menu_nav.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = clear_line &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_print_stringXY
+<BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_print_stringXY
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;display_selected_menu_item
+<BR>[Called By]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;display_selected_menu_item
 </UL>
 
-<P><STRONG><a name="[b4]"></a>display_selected_menu_item</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, menu_nav.o(.text))
+<P><STRONG><a name="[ac]"></a>display_selected_menu_item</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, menu_nav.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = display_selected_menu_item &rArr; clear_line &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_line
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_line
+<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_line
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_line
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;navigate_main_menu
 </UL>
@@ -526,96 +455,168 @@ Global Symbols
 <P><STRONG><a name="[8f]"></a>navigate_main_menu</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, menu_nav.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = navigate_main_menu &rArr; display_selected_menu_item &rArr; clear_line &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;display_selected_menu_item
+<BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;display_selected_menu_item
 </UL>
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[b5]"></a>print_hit</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, menu_nav.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = print_hit &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
-</UL>
-<BR>[Calls]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_print_stringXY
-</UL>
-<BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_hit_second
+<P><STRONG><a name="[ad]"></a>print_pause_screen</STRONG> (Thumb, 144 bytes, Stack size 48 bytes, menu_nav.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_print_stringXY
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_clear_screen
 </UL>
 
-<P><STRONG><a name="[b6]"></a>print_boo</STRONG> (Thumb, 30 bytes, Stack size 16 bytes, menu_nav.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = print_boo &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
-</UL>
-<BR>[Calls]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_print_stringXY
-</UL>
-<BR>[Called By]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_boo_second
+<P><STRONG><a name="[ae]"></a>end_screen</STRONG> (Thumb, 144 bytes, Stack size 56 bytes, menu_nav.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_print_stringXY
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_clear_screen
 </UL>
 
-<P><STRONG><a name="[ad]"></a>clear_boo</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, menu_nav.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = clear_boo &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
-</UL>
-<BR>[Calls]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_print_stringXY
-</UL>
-<BR>[Called By]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_print_message
-</UL>
-
-<P><STRONG><a name="[b7]"></a>print_miss</STRONG> (Thumb, 30 bytes, Stack size 16 bytes, menu_nav.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = print_miss &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
-</UL>
-<BR>[Calls]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_print_stringXY
-</UL>
-<BR>[Called By]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_miss_second
-</UL>
-
-<P><STRONG><a name="[9c]"></a>print_hit_second</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, menu_nav.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = print_hit_second &rArr; print_hit &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
-</UL>
-<BR>[Calls]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_hit
-</UL>
-<BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;determine_button_outcome
-</UL>
-
-<P><STRONG><a name="[9d]"></a>print_boo_second</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, menu_nav.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = print_boo_second &rArr; print_boo &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
-</UL>
-<BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_boo
-</UL>
-<BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;determine_button_outcome
-</UL>
-
-<P><STRONG><a name="[9b]"></a>print_miss_second</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, menu_nav.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = print_miss_second &rArr; print_miss &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
-</UL>
-<BR>[Calls]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_miss
-</UL>
-<BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;determine_button_outcome
-</UL>
-
-<P><STRONG><a name="[a1]"></a>print_arrow</STRONG> (Thumb, 80 bytes, Stack size 32 bytes, arrow_printing.o(.text))
+<P><STRONG><a name="[a5]"></a>print_arrow</STRONG> (Thumb, 80 bytes, Stack size 32 bytes, arrow_printing.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = print_arrow &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_image
+<BR>[Calls]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_image
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;animate_arrows
+<BR>[Called By]<UL><LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;animate_arrows
 </UL>
 
-<P><STRONG><a name="[99]"></a>print_top_arrow</STRONG> (Thumb, 84 bytes, Stack size 32 bytes, arrow_printing.o(.text))
+<P><STRONG><a name="[97]"></a>print_top_arrow</STRONG> (Thumb, 84 bytes, Stack size 32 bytes, arrow_printing.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = print_top_arrow &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_image
+<BR>[Calls]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_image
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_play_top_arrows
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_print
+<BR>[Called By]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_print
+<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_play_top_arrows
 </UL>
 
-<P><STRONG><a name="[98]"></a>clear_arrow</STRONG> (Thumb, 78 bytes, Stack size 32 bytes, arrow_printing.o(.text))
+<P><STRONG><a name="[9d]"></a>clear_arrow</STRONG> (Thumb, 78 bytes, Stack size 32 bytes, arrow_printing.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = clear_arrow &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_image
+<BR>[Calls]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_image
 </UL>
-<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_print
+<BR>[Called By]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_print
+</UL>
+
+<P><STRONG><a name="[a6]"></a>print_score</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, arrow_printing.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = print_score &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
+</UL>
+<BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_print_stringXY
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
+</UL>
+<BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_ui_play
+</UL>
+
+<P><STRONG><a name="[b0]"></a>clear_boo</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, arrow_printing.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = clear_boo &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
+</UL>
+<BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_print_stringXY
+</UL>
+<BR>[Called By]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_hit_miss_message
+</UL>
+
+<P><STRONG><a name="[a7]"></a>clear_hit_miss_message</STRONG> (Thumb, 46 bytes, Stack size 8 bytes, arrow_printing.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = clear_hit_miss_message &rArr; clear_boo &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
+</UL>
+<BR>[Calls]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_boo
+</UL>
+<BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_ui_play
+</UL>
+
+<P><STRONG><a name="[b1]"></a>print_hit</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, arrow_printing.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = print_hit &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
+</UL>
+<BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_print_stringXY
+</UL>
+<BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_hit_second
+</UL>
+
+<P><STRONG><a name="[b2]"></a>print_boo</STRONG> (Thumb, 30 bytes, Stack size 16 bytes, arrow_printing.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = print_boo &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
+</UL>
+<BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_print_stringXY
+</UL>
+<BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_boo_second
+</UL>
+
+<P><STRONG><a name="[b3]"></a>print_miss</STRONG> (Thumb, 30 bytes, Stack size 16 bytes, arrow_printing.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = print_miss &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
+</UL>
+<BR>[Calls]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_print_stringXY
+</UL>
+<BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_miss_second
+</UL>
+
+<P><STRONG><a name="[a0]"></a>print_hit_second</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, arrow_printing.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = print_hit_second &rArr; print_hit &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
+</UL>
+<BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_hit
+</UL>
+<BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;determine_button_outcome
+</UL>
+
+<P><STRONG><a name="[a1]"></a>print_boo_second</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, arrow_printing.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = print_boo_second &rArr; print_boo &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
+</UL>
+<BR>[Calls]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_boo
+</UL>
+<BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;determine_button_outcome
+</UL>
+
+<P><STRONG><a name="[9f]"></a>print_miss_second</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, arrow_printing.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = print_miss_second &rArr; print_miss &rArr; lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
+</UL>
+<BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_miss
+</UL>
+<BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;determine_button_outcome
+</UL>
+
+<P><STRONG><a name="[b4]"></a>create_queue</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, arrow_queue.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = create_queue &rArr; malloc
+</UL>
+<BR>[Calls]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
+</UL>
+<BR>[Called By]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_arrow_queue
+</UL>
+
+<P><STRONG><a name="[8a]"></a>init_arrow_queue</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, arrow_queue.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = init_arrow_queue &rArr; create_queue &rArr; malloc
+</UL>
+<BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;create_queue
+</UL>
+<BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[b6]"></a>new_node</STRONG> (Thumb, 22 bytes, Stack size 16 bytes, arrow_queue.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = new_node &rArr; malloc
+</UL>
+<BR>[Calls]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
+</UL>
+<BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enqueue
+</UL>
+
+<P><STRONG><a name="[b7]"></a>enqueue</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, arrow_queue.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = enqueue &rArr; new_node &rArr; malloc
+</UL>
+<BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;new_node
+</UL>
+<BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_arrow
+</UL>
+
+<P><STRONG><a name="[9c]"></a>dequeue</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, arrow_queue.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_print
+</UL>
+
+<P><STRONG><a name="[9a]"></a>add_arrow</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, arrow_queue.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = add_arrow &rArr; enqueue &rArr; new_node &rArr; malloc
+</UL>
+<BR>[Calls]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enqueue
+<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
+</UL>
+<BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_ui_init_play
 </UL>
 
 <P><STRONG><a name="[b8]"></a>pc_buffer_init</STRONG> (Thumb, 26 bytes, Stack size 16 bytes, pc_buffer.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = pc_buffer_init &rArr; malloc
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
+<BR>[Calls]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
 </UL>
 <BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_serial_debug
 </UL>
@@ -692,7 +693,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_serial_debug
 </UL>
 
-<P><STRONG><a name="[109]"></a>gpio_get_irq_num</STRONG> (Thumb, 74 bytes, Stack size 0 bytes, gpio_port.o(.text), UNUSED)
+<P><STRONG><a name="[10a]"></a>gpio_get_irq_num</STRONG> (Thumb, 74 bytes, Stack size 0 bytes, gpio_port.o(.text), UNUSED)
 
 <P><STRONG><a name="[da]"></a>gpio_enable_port</STRONG> (Thumb, 156 bytes, Stack size 8 bytes, gpio_port.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = gpio_enable_port
@@ -781,7 +782,7 @@ Global Symbols
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ft6x06_init
 </UL>
 
-<P><STRONG><a name="[10a]"></a>gpio_config_falling_edge_irq</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, gpio_port.o(.text), UNUSED)
+<P><STRONG><a name="[10b]"></a>gpio_config_falling_edge_irq</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, gpio_port.o(.text), UNUSED)
 
 <P><STRONG><a name="[cb]"></a>gp_timer_wait</STRONG> (Thumb, 50 bytes, Stack size 16 bytes, timers.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;verify_base_addr
@@ -840,12 +841,12 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;i2cVerifyBaseAddr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ft6x06_read_data
-<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ft6x06_set_addr
-<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_button_data
+<BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_button_data
 <LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ioexpander_byte_read
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ioexpander_byte_write
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ioexpander_init
+<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ft6x06_read_data
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ft6x06_set_addr
 </UL>
 
 <P><STRONG><a name="[d4]"></a>i2cStop</STRONG> (Thumb, 26 bytes, Stack size 4 bytes, i2c.o(.text), UNUSED)
@@ -857,13 +858,13 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;i2cVerifyBaseAddr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ft6x06_read_data
-<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ft6x06_set_addr
-<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_button_data
+<BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_button_data
 <LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ioexpander_byte_read
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ioexpander_byte_write
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;i2cGetByte
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;i2cSendByte
+<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ft6x06_read_data
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ft6x06_set_addr
 </UL>
 
 <P><STRONG><a name="[d6]"></a>I2CMasterAdrAck</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, i2c.o(.text), UNUSED)
@@ -880,11 +881,11 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2CMasterBusy
 <LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;i2cVerifyBaseAddr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ft6x06_set_addr
-<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_button_data
+<BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_button_data
 <LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ioexpander_byte_read
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ioexpander_byte_write
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ioexpander_init
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ft6x06_set_addr
 </UL>
 
 <P><STRONG><a name="[d9]"></a>i2cGetByte</STRONG> (Thumb, 60 bytes, Stack size 20 bytes, i2c.o(.text))
@@ -893,9 +894,9 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2CMasterBusy
 <LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;i2cVerifyBaseAddr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ft6x06_read_data
-<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_button_data
+<BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_button_data
 <LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ioexpander_byte_read
+<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ft6x06_read_data
 </UL>
 
 <P><STRONG><a name="[80]"></a>init_serial_debug</STRONG> (Thumb, 90 bytes, Stack size 16 bytes, serial_debug.o(.text))
@@ -957,11 +958,11 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_tm4c123.o(RESET)
 </UL>
-<P><STRONG><a name="[10b]"></a>lp_io_set_pin</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, launchpad_io.o(.text), UNUSED)
+<P><STRONG><a name="[10c]"></a>lp_io_set_pin</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, launchpad_io.o(.text), UNUSED)
 
-<P><STRONG><a name="[10c]"></a>lp_io_clear_pin</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, launchpad_io.o(.text), UNUSED)
+<P><STRONG><a name="[10d]"></a>lp_io_clear_pin</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, launchpad_io.o(.text), UNUSED)
 
-<P><STRONG><a name="[10d]"></a>lp_io_read_pin</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, launchpad_io.o(.text), UNUSED)
+<P><STRONG><a name="[10e]"></a>lp_io_read_pin</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, launchpad_io.o(.text), UNUSED)
 
 <P><STRONG><a name="[81]"></a>lp_io_init</STRONG> (Thumb, 104 bytes, Stack size 0 bytes, launchpad_io.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initialize_hardware
@@ -983,46 +984,50 @@ Global Symbols
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_write_data_u16
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_pixel
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_image
-<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_clear_screen
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_image
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_clear_screen
 </UL>
 
-<P><STRONG><a name="[b1]"></a>lcd_draw_image</STRONG> (Thumb, 184 bytes, Stack size 56 bytes, lcd.o(.text))
+<P><STRONG><a name="[a9]"></a>lcd_draw_image</STRONG> (Thumb, 184 bytes, Stack size 56 bytes, lcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_set_pos
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_write_data_u16
 </UL>
-<BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_top_arrow
-<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_arrow
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_print_stringXY
-<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_arrow
+<BR>[Called By]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_print_stringXY
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_top_arrow
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_arrow
+<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_arrow
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_ui_init_main_menu
 </UL>
 
-<P><STRONG><a name="[b0]"></a>lcd_print_stringXY</STRONG> (Thumb, 144 bytes, Stack size 64 bytes, lcd.o(.text))
+<P><STRONG><a name="[a8]"></a>lcd_print_stringXY</STRONG> (Thumb, 144 bytes, Stack size 64 bytes, lcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = lcd_print_stringXY &rArr; lcd_draw_image &rArr; lcd_set_pos &rArr; lcd_write_data_u16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_image
+<BR>[Calls]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_image
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_miss
-<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_boo
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_hit
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_line
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_line
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_boo
-<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_score
+<BR>[Called By]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_miss
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_boo
+<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_hit
+<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_boo
+<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;end_screen
+<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_pause_screen
+<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clear_line
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;draw_line
+<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_score
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_ui_init_main_menu
 </UL>
 
-<P><STRONG><a name="[aa]"></a>lcd_clear_screen</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, lcd.o(.text))
+<P><STRONG><a name="[99]"></a>lcd_clear_screen</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, lcd.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = lcd_clear_screen &rArr; lcd_set_pos &rArr; lcd_write_data_u16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_set_pos
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_write_data_u16
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_ui_init_play
+<BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;end_screen
+<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_pause_screen
+<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_ui_init_play
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_ui_init_main_menu
 </UL>
 
@@ -1999,7 +2004,7 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_tm4c123.o(.text)
 </UL>
 <P><STRONG><a name="[e5]"></a>strlen</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, strlen.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_print_stringXY
+<BR><BR>[Called By]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_print_stringXY
 </UL>
 
 <P><STRONG><a name="[fc]"></a>__aeabi_uldivmod</STRONG> (Thumb, 98 bytes, Stack size 40 bytes, uldiv.o(.text), UNUSED)
@@ -2015,31 +2020,31 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_main_scatterload
 </UL>
 
-<P><STRONG><a name="[10e]"></a>__scatterload_rt2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, init.o(.text), UNUSED)
+<P><STRONG><a name="[10f]"></a>__scatterload_rt2</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, init.o(.text), UNUSED)
 
 <P><STRONG><a name="[fe]"></a>__aeabi_llsl</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, llshl.o(.text), UNUSED)
 <BR><BR>[Called By]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
 </UL>
 
-<P><STRONG><a name="[10f]"></a>_ll_shift_l</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, llshl.o(.text), UNUSED)
+<P><STRONG><a name="[110]"></a>_ll_shift_l</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, llshl.o(.text), UNUSED)
 
 <P><STRONG><a name="[fd]"></a>__aeabi_llsr</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, llushr.o(.text), UNUSED)
 <BR><BR>[Called By]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
 </UL>
 
-<P><STRONG><a name="[110]"></a>_ll_ushift_r</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, llushr.o(.text), UNUSED)
+<P><STRONG><a name="[111]"></a>_ll_ushift_r</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, llushr.o(.text), UNUSED)
 
 <P><STRONG><a name="[100]"></a>__0printf$5</STRONG> (Thumb, 22 bytes, Stack size 24 bytes, printf5.o(i.__0printf$5), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_core
 </UL>
 
-<P><STRONG><a name="[111]"></a>__1printf$5</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf5.o(i.__0printf$5), UNUSED)
+<P><STRONG><a name="[112]"></a>__1printf$5</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf5.o(i.__0printf$5), UNUSED)
 
 <P><STRONG><a name="[8b]"></a>__2printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf5.o(i.__0printf$5))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;determine_button_outcome
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_print
+<BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;determine_button_outcome
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_print
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;buttons_pressed
 <LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -2049,28 +2054,27 @@ Global Symbols
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_core
 </UL>
 
-<P><STRONG><a name="[112]"></a>__1sprintf$5</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf5.o(i.__0sprintf$5), UNUSED)
+<P><STRONG><a name="[113]"></a>__1sprintf$5</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf5.o(i.__0sprintf$5), UNUSED)
 
 <P><STRONG><a name="[af]"></a>__2sprintf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf5.o(i.__0sprintf$5))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_score
+<BR>[Called By]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_score
 </UL>
 
-<P><STRONG><a name="[113]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
+<P><STRONG><a name="[114]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
 
-<P><STRONG><a name="[114]"></a>__scatterload_null</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_null), UNUSED)
+<P><STRONG><a name="[115]"></a>__scatterload_null</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_null), UNUSED)
 
-<P><STRONG><a name="[115]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
+<P><STRONG><a name="[116]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
 
-<P><STRONG><a name="[a3]"></a>malloc</STRONG> (Thumb, 92 bytes, Stack size 20 bytes, malloc.o(i.malloc))
+<P><STRONG><a name="[b5]"></a>malloc</STRONG> (Thumb, 92 bytes, Stack size 20 bytes, malloc.o(i.malloc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = malloc
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pc_buffer_init
-<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;create_queue
-<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_two_arrows
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_arrow
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;new_node
+<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;new_node
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;create_queue
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;add_arrow
 </UL>
 <P>
 <H3>
@@ -2115,8 +2119,8 @@ Local Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_pixel
 <LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_set_pos
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_image
-<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_clear_screen
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_draw_image
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lcd_clear_screen
 </UL>
 
 <P><STRONG><a name="[e3]"></a>lcd_write_cmd_u8</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, lcd.o(.text))
