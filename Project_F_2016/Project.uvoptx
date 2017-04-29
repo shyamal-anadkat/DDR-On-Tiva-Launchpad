@@ -13,6 +13,7 @@
     <tExt>*.txt; *.h; *.inc</tExt>
     <pExt>*.plm</pExt>
     <CppX>*.cpp</CppX>
+    <nMigrate>0</nMigrate>
   </Extensions>
 
   <DaveTm>
@@ -31,6 +32,7 @@
         <BeepAtEnd>1</BeepAtEnd>
         <RunSim>0</RunSim>
         <RunTarget>1</RunTarget>
+        <RunAbUc>0</RunAbUc>
       </OPTTT>
       <OPTHX>
         <HexSelection>1</HexSelection>
@@ -76,16 +78,6 @@
         <IsCurrentTarget>1</IsCurrentTarget>
       </OPTFL>
       <CpuCode>255</CpuCode>
-      <DllOpt>
-        <SimDllName>SARMCM3.DLL</SimDllName>
-        <SimDllArguments>  -MPU</SimDllArguments>
-        <SimDlgDllName>DCM.DLL</SimDlgDllName>
-        <SimDlgDllArguments>-pCM4</SimDlgDllArguments>
-        <TargetDllName>SARMCM3.DLL</TargetDllName>
-        <TargetDllArguments> -MPU</TargetDllArguments>
-        <TargetDlgDllName>TCM.DLL</TargetDlgDllName>
-        <TargetDlgDllArguments>-pCM4</TargetDlgDllArguments>
-      </DllOpt>
       <DebugOpt>
         <uSim>0</uSim>
         <uTrg>1</uTrg>
@@ -108,7 +100,8 @@
         <tRSysVw>1</tRSysVw>
         <sRunDeb>0</sRunDeb>
         <sLrtime>0</sLrtime>
-        <nTsel>3</nTsel>
+        <bEvRecOn>1</bEvRecOn>
+        <nTsel>8</nTsel>
         <sDll></sDll>
         <sDllPa></sDllPa>
         <sDlgDll></sDlgDll>
@@ -122,10 +115,6 @@
         <pMon>BIN\lmidk-agdi.dll</pMon>
       </DebugOpt>
       <TargetDriverDllRegistry>
-        <SetRegEntry>
-          <Number>0</Number>
-          <Key>DLGUARM</Key>
-        </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
           <Key>ARMRTXEVENTFLAGS</Key>
@@ -184,6 +173,12 @@
       </DebugFlag>
       <LintExecutable></LintExecutable>
       <LintConfigFile></LintConfigFile>
+      <bLintAuto>0</bLintAuto>
+      <Lin2Executable></Lin2Executable>
+      <Lin2ConfigFile></Lin2ConfigFile>
+      <bLin2Auto>0</bLin2Auto>
+      <bAutoGenD>0</bAutoGenD>
+      <bAuto2GenD>0</bAuto2GenD>
     </TargetOption>
   </Target>
 
@@ -198,11 +193,7 @@
       <FileNumber>1</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
-      <Focus>1</Focus>
-      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>119</TopLine>
-      <CurrentLine>131</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>
@@ -214,11 +205,7 @@
       <FileNumber>2</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
-      <Focus>1</Focus>
-      <ColumnNumber>9377780</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>5</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\main.h</PathWithFileName>
       <FilenameWithoutPath>main.h</FilenameWithoutPath>
@@ -230,11 +217,7 @@
       <FileNumber>3</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
-      <Focus>1</Focus>
-      <ColumnNumber>34</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>6</TopLine>
-      <CurrentLine>7</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\ddr_animations.c</PathWithFileName>
       <FilenameWithoutPath>ddr_animations.c</FilenameWithoutPath>
@@ -246,11 +229,7 @@
       <FileNumber>4</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
-      <Focus>1</Focus>
-      <ColumnNumber>21</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>1</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\ddr_game.c</PathWithFileName>
       <FilenameWithoutPath>ddr_game.c</FilenameWithoutPath>
@@ -262,11 +241,7 @@
       <FileNumber>5</FileNumber>
       <FileType>1</FileType>
       <tvExp>1</tvExp>
-      <Focus>1</Focus>
-      <ColumnNumber>55</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>107</TopLine>
-      <CurrentLine>107</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\peripherals\c\ddr_images.c</PathWithFileName>
       <FilenameWithoutPath>ddr_images.c</FilenameWithoutPath>
@@ -278,11 +253,7 @@
       <FileNumber>6</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
-      <Focus>1</Focus>
-      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>16</TopLine>
-      <CurrentLine>36</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\menu_nav.c</PathWithFileName>
       <FilenameWithoutPath>menu_nav.c</FilenameWithoutPath>
@@ -294,11 +265,7 @@
       <FileNumber>7</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <ColumnNumber>59</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>31</TopLine>
-      <CurrentLine>31</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\arrow_printing.c</PathWithFileName>
       <FilenameWithoutPath>arrow_printing.c</FilenameWithoutPath>
@@ -310,11 +277,7 @@
       <FileNumber>8</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <ColumnNumber>18</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>1</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\arrow.c</PathWithFileName>
       <FilenameWithoutPath>arrow.c</FilenameWithoutPath>
@@ -334,11 +297,7 @@
       <FileNumber>9</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
-      <Focus>1</Focus>
-      <ColumnNumber>9377780</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>5</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\drivers\c\pc_buffer.c</PathWithFileName>
       <FilenameWithoutPath>pc_buffer.c</FilenameWithoutPath>
@@ -350,11 +309,7 @@
       <FileNumber>10</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
-      <Focus>1</Focus>
-      <ColumnNumber>9377780</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>5</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\drivers\c\uart.c</PathWithFileName>
       <FilenameWithoutPath>uart.c</FilenameWithoutPath>
@@ -366,11 +321,7 @@
       <FileNumber>11</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
-      <Focus>1</Focus>
-      <ColumnNumber>9377780</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>5</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\drivers\c\gpio_port.c</PathWithFileName>
       <FilenameWithoutPath>gpio_port.c</FilenameWithoutPath>
@@ -382,11 +333,7 @@
       <FileNumber>12</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
-      <Focus>1</Focus>
-      <ColumnNumber>35</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>6</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\drivers\c\timers.c</PathWithFileName>
       <FilenameWithoutPath>timers.c</FilenameWithoutPath>
@@ -398,11 +345,7 @@
       <FileNumber>13</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
-      <Focus>1</Focus>
-      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>333</TopLine>
-      <CurrentLine>372</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\drivers\c\i2c.c</PathWithFileName>
       <FilenameWithoutPath>i2c.c</FilenameWithoutPath>
@@ -422,11 +365,7 @@
       <FileNumber>14</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
-      <Focus>1</Focus>
-      <ColumnNumber>9377780</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>5</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\peripherals\c\serial_debug.c</PathWithFileName>
       <FilenameWithoutPath>serial_debug.c</FilenameWithoutPath>
@@ -438,11 +377,7 @@
       <FileNumber>15</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
-      <Focus>1</Focus>
-      <ColumnNumber>9377780</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>5</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\peripherals\c\launchpad_io.c</PathWithFileName>
       <FilenameWithoutPath>launchpad_io.c</FilenameWithoutPath>
@@ -454,11 +389,7 @@
       <FileNumber>16</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
-      <Focus>1</Focus>
-      <ColumnNumber>1</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>4</TopLine>
-      <CurrentLine>21</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\peripherals\c\lcd.c</PathWithFileName>
       <FilenameWithoutPath>lcd.c</FilenameWithoutPath>
@@ -470,11 +401,7 @@
       <FileNumber>17</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
-      <Focus>1</Focus>
-      <ColumnNumber>9377780</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>5</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\peripherals\c\lcd_images.c</PathWithFileName>
       <FilenameWithoutPath>lcd_images.c</FilenameWithoutPath>
@@ -486,11 +413,7 @@
       <FileNumber>18</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
-      <Focus>1</Focus>
-      <ColumnNumber>9377780</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>5</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\peripherals\c\ps2.c</PathWithFileName>
       <FilenameWithoutPath>ps2.c</FilenameWithoutPath>
@@ -502,11 +425,7 @@
       <FileNumber>19</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
-      <Focus>1</Focus>
-      <ColumnNumber>9377780</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>5</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\drivers\c\adc.c</PathWithFileName>
       <FilenameWithoutPath>adc.c</FilenameWithoutPath>
@@ -518,11 +437,7 @@
       <FileNumber>20</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
-      <Focus>1</Focus>
-      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>118</TopLine>
-      <CurrentLine>121</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\mcp23017.c</PathWithFileName>
       <FilenameWithoutPath>mcp23017.c</FilenameWithoutPath>
@@ -534,11 +449,7 @@
       <FileNumber>21</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
-      <Focus>1</Focus>
-      <ColumnNumber>9377780</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>5</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\peripherals\c\eeprom.c</PathWithFileName>
       <FilenameWithoutPath>eeprom.c</FilenameWithoutPath>
@@ -569,38 +480,6 @@
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>1</RteFlg>
-    <File>
-      <GroupNumber>6</GroupNumber>
-      <FileNumber>22</FileNumber>
-      <FileType>2</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>223</TopLine>
-      <CurrentLine>235</CurrentLine>
-      <bDave2>0</bDave2>
-      <PathWithFileName>RTE\Device\TM4C123GH6PM\startup_TM4C123.s</PathWithFileName>
-      <FilenameWithoutPath>startup_TM4C123.s</FilenameWithoutPath>
-      <RteFlg>1</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>6</GroupNumber>
-      <FileNumber>23</FileNumber>
-      <FileType>1</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
-      <bDave2>0</bDave2>
-      <PathWithFileName>RTE\Device\TM4C123GH6PM\system_TM4C123.c</PathWithFileName>
-      <FilenameWithoutPath>system_TM4C123.c</FilenameWithoutPath>
-      <RteFlg>1</RteFlg>
-      <bShared>0</bShared>
-    </File>
   </Group>
 
 </ProjectOpt>

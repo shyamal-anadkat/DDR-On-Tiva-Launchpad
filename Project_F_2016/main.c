@@ -30,6 +30,10 @@ char individual_3[] = "Sneha Patri";
 extern game_state_fsm game_state;
 extern SELECTED_ITEM selected_item;
 
+extern volatile bool Alert_Timer0B;
+extern volatile bool Alert_ADC0_Conversion;
+extern volatile bool Alert_PortF;
+
 bool debugFlag = true;
 
 //*****************************************************************************
@@ -70,44 +74,24 @@ void initialize_hardware(void)
 	lcd_config_gpio();
 	lcd_config_screen();
 	
-	// Initialize the TIMER0 to be a 
-  //      32-bit
-  //      one-shot
-  //      count down
-  //      enable interrupts?
-  //gp_timer_config_32(TIMER0_BASE, PERIODIC, false, true);
+	ps2_initialize_hw3();
+	//ps2_initialize();
+
 	timer_config_hw3();
 	
 	timer_start_hw3();
 	
-	ps2_initialize(); 
+	//GPIOF INTERRUPT SET for SW1
+	init_interrupt_sw1();
+ 
 	
 	//disable interrupts
 	DisableInterrupts();
 }
 
-int debounce_sw1(void) {
-  static uint16_t sw1_count = 0;
-	bool return_value = false;
-	
-	
-	if (lp_io_read_pin(SW1_BIT)) {
-		sw1_count = 0;
-	} else if (sw1_count <= 6) {
-		sw1_count++;
-	}
-	
-  if (!lp_io_read_pin(SW1_BIT)) {
-		sw1_count++;
-  } else {
-		sw1_count = 0;
-	}
-	return sw1_count == 6;
-}
 
 void detect_button_press_main_menu() {
 	//navigate menu.todo: make stateful 	
-	if(debounce_sw1()) {
 		
 	switch(selected_item) {
 		case PLAY_NOW:
@@ -119,8 +103,6 @@ void detect_button_press_main_menu() {
 		default:
 			break;
 		}
-		
-	}
 }
 
 
@@ -163,11 +145,31 @@ main(void)
 		// This part handles the current state
 		switch(game_state) {
 			
-			case MENU:
-				//get x and y adc values 
-				y_adc_data = ps2_get_y();
-				navigate_main_menu(y_adc_data);
-				detect_button_press_main_menu();
+			case MENU: 
+				/* get y adc values with AD0 interrupt */
+				// TIMER0B HANDLER
+				if (Alert_Timer0B) {
+						// Start SS2 conversion
+						ADC0 -> PSSI |= ADC_PSSI_SS2;
+						Alert_Timer0B = false;
+				}
+				 // ADC COMPUTATION HANDLER (UPDATES PS2 X/Y VALUES)
+				if (Alert_ADC0_Conversion) {
+						// Toggle ADC0 Conversion notifier
+						Alert_ADC0_Conversion = false;
+						// Update current y position with current PS2 joystick ADC value
+						y_adc_data = ADC0 -> SSFIFO2 & ADC_SSFIFO2_DATA_M;
+						// y_adc_data = ps2_get_y();
+						navigate_main_menu(y_adc_data);
+				}
+				
+				if(Alert_PortF) {
+					detect_button_press_main_menu();
+					Alert_PortF = false;
+				}	
+				//y_adc_data = ps2_get_y();
+				//navigate_main_menu(y_adc_data);
+				//detect_button_press_main_menu();
 				break;
 			
 			case PLAY:

@@ -252,5 +252,3 @@ void turn_on_all_leds() {
 void control_leds(uint8_t data) {
 	ioexpander_byte_write(IOEXPANDER_I2C_BASE, IO_LED_GPIO_BASE , data);
 }
-
-
