@@ -180,6 +180,8 @@ main(void)
 			case PLAY:
 				button_vals = buttons_pressed();
 				update_ui_play(button_vals);
+				
+			
 			
 				touch_event = ft6x06_read_td_status();
 				//printf("td status read: %d\n\r", touch_event); //DEBUG
@@ -187,7 +189,7 @@ main(void)
 					//print out x and y coordinates 
 					x = ft6x06_read_x();
 					y = ft6x06_read_y();
-					printf("Touch Events :\tX: %d\t||\tY: %d \r", x, y);
+					// printf("Touch Events :\tX: %d\t||\tY: %d \r", x, y);
 				}
 				break;
 			

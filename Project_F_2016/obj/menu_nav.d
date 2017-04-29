@@ -30,3 +30,5 @@
 .\obj\menu_nav.o: menu_nav.h
 .\obj\menu_nav.o: io_expander_led.h
 .\obj\menu_nav.o: arrow_queue.h
+.\obj\menu_nav.o: ddr_game.h
+.\obj\menu_nav.o: ddr_animations.h

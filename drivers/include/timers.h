@@ -40,7 +40,7 @@ bool gp_timer_wait(uint32_t base_addr, uint32_t ticks);
 void timer_config_hw3(void);
 void timer_start_hw3(void);
 void timer_nvic_config_hw3(void);
-
+uint16_t get_timer0A_current_value(void);
 
 
 

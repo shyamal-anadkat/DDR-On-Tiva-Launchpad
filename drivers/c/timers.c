@@ -269,6 +269,12 @@ void timer_nvic_config_hw3(void)
 	NVIC_EnableIRQ(TIMER0B_IRQn);
 }
 
+uint16_t get_timer0A_current_value(void) {
+	TIMER0_Type *timer_t = (TIMER0_Type *) TIMER0_BASE;
+	return timer_t->TAV & TIMER_TAV_M;
+}
+
+
 void TIMER0A_Handler(void) {
 	
 	// Set global timer alert variable to true for handling

@@ -10,8 +10,8 @@
 
 
 
-
-
+void change_LED_expander_state(print_type_t);
+void add_random_arrow(void);
 
 
 
