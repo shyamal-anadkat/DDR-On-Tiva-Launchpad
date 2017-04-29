@@ -187,7 +187,7 @@ main(void)
 					//print out x and y coordinates 
 					x = ft6x06_read_x();
 					y = ft6x06_read_y();
-					printf("Touch Events :\tX: %d\t||\tY: %d \n\r", x, y);
+					printf("Touch Events :\tX: %d\t||\tY: %d \r", x, y);
 				}
 				break;
 			

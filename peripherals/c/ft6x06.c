@@ -18,7 +18,7 @@ static i2c_status_t ft6x06_set_addr
 )
 {
   i2c_status_t status;
-  
+  	
   // Before doing anything, make sure the I2C device is idle
   while ( I2CMasterBusy(i2c_base)) {};
 
@@ -26,19 +26,17 @@ static i2c_status_t ft6x06_set_addr
   // ADD CODE
   // Set the I2C address 
   //==============================================================
-  
-    
-    
-  if ( status != I2C_OK )
-  {
-    return status;
-  }
+			
+	// Set the address to write to
+  status = i2cSetSlaveAddr(i2c_base, FT6X06_DEV_ID, I2C_WRITE);
+	if(status != I2C_OK) return status;
   
   //==============================================================
   // ADD CODE
   // Send the address
   //==============================================================
-
+	
+	status = i2cSendByte(i2c_base, address, I2C_MCS_START | I2C_MCS_RUN |I2C_MCS_STOP);
 
   return status;
 }
@@ -69,20 +67,16 @@ static i2c_status_t ft6x06_read_data
   // ADD CODE
   // Set the I2C address 
   //==============================================================
-  
-    
-  
-  if ( status != I2C_OK )
-  {
-    return status;
-  }
+  		
+	// Set the address to write to
+  status = i2cSetSlaveAddr(i2c_base, FT6X06_DEV_ID, I2C_READ);
+	if(status != I2C_OK) return status;
 
   //==============================================================
   // ADD CODE
   // get the data
   //==============================================================
-  
-
+  status = i2cGetByte( i2c_base, data , I2C_MCS_START | I2C_MCS_RUN | I2C_MCS_STOP);
 
   return status;
 }
@@ -96,6 +90,13 @@ uint8_t ft6x06_read_td_status(void)
   // ADD CODE
   // Return the number of active touch points.  The only valid values of the 
   // register will be 0, 1, or 2.
+	uint8_t data = 0;
+	if(ft6x06_set_addr(FT6X06_I2C_BASE, FT6X06_TD_STATUS_R) != I2C_OK) return 3;
+	if(ft6x06_read_data(FT6X06_I2C_BASE, &data) != I2C_OK) return 3;
+	if(data == 0 || data == 1 || data == 2) return data;
+	else return 3;
+	
+	// NOTE TO SELF: Using 3 as an error code return value
 } 
 
 
@@ -107,6 +108,21 @@ uint16_t ft6x06_read_x(void)
   // ADD CODE
   // Return the X coordinate of the last touch point
   // This will require reading P1_XH and P1_XL
+	uint16_t x_coord = 0;
+	uint8_t temp = 0;
+	
+	// Set the address to read from and then read the data
+	if(ft6x06_set_addr(FT6X06_I2C_BASE, FT6X06_P1_XH_R) != I2C_OK) return 0;
+	if(ft6x06_read_data(FT6X06_I2C_BASE, &temp) != I2C_OK) return 0;
+	x_coord |= (temp << 8); // set upper 8 bits
+	
+	// Set the address to read from and then read the data
+	if(ft6x06_set_addr(FT6X06_I2C_BASE, FT6X06_P1_XL_R) != I2C_OK) return 0;
+	if(ft6x06_read_data(FT6X06_I2C_BASE, &temp) != I2C_OK) return 0;
+	x_coord |= temp; // set lower 8 bits
+		
+	// only want the lower 12 bits (upper 4 bits are a flag)
+  return x_coord & 0xFFF;
 
 } 
 
@@ -118,6 +134,21 @@ uint16_t ft6x06_read_y(void)
   // ADD CODE
   // Return the Y coordinate of the last touch point 
   // This will require reading P1_YH and P1_YL
+	
+	uint16_t y_coord = 0;
+	uint8_t temp = 0;
+	
+	// Set the address to read from and then read the data
+	if(ft6x06_set_addr(FT6X06_I2C_BASE, FT6X06_P1_YH_R) != I2C_OK) return 0;
+	if(ft6x06_read_data(FT6X06_I2C_BASE, &temp) != I2C_OK) return 0;
+	y_coord |= (temp << 8); // set upper 8 bits
+	
+	// Set the address to read from and then read the data
+	if(ft6x06_set_addr(FT6X06_I2C_BASE, FT6X06_P1_YL_R) != I2C_OK) return 0;
+	if(ft6x06_read_data(FT6X06_I2C_BASE, &temp) != I2C_OK) return 0;
+	y_coord |= temp; // set lower 8 bits
+		
+  return y_coord;
 } 
 
 //*****************************************************************************

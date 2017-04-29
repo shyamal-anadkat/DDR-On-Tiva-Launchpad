@@ -1,0 +1,28 @@
+--cpu Cortex-M4.fp
+".\obj\main.o"
+".\obj\ddr_animations.o"
+".\obj\ddr_game.o"
+".\obj\ddr_images.o"
+".\obj\menu_nav.o"
+".\obj\arrow_printing.o"
+".\obj\arrow.o"
+".\obj\io_expander_led.o"
+".\obj\pc_buffer.o"
+".\obj\uart.o"
+".\obj\gpio_port.o"
+".\obj\timers.o"
+".\obj\i2c.o"
+".\obj\serial_debug.o"
+".\obj\launchpad_io.o"
+".\obj\lcd.o"
+".\obj\lcd_images.o"
+".\obj\ps2.o"
+".\obj\adc.o"
+".\obj\mcp23017.o"
+".\obj\eeprom.o"
+".\obj\ft6x06.o"
+".\obj\startup_tm4c123.o"
+".\obj\system_tm4c123.o"
+--library_type=microlib --ro-base 0x00000000 --entry 0x00000000 --rw-base 0x20000000 --entry Reset_Handler --first __Vectors --strict --summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\lst\ece353_base_project.map" -o .\obj\ece353_base_project.axf
