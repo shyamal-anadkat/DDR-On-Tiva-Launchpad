@@ -10,11 +10,11 @@
 //*****************************************************************************
 // ARROW REGION CONSTANTS
 //*****************************************************************************
-#define 	RGN_GOOD	5
-#define 	RGN_BAD		10
+#define 	RGN_GOOD	20
+#define 	RGN_BAD		40
 #define		RGN_MISS	ARROW_POS_END_Y // top of LCD
-#define		RGN_BOO		25
-#define		RGN_NONE	26
+#define		RGN_BOO		60
+#define		RGN_NONE	80
 
 
 void print_arrow(arrow_t *arrow);

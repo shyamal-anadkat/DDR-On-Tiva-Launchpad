@@ -146,6 +146,7 @@ uint8_t debounce_expander_fsm(uint8_t buttons_pressed) {
 				last_btn_val = curr_btn_val;
 			}
 			return BTN_NONE;
+			
 		case DEBOUNCE_1ST_ZERO:
 			if(curr_btn_val == last_btn_val) debounce_state = DEBOUNCE_2ND_ZERO;
 			else {
@@ -153,6 +154,7 @@ uint8_t debounce_expander_fsm(uint8_t buttons_pressed) {
 				debounce_state = DEBOUNCE_ONE;
 			}
 			break;
+			
 		case DEBOUNCE_2ND_ZERO:
 			if(curr_btn_val == last_btn_val) debounce_state = DEBOUNCE_PRESSED;
 			else {
@@ -160,6 +162,7 @@ uint8_t debounce_expander_fsm(uint8_t buttons_pressed) {
 				debounce_state = DEBOUNCE_ONE;
 			}
 			return BTN_NONE;
+			
 		case DEBOUNCE_PRESSED:
 			if(curr_btn_val == last_btn_val) {
 				debounce_state = DEBOUNCE_DONE;
@@ -169,6 +172,7 @@ uint8_t debounce_expander_fsm(uint8_t buttons_pressed) {
 				debounce_state = DEBOUNCE_ONE;
 			}
 			return curr_btn_val;
+			
 		case DEBOUNCE_DONE:
 			if(curr_btn_val == last_btn_val) {
 				debounce_state = DEBOUNCE_DONE;

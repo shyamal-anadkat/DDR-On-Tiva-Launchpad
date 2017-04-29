@@ -58,6 +58,7 @@
 #define BTN_LD		0x09
 #define BTN_DR		0x05
 
+typedef uint8_t button_dir_t;
 
 //*****************************************************************************
 // PORT EXPANDER CONSTANTS AND ENUMS

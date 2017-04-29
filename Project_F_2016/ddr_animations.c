@@ -124,22 +124,26 @@ void update_ui_init_play(void) {
 	
 	add_arrow(ARROW_DIR_UP);
 
-	//add_two_arrows(ARROW_DIR_LEFT, ARROW_DIR_RIGHT);
-	timer_start_hw3();
+
 }
 
 //*****************************************************************************
 // Updates the entire user interface of the game in PLAY mode
 // Increments all of the onscreen arrows by 1	
 //*****************************************************************************
-void update_ui_play(uint8_t button_data) {
+void update_ui_play(button_dir_t button_data) {
+	// need button to be stateful so it can be handled when timer goes off
+	static button_dir_t button_val = BTN_NONE; 
+	
+	// handle glitchy '2' that appears in button data before correct value appears
+	if(button_data != BTN_NONE && button_data != 2) {
+		button_val = button_data;
+	}
+	
 	if(Alert_Timer0A) {
-		static uint8_t ticks = 0;
-		ticks++;
-		if(ticks == DIFFICULTY_TIMER_HARD) {
-			animate_arrows(button_data);
-			ticks = 0;
-		}
+		
+		animate_arrows(button_val);
+		button_val = BTN_NONE; // after processing the button value, reset it to NONE
 		Alert_Timer0A = false;
 	}
 }
@@ -160,7 +164,7 @@ void init_play_top_arrows(void) {
 //*****************************************************************************
 // ARROW PROCESSING FUNCTIONS
 //*****************************************************************************
-print_type_t process_arrow(arrow_t *arrow, uint8_t button_val) {
+print_type_t process_arrow(arrow_t *arrow, button_dir_t button_val) {
 	uint16_t y_pos_top = arrow->y_pos + ARROW_HEIGHT;
 	uint16_t y_pos_trgt_top	= ARROW_POS_TRGT_TOP_Y;
 	uint16_t difference;
