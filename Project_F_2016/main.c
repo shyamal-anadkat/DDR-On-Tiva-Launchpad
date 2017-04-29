@@ -75,7 +75,6 @@ void initialize_hardware(void)
 	lcd_config_screen();
 	
 	ps2_initialize_hw3();
-	//ps2_initialize();
 
 	timer_config_hw3();
 	
@@ -85,6 +84,9 @@ void initialize_hardware(void)
 	init_interrupt_sw1();
  
 	ft6x06_init();
+	
+	//eeprom init
+	eeprom_init();
 	
 	//disable interrupts
 	DisableInterrupts();
@@ -172,9 +174,6 @@ main(void)
 					detect_button_press_main_menu();
 					Alert_PortF = false;
 				}	
-				//y_adc_data = ps2_get_y();
-				//navigate_main_menu(y_adc_data);
-				//detect_button_press_main_menu();
 				break;
 			
 			case PLAY:

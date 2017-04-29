@@ -149,16 +149,13 @@ bool correct_button_pressed(arrow_t * arrow, uint8_t button_val) {
 print_type_t determine_button_outcome(uint16_t difference, uint16_t arrow_y_pos_top) {
 	// miss case, goes off screen 
 	if(arrow_y_pos_top >= RGN_MISS) {
-		print_miss_second();
 		printf("MISS: %x\n", difference);
 		return MISS;
 	} else if (difference <= RGN_GOOD) {
-		print_hit_second();
 		printf("GOOD: %x\n", difference);
 		score += 10;
 		return GOOD; 
 	} else if (difference > RGN_GOOD) {
-		print_boo_second();
 		printf("BOO: %x\n", difference);
 		return BOO;
 		//none region (would never come here)
@@ -175,21 +172,23 @@ queue_node *process_print(print_type_t print_type) {
 	// if NONE don't dequeue
 	switch(print_type) {
 		case NONE:
-			//printf("process_print=none\n");
 			break;
 		case GOOD:
+			print_hit_second();
 			printf("process_print=good\n");
 			arrow = dequeue(queue)->key;
 			clear_arrow(arrow);
 			print_top_arrow(arrow->arrow_type);
 			break;
 		case MISS:
+			print_miss_second();
 			printf("process_print=miss\n");
 			arrow = dequeue(queue)->key;
 			clear_arrow(arrow);
 			print_top_arrow(arrow->arrow_type);
 			break;
 		case BOO:
+			print_boo_second();
 			printf("process_print=boo\n");
 			break;
 		default:
