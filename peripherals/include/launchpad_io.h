@@ -88,6 +88,6 @@ bool  lp_io_read_pin(uint8_t pin_number);
 
 void GPIOF_Handler(void);
 
-void init_interrupt_sw1(void);
+void init_interrupt_sw2(void);
 
 #endif

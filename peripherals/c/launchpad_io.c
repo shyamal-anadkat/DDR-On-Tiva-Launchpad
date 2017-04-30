@@ -205,9 +205,9 @@ void lp_io_init(void)
 }
 
 /*Initialize interrupt enable for SW1 button on port F */
-void init_interrupt_sw1(void){
-	GPIOF->ICR |= PF4;
-	GPIOF->IM |= PF4;
+void init_interrupt_sw2(void){
+	GPIOF->ICR |= PF0;
+	GPIOF->IM |= PF0;
 	NVIC_SetPriority(GPIOF_IRQn, 1);
 	NVIC_EnableIRQ(GPIOF_IRQn);
 }
@@ -221,6 +221,6 @@ void GPIOF_Handler(void) {
 	Alert_PortF = true;
 		
 	// Clear any outstanding interrupts
-	GPIOF->ICR |= PF4;
+	GPIOF->ICR |= PF0;
 }
 

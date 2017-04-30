@@ -9,6 +9,10 @@
 #define MCP24LC32AT_DEV_ID			0x50
 #define EEPROM_TEST_NUM_BYTES    20
 
+#define HIGH_SCORE_ADDR_START    256
+#define HIGH_SCORE_ADDR_END    	 257
+#define GAME_MODE_ADDR           258
+
 //*****************************************************************************
 // Fill out the #defines below to configure which pins are connected to
 // the I2C Bus
@@ -69,5 +73,14 @@ i2c_status_t eeprom_byte_read
 //*****************************************************************************
 bool eeprom_init(void);
 
+
+//*****************************************************************************
+// HIGH SCORE AND GAME MODE FUNTIONS API
+//*****************************************************************************
+uint16_t read_high_score(void);
+void write_high_score(uint16_t high_score);
+
+uint8_t read_game_mode(void);
+void write_game_mode(uint8_t game_mode);
 
 #endif
