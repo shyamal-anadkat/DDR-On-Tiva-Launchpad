@@ -1,23 +1,23 @@
 // Copyright (c) 2015-16, Joe Krachey
 // All rights reserved.
 //
-// Redistribution and use in source or binary form, with or without modification, 
+// Redistribution and use in source or binary form, with or without modification,
 // are permitted provided that the following conditions are met:
 //
-// 1. Redistributions in source form must reproduce the above copyright 
-//    notice, this list of conditions and the following disclaimer in 
+// 1. Redistributions in source form must reproduce the above copyright
+//    notice, this list of conditions and the following disclaimer in
 //    the documentation and/or other materials provided with the distribution.
 //
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
-// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, 
-// THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR 
-// PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR 
-// CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, 
-// EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
-// PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; 
-// OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, 
-// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
-// NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, 
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+// THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+// PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+// CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+// EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+// PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+// OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+// WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+// NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 // EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "main.h"
@@ -30,163 +30,198 @@ char individual_3[] = "Sneha Patri";
 extern game_state_fsm game_state;
 extern SELECTED_ITEM selected_item;
 
+extern volatile bool Alert_Timer0B;
+extern volatile bool Alert_ADC0_Conversion;
+extern volatile bool Alert_PortF;
+
+bool debugFlag = true;
+
 //*****************************************************************************
-// DISABLE INTERRUPTS 
+// DISABLE INTERRUPTS
 //*****************************************************************************
 void DisableInterrupts(void)
 {
-  __asm {
-         CPSID  I
-  }
+    __asm {
+        CPSID  I
+    }
 }
 
 //*****************************************************************************\
-// ENABLE INTERRUPTS 
+// ENABLE INTERRUPTS
 //*****************************************************************************
 void EnableInterrupts(void)
 {
-  __asm {
-    CPSIE  I
-  }
+    __asm {
+        CPSIE  I
+    }
 }
 
 //*****************************************************************************
-// INIT HARDWARE AND PERIPHERALS 
+// INIT HARDWARE AND PERIPHERALS
 //*****************************************************************************
 void initialize_hardware(void)
 {
-	//enable interrupts
-	EnableInterrupts();
-	
-	//init serial debug for printf
-	init_serial_debug(true, true);
-	
-	//init leds and switches
-	lp_io_init();
+    //enable interrupts
+    EnableInterrupts();
 
-	//LCD init sequence: gpio + screen config 
-	lcd_config_gpio();
-	lcd_config_screen();
-	
-	// Initialize the TIMER0 to be a 
-  //      32-bit
-  //      one-shot
-  //      count down
-  //      enable interrupts?
-  //gp_timer_config_32(TIMER0_BASE, PERIODIC, false, true);
-	timer_config_hw3();
-	
-	timer_start_hw3();
-	
-	ps2_initialize(); 
-	
-	//disable interrupts
-	DisableInterrupts();
+    //init serial debug for printf
+    init_serial_debug(true, true);
+
+    //init leds and switches
+    lp_io_init();
+
+    //LCD init sequence: gpio + screen config
+    lcd_config_gpio();
+    lcd_config_screen();
+
+    ps2_initialize_hw3();
+    //ps2_initialize();
+
+    timer_config_hw3();
+
+    timer_start_hw3();
+
+    //GPIOF INTERRUPT SET for SW1
+    init_interrupt_sw1();
+
+    ft6x06_init();
+
+    //disable interrupts
+    DisableInterrupts();
 }
 
-int debounce_sw1(void) {
-  static uint16_t sw1_count = 0;
-	bool return_value = false;
-	
-	
-	if (lp_io_read_pin(SW1_BIT)) {
-		sw1_count = 0;
-	} else if (sw1_count <= 6) {
-		sw1_count++;
-	}
-	
-  if (!lp_io_read_pin(SW1_BIT)) {
-		sw1_count++;
-  } else {
-		sw1_count = 0;
-	}
-	return sw1_count == 6;
-}
 
 void detect_button_press_main_menu() {
-	//navigate menu.todo: make stateful 	
-	if(debounce_sw1()) {
-		
-	switch(selected_item) {
-		case PLAY_NOW:
-			game_state = PLAY_NOW;
-			break;
-		case HIGH_SCORES:
-			game_state = HIGH_SCORES;
-			break;
-		default:
-			break;
-		}
-		
-	}
+    //navigate menu.todo: make stateful
+
+    switch(selected_item) {
+    case PLAY_NOW:
+        game_state = PLAY_NOW;
+        break;
+    case HIGH_SCORES:
+        game_state = HIGH_SCORE;
+        break;
+    default:
+        break;
+    }
 }
 
 
 //*****************************************************************************
 // MAIN
 //*****************************************************************************
-int 
+int
 main(void)
 {
-	uint16_t y_adc_data;
-  char msg[80];
-  initialize_hardware();
-	init_arrow_queue();
+    uint8_t button_vals = 0;
+    uint16_t y_adc_data;
+    char msg[80];
+    uint16_t x,y;
+    uint8_t touch_event;
 
-	printf("\n\r");
-  printf("**************************************\n\r");
-  printf("* ECE353 - Final Project - Debug\n\r");
-  printf("**************************************\n\r");
-  printf("\n\r");
-	
-	update_ui_init_main_menu();
-	
-	ioexpander_init();
+    initialize_hardware();
+    init_arrow_queue();
 
-	//print_miss_second(); 
-	
-  while(1){
-		// START: State Change Logic
-		static game_state_fsm last_state = MENU;
-		
-		//io_expander_blink_state(MEDIUM, LED7);
-		
-		buttons_pressed();
 
-	
-		
-		
-		// If a state transition has occurred... initialize new state
-		if( game_state != last_state) {
-			last_state = game_state; // update last state to current state
-			update_ui_init_new_state(game_state); // initialize the new state
-		}
-		// END: State Change Logic
- 			
-		// This part handles the current state
-		switch(game_state) {
+    printf("\n\r");
+    printf("**************************************\n\r");
+    printf("* ECE353 - Final Project - Debug\n\r");
+    printf("**************************************\n\r");
+    printf("\n\r");
+
+    update_ui_init_main_menu();
+
+    ioexpander_init();
+
+    while(1) {
+
+        // START: State Change Logic
+        static game_state_fsm last_state = MENU;
+
+        // If a state transition has occurred... initialize new state
+        if( game_state != last_state) {
+            last_state = game_state; // update last state to current state
+            update_ui_init_new_state(game_state); // initialize the new state
+        }
+        // END: State Change Logic
+				
+        // This part handles the current state
+        switch(game_state) {
+
+        case MENU:
+            /* get y adc values with AD0 interrupt */
+            // TIMER0B HANDLER
+            if (Alert_Timer0B) {
+                // Start SS2 conversion
+                ADC0 -> PSSI |= ADC_PSSI_SS2;
+                Alert_Timer0B = false;
+            }
+            // ADC COMPUTATION HANDLER (UPDATES PS2 X/Y VALUES)
+            if (Alert_ADC0_Conversion) {
+                // Toggle ADC0 Conversion notifier
+                Alert_ADC0_Conversion = false;
+                // Update current y position with current PS2 joystick ADC value
+                y_adc_data = ADC0 -> SSFIFO2 & ADC_SSFIFO2_DATA_M;
+                // y_adc_data = ps2_get_y();
+                navigate_main_menu(y_adc_data);
+            }
+
+            if(Alert_PortF) {
+                detect_button_press_main_menu();
+                Alert_PortF = false;
+            }
+            //y_adc_data = ps2_get_y();
+            //navigate_main_menu(y_adc_data);
+            //detect_button_press_main_menu();
+            break;
+
+        case PLAY:
+            button_vals = buttons_pressed();
+            update_ui_play(button_vals);
+            touch_event = ft6x06_read_td_status();
+            if(touch_event > 0 && touch_event!=255) {
+                pause_screen();
+                x = ft6x06_read_x();
+                y = ft6x06_read_y();
+                if( y <= 235 && y >= 208) {
+                    //CODE FOR PLAY TO CONTINUE
+                }
+                else if(y <= 160 && y >= 128) {
+                    game_state = MENU; 
+                }
+            }
+            break;
+				
+						
+				case HIGH_SCORE:
+					touch_event = ft6x06_read_td_status();
+                x = ft6x06_read_x();
+                y = ft6x06_read_y();
+                if( y <= 286 && y >= 269) {
+                    //CODE TO DISPLAY MAIN MENU
+									game_state = MENU; 
+                }
+					break;
+						
+				
+        case WIN:
+            print_end_screen();
+						touch_event = ft6x06_read_td_status();
+						
+						if(touch_event <= 235 && touch_event >=208) {
+								// NEEDS TO START PLAY AGAIN
+						}
+						else if(touch_event <= 150 && touch_event >= 128) {
+								// NEEDS TO DISPLAY THE HIGH SCORES PAGE
+						}
+            break;
+
+        case LOSE:
+            break;
+				
 			
-			case MENU:
-				//get x and y adc values 
-				y_adc_data = ps2_get_y();
-				navigate_main_menu(y_adc_data);
-				detect_button_press_main_menu();
-				//io_expander_blink_state(SLOW, LED7);
-				print_hit_second();
-				break;
-			
-			case PLAY:
-				update_ui_play();
-				break;
-			
-			case WIN:
-				break;
-			
-			case LOSE:
-				break;
-		}
-
-
-		
-	}
+				
+				
+        }
+    }
 }

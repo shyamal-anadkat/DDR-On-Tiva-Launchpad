@@ -1,314 +1,343 @@
 #include "ddr_animations.h"
-#include "ddr_game.h"
-#include "timers.h"
 
-arrow_t arrows_on_screen[MAX_ARROWS_ON_SCREEN];
-uint8_t num_arrows_on_screen;
-bool playSelected;
-bool backSelected;
 
-//*****************************************************************************
-// Updates the entire user interface according to the current state of the game
-// Increments all of the onscreen arrows by 1
-//*****************************************************************************
-void update_ui(void) {
-	uint8_t i;
-	uint16_t y_pos;
-	
-	// TODO: Check GAMESTATE_FSM
-	
-	// MOVE ALL ONSCREEN ARROWS UP BY 1
-	for(i = 0; i < num_arrows_on_screen; i++) {
-		arrow_t* arrow = &arrows_on_screen[i];
-		arrow->y_pos++;
-		print_arrow(*arrow);
-	}
+static queue_t *queue;
+extern bool Alert_Timer0A;
+extern bool Alert_Timer0B;
+
+int score;
+
+void animate_arrows(uint8_t button_val) {
+    print_type_t print_type;
+    queue_node *curr_node = queue->head;
+
+    arrow_t *arrow = curr_node->key;
+
+    // nothing to animate if the queue is empty!
+    if(queue->head == NULL_VALUE) return;
+
+    // evaluate arrow position and button values together
+    arrow->y_pos++;
+    print_type = process_arrow(arrow, button_val);
+
+    // process print returns new head node
+    curr_node = process_print(print_type);
+
+    // MOVE THE REST OF THE ARROWS UP
+    while(curr_node != NULL_VALUE) {
+        arrow = curr_node->key;
+        arrow->y_pos++;
+        print_arrow(arrow);
+        curr_node = curr_node->next;
+    }
 }
 
-// RETURNS FALSE IF TOO MANY ARROWS ADDED
+
+// TODO: This doesn't have to be a boolean anymore
 bool add_arrow(arrow_dir_t dir) {
-	arrow_t arrow;
-	
-	// Instantiate arrow structs to add to arrows_on_screen array
-	arrow.arrow_type = dir;
-	arrow.y_pos = ARROW_POS_START_Y;
-	
-	// Return false if no more arrows can be added to the screen
-	if(num_arrows_on_screen >= MAX_ARROWS_ON_SCREEN) return false;
-	else {
-		arrows_on_screen[num_arrows_on_screen++] = arrow;
-		return true;
-	}
+    arrow_t *arrow = malloc(sizeof(arrow_t));
+
+    // Instantiate arrow structs to add to arrows_on_screen array
+    arrow->arrow_type = dir;
+    arrow->y_pos = ARROW_POS_START_Y;
+    arrow->color = LCD_COLOR_BLUE;
+
+    enqueue(queue, arrow);
+    return true;
 }
+
 
 bool add_two_arrows(arrow_dir_t dir1, arrow_dir_t dir2) {
-	arrow_t arrow1;
-	arrow_t arrow2;
-	
-	// Instantiate arrow structs to add to arrows_on_screen array
-	arrow1.arrow_type = dir1;
-	arrow1.y_pos = ARROW_POS_START_Y;
-	arrow2.arrow_type = dir2;
-	arrow2.y_pos = ARROW_POS_START_Y;
+    arrow_t *arrow1 = malloc(sizeof(arrow_t));
+    arrow_t *arrow2 = malloc(sizeof(arrow_t));
 
-	// Return false if no more arrows can be added to the screen
-	if(num_arrows_on_screen >= MAX_ARROWS_ON_SCREEN) return false;
-	else {
-		arrows_on_screen[num_arrows_on_screen++] = arrow1;
-		arrows_on_screen[num_arrows_on_screen++] = arrow2;
-		return true;
-	}
-}
+    // Instantiate arrow structs to add to arrows_on_screen array
+    arrow1->arrow_type = dir1;
+    arrow1->y_pos = ARROW_POS_START_Y;
+    arrow1->color = LCD_COLOR_BLUE;
 
-// ASSUMES Y POSITION OF ARROW HAS ALREADY BEEN UPDATED
-void print_arrow(arrow_t arrow) {
-	uint16_t x_pos;
-	const uint8_t *arrow_bitmap;
-	
-	switch(arrow.arrow_type) {
-		case ARROW_UP:
-			x_pos = ARROW_POS_X_UP;
-			arrow_bitmap = up_arrowBitmaps;
-			break;
-		case ARROW_DOWN:
-			x_pos = ARROW_POS_X_DOWN;
-			arrow_bitmap = down_arrowBitmaps;
-			break;
-		case ARROW_LEFT:
-			x_pos = ARROW_POS_X_LEFT;
-			arrow_bitmap = left_arrowBitmaps;
-			break;
-		case ARROW_RIGHT:
-			x_pos = ARROW_POS_X_RIGHT;
-			arrow_bitmap = right_arrowBitmaps;
-			break;
-	}
-	
-	// DRAW ARROW
-	lcd_draw_image(
-                  x_pos,              // X Pos
-                  ARROW_WIDTH,   			// Image Horizontal Width
-                  arrow.y_pos,        // Y Pos
-                  ARROW_HEIGHT,  			// Image Vertical Height
-                  arrow_bitmap, 			// Image
-                  LCD_COLOR_BLUE,     // Foreground Color
-                  LCD_COLOR_BLACK     // Background Color
-                );
-	
-	// CLEAR GLITCHY BLUE TRAIL
-		lcd_draw_image(
-                  x_pos,              // X Pos
-                  ARROW_WIDTH,   			// Image Horizontal Width
-                  arrow.y_pos - ARROW_HEIGHT + 1,// Y Pos of bottom of image
-                  ARROW_HEIGHT,  			// Image Vertical Height
-                  arrow_bitmap, 			// DON'T CARE
-                  LCD_COLOR_BLACK,     // Foreground Color
-                  LCD_COLOR_BLACK     // Background Color
-                );
+    arrow2->arrow_type = dir2;
+    arrow2->y_pos = ARROW_POS_START_Y;
+    arrow2->color = LCD_COLOR_BLUE;
+
+    enqueue(queue, arrow1);
+    enqueue(queue, arrow2);
 }
 
 
-void display_welcome_screen(void) {
-			lcd_draw_image(
-                  133,                // X Pos
-                  ddrbwWidthPixels,   // Image Horizontal Width
-                  82,                	// Y Pos
-                  ddrbwHeightPixels,  // Image Vertical Height
-                  ddrbwBitmaps, 		  // Image
-                  LCD_COLOR_BLACK,    // Foreground Color
-                  LCD_COLOR_WHITE     // Background Color
-                ); 
+//*****************************************************************************
+// ARROW QUEUE
+//*****************************************************************************
+queue_node *new_node(arrow_t *arrow) {
+    queue_node *temp = (queue_node *)malloc(sizeof(queue_node));
+    temp->key = arrow;
+    temp->next = NULL_VALUE;
+    return temp;
+}
+
+queue_t *create_queue(void) {
+    queue_t *queue = (queue_t *)malloc(sizeof(queue_t));
+    queue->head = queue->tail = NULL_VALUE;
+    return queue;
+}
+
+void enqueue(queue_t *queue, arrow_t *arrow) {
+    queue_node *temp = new_node(arrow);
+    if(queue->tail == NULL_VALUE) {
+        queue->head = queue->tail = temp;
+        return;
+    }
+
+    queue->tail->next = temp;
+    queue->tail = temp;
+}
+
+queue_node *dequeue(queue_t *queue) {
+    queue_node *temp;
+
+    if(queue->head == NULL_VALUE) return NULL_VALUE;
+
+    temp = queue->head;
+    queue->head = queue->head->next;
+
+    if(queue->head == NULL_VALUE) queue->tail = NULL_VALUE;
+
+    return temp;
+
 }
 
 
-void lcd_print_stringXY(
-    char *msg, 
-    int8_t X,
-		int8_t Y,
-    uint16_t fg_color, 
-    uint16_t bg_color
-)
-{
-	int len = strlen(msg);	// get the length of the message passed in using strlen in string.h
-	
-	int Xpixels;	// convert X to pixels to call lcd_draw_image
-	int Ypixels;  // convert Y to pixels to call lcd_draw_image
-	
-	int i;		// for the for loop
-	
-	int currentX = X;		// to preserve the current x
-	int currentY = Y;		// to preserve the current y
-	
-	int val;						// C ascii value of the character
-	int image_bitmap;			// convert it to the image bitmap from lookup-table given above
-	
-	// for loop to go through the characters in the given string
-	for(i = 0; i < len; i++) {
-		
-		// wrap around if statements
-		if(currentX == 14) {		// if the value of the current X is greater than 13
-			if(msg[i] == 32) {		// if the ascii value of space is our characte
-				i = i + 1;					// go to the next character to start the next line
-			}
-			currentX = X;					// update the currentX to the original X			
-			currentY = currentY+1;	// change Y to go to the next line
-		}
-		
-		if(currentY == 20 ) {		// if the value of current Y is greater than 19
-			currentY = 0;					// go to the 0th index of Y or simply, the top of the screen
-		}
-		
-		// get the ascii/bitmap/pixel values
-		val = (int) msg[i];			// get the ascii value of the character
-		image_bitmap = (val - 32)*48;	// convert to the bitmap value 
-		
-		Xpixels = 240 - ((currentX+1)*17 ) ;	// based on the current index, change the pixel of X. The width changes with the X coordinate. 
-		Ypixels = 320 - ((currentY+1)*16 ); 	// based on the current index, change the pixel of Y. The height changes with the Y coordinate. 
-		
-		// call lcd_draw_image, based on the image bitmap and X and Y pixels
-	lcd_draw_image(
-		Xpixels, 
-		17, 
-		Ypixels, 
-		16, 
-		&(sitkaSmall_12ptBitmaps[image_bitmap]), 
-		fg_color, 
-		bg_color
-	);
-		// increment the index of X
-		currentX++;
-	
-  }
+//*****************************************************************************
+//
+//
+// PLAY MODE ANIMATIONS
+//
+//
+//*****************************************************************************
+
+//*****************************************************************************
+// Initializes the UI for PLAY mode
+//*****************************************************************************
+void update_ui_init_play(void) {
+    uint16_t i = 0;
+    lcd_clear_screen(LCD_COLOR_BLACK);
+    init_play_top_arrows();
+    score = 0;
+
+    add_arrow(ARROW_DIR_UP);
+    arrow_delay();
+    add_arrow(ARROW_DIR_DOWN);
+    arrow_delay();
+    arrow_delay();
+    add_arrow(ARROW_DIR_LEFT);
+    arrow_delay();
+    arrow_delay();
+    add_arrow(ARROW_DIR_RIGHT);
+
 }
 
-void printMenu() { 
+void arrow_delay(void) {
+    if(Alert_Timer0A) {
+        static int ticks = 0;
+        ticks++;
+        if(ticks == ARROW_DELAY) {
+            ticks = 0;
+        }
+        Alert_Timer0A = false;
+    }
 
-	char menu[] = "MENU"; 	
-	char msg1[] = "PLAY NOW";
-	char msg2[] = "HIGH SCORES";
-	
-  lcd_clear_screen(LCD_COLOR_BLACK);
-	
-	lcd_print_stringXY(menu,0,0, LCD_COLOR_YELLOW, LCD_COLOR_BLACK);
-	lcd_print_stringXY(msg1,2,4, LCD_COLOR_YELLOW,LCD_COLOR_BLACK);
-  lcd_print_stringXY(msg2,1,7, LCD_COLOR_GREEN,LCD_COLOR_BLACK);
 }
 
-//void print_PlayNow() {
-//	char playnow[] = "PLAY NOW" ;
-//	char score[] = "SCORE"; 
-//	lcd_print_stringXY(playnow,0, 0, LCD_COLOR_YELLOW, LCD_COLOR_BLACK);
-//	lcd_print_stringXY(score, 10,18, LCD_COLOR_YELLOW, LCD_COLOR_BLACK);
+//*****************************************************************************
+// Updates the entire user interface of the game in PLAY mode
+// Increments all of the onscreen arrows by 1
+//*****************************************************************************
+void update_ui_play(button_dir_t button_data) {
+    // need button to be stateful so it can be handled when timer goes off
+    static button_dir_t button_val = BTN_NONE;
+
+    // handle glitchy '2' that appears in button data before correct value appears
+    if(button_data != BTN_NONE && button_data != 2) {
+        button_val = button_data;
+    }
+
+    if(Alert_Timer0A) {
+        print_score();
+        animate_arrows(button_val);
+        button_val = BTN_NONE; // after processing the button value, reset it to NONE
+        Alert_Timer0A = false;
+    }
+
+    //clear miss/hit message on LCD
+    clear_print_message();
+
+    //led_blink(FAST);
+}
+
+void init_arrow_queue(void) {
+    queue = create_queue();
+}
+
+void init_play_top_arrows(void) {
+    print_top_arrow(ARROW_DIR_UP);
+    print_top_arrow(ARROW_DIR_DOWN);
+    print_top_arrow(ARROW_DIR_LEFT);
+    print_top_arrow(ARROW_DIR_RIGHT);
+}
+
+
+////*****************************************************************************
+////
+////
+//// WIN MODE SET UPS
+////
+////
+////*****************************************************************************
+
+//void update_ui_init_win() {
+//	  
+//   
+//	
+//	
+//	
 //	
 //}
 
-void print_highscores() {
-	
-	char h[] = "HIGH";
-	char s[] = "SCORES: ";
-	char lon[] = "LONGEST";
-	char time[] = "TIME: ";
-	char game[] = "GAME";
-	char mode[] = "MODE: ";
-	char back[] = "BACK"; 
+
+////*****************************************************************************
+////
+////
+//// LOSE MODE SET UPS
+////
+////
+////*****************************************************************************
+//void update_ui_init_lose() {
+//	
+//	
+//	
+//	
+//}
+
+void update_ui_init_high_score() {
 	
 	lcd_clear_screen(LCD_COLOR_BLACK);
-	
-	lcd_print_stringXY(h, 0,4, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
-	lcd_print_stringXY(s, 0,5, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
-	lcd_print_stringXY(lon,0, 7, LCD_COLOR_GREEN,LCD_COLOR_BLACK);
-	lcd_print_stringXY(time, 0,8, LCD_COLOR_GREEN, LCD_COLOR_BLACK);
-  lcd_print_stringXY(game,0,10, LCD_COLOR_RED,LCD_COLOR_BLACK);
-	lcd_print_stringXY(mode, 0,11, LCD_COLOR_RED, LCD_COLOR_BLACK);
-	lcd_print_stringXY(back,0, 0, LCD_COLOR_YELLOW,LCD_COLOR_BLACK);
 
-}
-
-void draw_line(uint8_t y) {
-	char dot[] = "--------------";
-	uint8_t x = 0; 
-		lcd_print_stringXY(dot, x, y, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
-}
-
-void clear_line(uint8_t y) {
-	char dot[] = "--------------";
-	uint8_t x = 0; 
-	lcd_print_stringXY(dot, x, y, LCD_COLOR_BLACK, LCD_COLOR_BLACK);
-}
-
-void draw_linehighscores1(uint8_t y) { 
-	char dot[] = "-----";
-	uint8_t x = 0; 
-		lcd_print_stringXY(dot, x, y, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
-}
-
-void clear_linehighscores1(uint8_t y) {
-	char dot[] = "-----";
-	uint8_t x = 0; 
-	lcd_print_stringXY(dot, x, y, LCD_COLOR_BLACK, LCD_COLOR_BLACK);
-}
-void draw_linehighscores2(uint8_t x) {
-	char dot[] = "|";
-	uint8_t y = 0; 
-	lcd_print_stringXY(dot, x, y, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
-}
-
-void clear_linehighscores2(uint8_t x) {
-	char dot[] = "|";
-	uint8_t y = 0; 
-	lcd_print_stringXY(dot, x, y, LCD_COLOR_BLACK, LCD_COLOR_BLACK);
-}
-
-void select_menuItem(int item) {
-	if(item) {
+	print_high_scores();
 		
-		//PLAY NOW HIGHLIGHTED
-		clear_line(6);
-		clear_line(8);
-		draw_line(3);
-		draw_line(5);
-	} else{
-		
-	 // HIGH SCORES HIGHLIGHTED 
-	 clear_line(3);
-	 clear_line(5);
-	 draw_line(6);
-	 draw_line(8);
- }
 }
 
-void select_back(int item) {
-	if(item) {
-		draw_linehighscores1(1);
-		draw_linehighscores2(4);
-	} else {
-		clear_linehighscores1(1);
-		clear_linehighscores2(4);
-	}
-	
-	
+//*****************************************************************************
+// ARROW PROCESSING FUNCTIONS
+//*****************************************************************************
+print_type_t process_arrow(arrow_t *arrow, button_dir_t button_val) {
+    uint16_t y_pos_top = arrow->y_pos + ARROW_HEIGHT;
+    uint16_t y_pos_trgt_top	= ARROW_POS_TRGT_TOP_Y;
+    uint16_t difference;
+
+    // we had to use this if-else to decide which order to subtract because they're unsigned
+    // also had to use tops of each image in case the arrow went offscreen (MISS)
+    difference = (y_pos_trgt_top >= y_pos_top) ?
+                 (y_pos_trgt_top - y_pos_top) : (y_pos_top - y_pos_trgt_top );
+
+    // printf("difference: %x\n", difference);
+    // correct button, but need to see what region it was in (level of correctness)
+    if (correct_button_pressed(arrow, button_val)) {
+        return determine_button_outcome(difference, y_pos_top);
+    }
+
+    // nothing pressed, but need to check if offscreen or just far away from target region
+    else if(button_val == BTN_NONE) {
+        return (y_pos_top >= ARROW_POS_END_Y) ? MISS : NONE;
+    }
+
+    // wrong button and on screen
+    else return BOO;
 }
 
-void navigate_menu(uint16_t y_adc_data) {
-		
-	  if (y_adc_data >= y_up_threshold) {
-				select_menuItem(1);
-				playSelected = true;
-		} 
-		else if (y_adc_data <= y_down_threshold) {
-				select_menuItem(0);
-				playSelected = false; 
-		} 			
-	}
+bool correct_button_pressed(arrow_t * arrow, uint8_t button_val) {
+    switch (arrow->arrow_type) {
+    case ARROW_DIR_UP:
+        return (button_val == BTN_U) ? true : false;
+    case ARROW_DIR_DOWN:
+        return (button_val == BTN_D) ? true : false;
+    case ARROW_DIR_LEFT:
+        return (button_val == BTN_L) ? true : false;
+    case ARROW_DIR_RIGHT:
+        return (button_val == BTN_R) ? true : false;
+    }
+}
 
-void navigate_back(uint16_t y_adc_data) {
-		
-	  if (y_adc_data >= y_up_threshold) {
-				select_back(1);
-				backSelected = true;
-		} 
-		else if (y_adc_data <= y_down_threshold) {
-				select_back(0);
-				backSelected = false; 
-		} 			
-	}
+print_type_t determine_button_outcome(uint16_t difference, uint16_t arrow_y_pos_top) {
+    // miss case, goes off screen
+    if(arrow_y_pos_top >= RGN_MISS) {
+        print_miss_second();
+        printf("MISS: %x\n", difference);
+        return MISS;
+    } else if (difference <= RGN_GOOD) {
+        print_hit_second();
+        printf("GOOD: %x\n", difference);
+        score += 10;
+        return GOOD;
+    } else if (difference > RGN_GOOD) {
+        print_boo_second();
+        printf("BOO: %x\n", difference);
+        return BOO;
+        //none region (would never come here)
+    } else {
+        printf("NONE: %x\n", difference);
+        return NONE;
+    }
+}
+
+// Returns either the first node in the queue or the next node after removing head
+queue_node *process_print(print_type_t print_type) {
+    arrow_t *arrow;
+
+    // if NONE don't dequeue
+    switch(print_type) {
+    case NONE:
+        //printf("process_print=none\n");
+        break;
+    case GOOD:
+        printf("process_print=good\n");
+        arrow = dequeue(queue)->key;
+        clear_arrow(arrow);
+        print_top_arrow(arrow->arrow_type);
+        break;
+    case MISS:
+        printf("process_print=miss\n");
+        arrow = dequeue(queue)->key;
+        clear_arrow(arrow);
+        print_top_arrow(arrow->arrow_type);
+        break;
+    case BOO:
+        printf("process_print=boo\n");
+        break;
+    default:
+        printf("process_print=default\n");
+        break;
+    }
+
+    return queue->head;
+}
+
+void print_score(void) {
+    char score_arr[4];
+    //printf("Current Score: %d", score);
+    sprintf(score_arr,"%ld",(int)score);
+    lcd_print_stringXY("score:",5,0, LCD_COLOR_ORANGE,LCD_COLOR_BLACK);
+    lcd_print_stringXY(score_arr,11,0, LCD_COLOR_ORANGE,LCD_COLOR_BLACK);
+}
+
+void clear_print_message(void) {
+    //this is to clear the hit/miss message on LCD
+    if(Alert_Timer0B) {
+        static int ticks = 0;
+        ticks++;
+        if(ticks == PRINT_MESSAGE_DELAY) {
+            clear_boo();
+            ticks = 0;
+        }
+        Alert_Timer0B = false;
+    }
+}
