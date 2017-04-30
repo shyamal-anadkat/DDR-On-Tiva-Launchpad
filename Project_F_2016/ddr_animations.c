@@ -4,6 +4,7 @@ extern queue_t *queue;
 
 extern bool Alert_Timer0A;
 extern bool Alert_Timer0B;
+extern game_state_fsm game_state;
 extern uint16_t score;
 
 static bool is_arrow_green = false;
@@ -38,7 +39,22 @@ void update_ui_play(button_dir_t button_data) {
 	// need button to be stateful so it can be handled when timer goes off
 	static button_dir_t button_val = BTN_NONE; 
 	static uint16_t ticks = 0;
-
+	
+	uint16_t x,y;
+  uint8_t touch_event;
+	
+	/*touch_event = ft6x06_read_td_status();
+		 if(touch_event > 0 && touch_event!=255) {
+				print_pause_screen();
+				x = ft6x06_read_x();
+				y = ft6x06_read_y();
+				if( y <= continue_upper_bound && y >= continue_lower_bound) {
+						//CODE FOR PLAY TO CONTINUE
+				}
+				else if(y <= menu_upper_bound && y >= menu_lower_bound) {
+						game_state = MENU; 
+				}
+		}*/
 	
 	// handle glitchy '2' that appears in button data before correct value appears
 	if(button_data != BTN_NONE && button_data != 2) {
@@ -201,6 +217,72 @@ queue_node *process_print(print_type_t print_type) {
 	}
 	
 	return queue->head;
+}
+
+//*****************************************************************************
+//
+//
+// HIGH SCORE MODE SET UPS
+//
+//
+//*****************************************************************************
+void update_ui_init_high_score() {
+    uint16_t x,y;
+    uint8_t touch_event;
+
+    lcd_clear_screen(LCD_COLOR_BLACK);
+
+    print_high_scores();
+}
+
+//*****************************************************************************
+//
+//
+// WIN MODE SET UPS
+//
+//
+//*****************************************************************************
+
+void update_ui_init_win() {
+    uint16_t x,y;
+    uint8_t touch_event;
+
+    print_win();
+    print_end_screen();
+    touch_event = ft6x06_read_td_status();
+    if(touch_event <= play_again_upper_bound && touch_event >= play_again_lower_bound) {
+        // NEEDS TO START PLAY AGAIN
+        game_state = PLAY;
+    }
+    else if(touch_event <= high_scores_upper_bound && touch_event >= high_scores_lower_bound) {
+        // NEEDS TO DISPLAY THE HIGH SCORES PAGE
+        game_state = HIGH_SCORE;
+    }
+}
+
+
+//*****************************************************************************
+//
+//
+// LOSE MODE SET UPS
+//
+//
+//*****************************************************************************
+void update_ui_init_lose() {
+    uint16_t x,y;
+    uint8_t touch_event;
+
+    print_lose();
+    print_end_screen();
+    touch_event = ft6x06_read_td_status();
+    if(touch_event <= play_again_upper_bound && touch_event >= play_again_lower_bound) {
+        // NEEDS TO START PLAY AGAIN
+        game_state = PLAY;
+    }
+    else if(touch_event <= high_scores_upper_bound && touch_event >= high_scores_lower_bound) {
+        // NEEDS TO DISPLAY THE HIGH SCORES PAGE
+        game_state = HIGH_SCORE;
+    }
 }
 
 

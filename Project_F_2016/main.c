@@ -103,7 +103,7 @@ void detect_button_press_main_menu() {
         game_state = PLAY_NOW;
         break;
     case HIGH_SCORES:
-        game_state = HIGH_SCORES;
+        game_state = HIGH_SCORE;
         break;
     default:
         break;
@@ -120,8 +120,6 @@ main(void)
     uint8_t button_vals = 0;
     uint16_t y_adc_data;
     char msg[80];
-    uint16_t x,y;
-    uint8_t touch_event;
 
     initialize_hardware();
     init_arrow_queue();
@@ -185,17 +183,10 @@ main(void)
             button_vals = buttons_pressed();
             update_ui_play(button_vals);
 
-
-
-            touch_event = ft6x06_read_td_status();
-            //printf("td status read: %d\n\r", touch_event); //DEBUG
-            if(touch_event > 0 && touch_event!=255) {
-                //print out x and y coordinates
-                x = ft6x06_read_x();
-                y = ft6x06_read_y();
-                // printf("Touch Events :\tX: %d\t||\tY: %d \r", x, y);
-            }
             break;
+				case HIGH_SCORE:
+						update_ui_high_scores();
+						break;
 
         case WIN:
             break;
