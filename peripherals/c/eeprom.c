@@ -226,7 +226,47 @@ bool eeprom_init(void)
   {
     return false;
   }
-  
   return true;
-  
+}
+
+/*Writes the 2 byte high_score in the arg to the EEPROM */
+void write_high_score(uint16_t high_score) {
+	
+    uint8_t hs[2];
+    hs[0] = (uint8_t) high_score;
+		hs[1] = (high_score) >> 8;
+	
+		printf("Writing score to eeprom : %d\n\r", high_score);
+		//write the 2 bytes
+    eeprom_byte_write(I2C1_BASE, HIGH_SCORE_ADDR_START , hs[1]);
+	  eeprom_byte_write(I2C1_BASE, HIGH_SCORE_ADDR_END, hs[0]);
+}
+
+/* Reads the 2 byte high score from EEPROM */
+uint16_t read_high_score(void) {
+		uint16_t read_score;
+		uint8_t read_val;
+	
+		//read the two bytes 
+    eeprom_byte_read(I2C1_BASE,(HIGH_SCORE_ADDR_START), &read_val);
+		read_score = read_val << 8;
+		eeprom_byte_read(I2C1_BASE,(HIGH_SCORE_ADDR_END), &read_val);
+		read_score += read_val; 
+	
+		printf("score read:  %d\n\r", read_score);
+		return read_score;
+}
+
+void write_game_mode(uint8_t game_mode) {
+		printf("Writing game mode to eeprom : %d\n\r", game_mode);
+		//write the 1 byte
+    eeprom_byte_write(I2C1_BASE, GAME_MODE_ADDR, game_mode);
+}
+
+uint8_t read_game_mode(void) {
+		uint8_t read_val;
+	
+    eeprom_byte_read(I2C1_BASE,GAME_MODE_ADDR, &read_val);
+		printf("game mode read:  %d\n\r", read_val);
+		return read_val;
 }
