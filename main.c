@@ -82,7 +82,7 @@ void initialize_hardware(void)
     timer_start_hw3();
 
     //GPIOF INTERRUPT SET for SW1
-    init_interrupt_sw1();
+    init_interrupt_sw2();
 
     ft6x06_init();
 
@@ -130,7 +130,7 @@ main(void)
     printf("\n\r");
 
     update_ui_init_main_menu();
-
+	
     ioexpander_init();
 
     while(1) {
@@ -178,50 +178,29 @@ main(void)
         case PLAY:
             button_vals = buttons_pressed();
             update_ui_play(button_vals);
-            touch_event = ft6x06_read_td_status();
-            if(touch_event > 0 && touch_event!=255) {
-                pause_screen();
-                x = ft6x06_read_x();
-                y = ft6x06_read_y();
-                if( y <= 235 && y >= 208) {
-                    //CODE FOR PLAY TO CONTINUE
-                }
-                else if(y <= 160 && y >= 128) {
-                    game_state = MENU; 
-                }
-            }
+            
             break;
 				
 						
 				case HIGH_SCORE:
-					touch_event = ft6x06_read_td_status();
-                x = ft6x06_read_x();
-                y = ft6x06_read_y();
-                if( y <= 286 && y >= 269) {
-                    //CODE TO DISPLAY MAIN MENU
-									game_state = MENU; 
-                }
+					  touch_event = ft6x06_read_td_status();
+						x = ft6x06_read_x();
+						y = ft6x06_read_y();
+						if( y <= back_upper_bound && y >= back_lower_bound) {
+								//CODE TO DISPLAY MAIN MENU
+								game_state = MENU;
+						}
 					break;
 						
 				
         case WIN:
-            print_end_screen();
-						touch_event = ft6x06_read_td_status();
-						
-						if(touch_event <= 235 && touch_event >=208) {
-								// NEEDS TO START PLAY AGAIN
-						}
-						else if(touch_event <= 150 && touch_event >= 128) {
-								// NEEDS TO DISPLAY THE HIGH SCORES PAGE
-						}
+					
             break;
 
         case LOSE:
+						
             break;
-				
-			
-				
-				
+						
         }
     }
 }
