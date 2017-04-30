@@ -11,6 +11,10 @@
 #define x_right_threshold (0xFFF / 4)
 #define y_down_threshold  (0xFFF / 4)
 
+#define DIFFICULTY_MODE_EASY 		0
+#define DIFFICULTY_MODE_MEDIUM 	1
+#define DIFFICULTY_MODE_HARD 		2
+
 
 // offset macro
 #define offset 1
@@ -81,7 +85,7 @@ typedef enum {
 } SELECTED_ITEM;
 
 typedef enum {
-	MENU, PLAY, WIN, LOSE, HIGH_SCORE
+	MENU, MODE_SELECTION, PLAY, WIN, LOSE, HIGH_SCORE
 } game_state_fsm;
 
 
@@ -94,7 +98,6 @@ void update_ui_high_scores(void);
 void draw_line(uint8_t y);
 void clear_line(uint8_t y);
 
-
 void print_pause_screen(void);
 void print_end_screen(void);
 void print_high_scores(void);
@@ -102,5 +105,8 @@ void print_high_scores(void);
 void print_high_scores(void);
 void print_lose(void);
 void print_win(void);
+
+void print_game_mode_selecion(void);
+void navigate_game_mode(uint16_t y_adc_data);
 
 #endif
