@@ -10,7 +10,6 @@ extern bool Alert_Timer0B;
 
 bool backSelected;
 
-
 //*****************************************************************************
 // FUNCTIONS
 //*****************************************************************************
@@ -185,48 +184,103 @@ void print_pause_screen() {
 
 
 void print_win() {
-	char win[] = "YOU WON!!!";
+	char win[] = "YOU WON";
 	
-	int8_t x = 0; 
-	
+	char dot[] = "--------------";
+
 	lcd_clear_screen(LCD_COLOR_BLACK);
 	
-	for(x = 0; x <= 4; x++){
-			lcd_print_stringXY(win, x, win_screen_y, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
-		if( x <4){ 
-			lcd_print_stringXY(win, x-1, win_screen_y, LCD_COLOR_BLACK, LCD_COLOR_BLACK);
-		}
-	}
+	lcd_print_stringXY(win, win_screen_x, win_screen_y, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
 	
-	for(x = 4; 0 <= x; x--){
-			lcd_print_stringXY(win, x, win_screen_y, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
-		if( x > 2 ){ 
-			lcd_print_stringXY(win, x-1, win_screen_y, LCD_COLOR_BLACK, LCD_COLOR_BLACK);
+	if(Alert_Timer0B) {
+		static int ticks = 0;
+		ticks++;
+		if(ticks == win_screen_time_wait_1 ) {
+				lcd_print_stringXY(dot, 0, win_screen_y -1, LCD_COLOR_RED, LCD_COLOR_BLACK);
+				lcd_print_stringXY(dot, 0, win_screen_y + 1, LCD_COLOR_RED, LCD_COLOR_BLACK);
+				ticks = 0;
 		}
-	}
+		Alert_Timer0B = false;
+}
+
+		Alert_Timer0B = true;
+	
+	 if(Alert_Timer0B) {
+		static int ticks = 0;
+		ticks++;
+		if(ticks == win_screen_time_wait_2 ) { 
+				lcd_print_stringXY(dot, 0, win_screen_y -2, LCD_COLOR_GREEN, LCD_COLOR_BLACK);
+				lcd_print_stringXY(dot, 0, win_screen_y + 2, LCD_COLOR_GREEN, LCD_COLOR_BLACK);
+				ticks = 0;
+		}
+		Alert_Timer0B = false;
+}
+	
+	Alert_Timer0B = true;
+
+	if(Alert_Timer0B) {
+		static int ticks = 0;
+		ticks++;
+		if(ticks == win_screen_time_wait_3 ) { 
+				//lcd_print_stringXY(win, win_screen_x, win_screen_y, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
+				lcd_print_stringXY(dot, 0, win_screen_y -3, LCD_COLOR_YELLOW, LCD_COLOR_BLACK);
+				lcd_print_stringXY(dot, 0, win_screen_y + 3, LCD_COLOR_YELLOW, LCD_COLOR_BLACK);
+				ticks = 0;
+		}
+		Alert_Timer0B = false;
+}
+	
+		
 
 }
 
 void print_lose() {
-	char win[] = "YOU LOST!!";
+	char lost[] = "YOU LOST";
 	
-	int8_t x = 0; 
-	
+	char dot[] = "--------------";
+
 	lcd_clear_screen(LCD_COLOR_BLACK);
 	
-	for(x = 0; x <= 4; x++){
-			lcd_print_stringXY(win, x, win_screen_y, LCD_COLOR_RED, LCD_COLOR_BLACK);
-		if( x <4){ 
-			lcd_print_stringXY(win, x-1, win_screen_y, LCD_COLOR_BLACK, LCD_COLOR_BLACK);
-		}
-	}
+	lcd_print_stringXY(lost, win_screen_x, win_screen_y, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
 	
-	for(x = 4; 0 <= x; x--){
-			lcd_print_stringXY(win, x, win_screen_y, LCD_COLOR_RED, LCD_COLOR_BLACK);
-		if( x > 2 ){ 
-			lcd_print_stringXY(win, x-1, win_screen_y, LCD_COLOR_BLACK, LCD_COLOR_BLACK);
+	if(Alert_Timer0B) {
+		static int ticks = 0;
+		ticks++;
+		if(ticks == win_screen_time_wait_1 ) {
+				lcd_print_stringXY(dot, 0, win_screen_y -1, LCD_COLOR_RED, LCD_COLOR_BLACK);
+				lcd_print_stringXY(dot, 0, win_screen_y + 1, LCD_COLOR_RED, LCD_COLOR_BLACK);
+				ticks = 0;
 		}
-	}
+		Alert_Timer0B = false;
+}
+
+		Alert_Timer0B = true;
+	
+	 if(Alert_Timer0B) {
+		static int ticks = 0;
+		ticks++;
+		if(ticks == win_screen_time_wait_2 ) { 
+				lcd_print_stringXY(dot, 0, win_screen_y -2, LCD_COLOR_GREEN, LCD_COLOR_BLACK);
+				lcd_print_stringXY(dot, 0, win_screen_y + 2, LCD_COLOR_GREEN, LCD_COLOR_BLACK);
+				ticks = 0;
+		}
+		Alert_Timer0B = false;
+}
+	
+	Alert_Timer0B = true;
+
+	if(Alert_Timer0B) {
+		static int ticks = 0;
+		ticks++;
+		if(ticks == win_screen_time_wait_3 ) { 
+				//lcd_print_stringXY(win, win_screen_x, win_screen_y, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
+				lcd_print_stringXY(dot, 0, win_screen_y -3, LCD_COLOR_YELLOW, LCD_COLOR_BLACK);
+				lcd_print_stringXY(dot, 0, win_screen_y + 3, LCD_COLOR_YELLOW, LCD_COLOR_BLACK);
+				ticks = 0;
+		}
+		Alert_Timer0B = false;
+}
+
 }
 
 void print_end_screen() {

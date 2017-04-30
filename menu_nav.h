@@ -73,8 +73,12 @@
 #define back_screen_y 18
 
 // macros for win screen 
-#define win_screen_x  0
+#define win_screen_x  3
 #define win_screen_y 10 
+
+#define win_screen_time_wait_1 2
+#define win_screen_time_wait_2 4
+#define win_screen_time_wait_3 6
 
 typedef enum {
 	NOTHING,
