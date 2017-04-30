@@ -360,7 +360,7 @@ i2c_status_t i2cGetByte(
     return I2C_INVALID_BASE;
   }
   
- myI2C = (I2C0_Type *) baseAddr;
+  myI2C = (I2C0_Type *) baseAddr;
   
   // Start the transaction
   myI2C->MCS = mcs;

@@ -29,6 +29,5 @@ typedef enum {
 	DROP
 } led_blink_rate;
 
-void control_leds(uint8_t data);
 void led_blink(led_blink_rate rate);
 

@@ -22,7 +22,7 @@
 
 #include "main.h"
 
-char group[] = "Group00";
+char group[] = "Group36";
 char individual_1[] = "Shyamal Anadkat";
 char individual_2[] = "Aaron Levin";
 char individual_3[] = "Sneha Patri";
@@ -35,8 +35,10 @@ extern volatile bool Alert_ADC0_Conversion;
 extern volatile bool Alert_PortF;
 
 extern uint16_t score;
+extern uint8_t GAME_MODE;
 
 bool debugFlag = true;
+
 
 //*****************************************************************************
 // DISABLE INTERRUPTS
@@ -63,8 +65,8 @@ void EnableInterrupts(void)
 //*****************************************************************************
 void initialize_hardware(void)
 {
-    //enable interrupts
-    EnableInterrupts();
+    //disable interrupts
+    DisableInterrupts();
 
     //init serial debug for printf
     init_serial_debug(true, true);
@@ -90,8 +92,8 @@ void initialize_hardware(void)
     //eeprom init
     eeprom_init();
 
-    //disable interrupts
-    DisableInterrupts();
+    //enable interrupts
+    EnableInterrupts();
 }
 
 
@@ -100,7 +102,8 @@ void detect_button_press_main_menu() {
 
     switch(selected_item) {
     case PLAY_NOW:
-        game_state = PLAY_NOW;
+        game_state = MODE_SELECTION;
+				print_game_mode_selecion();
         break;
     case HIGH_SCORES:
         game_state = HIGH_SCORE;
@@ -108,6 +111,35 @@ void detect_button_press_main_menu() {
     default:
         break;
     }
+}
+
+void start_adc_on_timerB() {
+		if (Alert_Timer0B) {
+			// Start SS2 conversion
+			ADC0 -> PSSI |= ADC_PSSI_SS2;
+			Alert_Timer0B = false;
+	}
+}
+
+void navigate_main_menu_adc() {
+	uint16_t y_adc_data;
+	if (Alert_ADC0_Conversion) {
+		// Toggle ADC0 Conversion notifier
+		Alert_ADC0_Conversion = false;
+		// Update current y position with current PS2 joystick ADC value
+		y_adc_data = ADC0 -> SSFIFO2 & ADC_SSFIFO2_DATA_M;
+		// y_adc_data = ps2_get_y();
+		navigate_main_menu(y_adc_data);
+	}
+}
+
+void navigate_mode_selection_adc() {
+	uint16_t y_adc_data;
+	if (Alert_ADC0_Conversion) {
+		y_adc_data = ADC0 -> SSFIFO2 & ADC_SSFIFO2_DATA_M;
+		navigate_game_mode(y_adc_data);
+		Alert_ADC0_Conversion = false;
+	}
 }
 
 
@@ -118,13 +150,10 @@ int
 main(void)
 {
     uint8_t button_vals = 0;
-    uint16_t y_adc_data;
     char msg[80];
 
     initialize_hardware();
     init_arrow_queue();
-
-
 
     printf("\n\r");
     printf("**************************************\n\r");
@@ -154,35 +183,26 @@ main(void)
         // END: State Change Logic
         // This part handles the current state
         switch(game_state) {
-
         case MENU:
-            /* get y adc values with AD0 interrupt */
-            // TIMER0B HANDLER
-            if (Alert_Timer0B) {
-                // Start SS2 conversion
-                ADC0 -> PSSI |= ADC_PSSI_SS2;
-                Alert_Timer0B = false;
-            }
-            // ADC COMPUTATION HANDLER (UPDATES PS2 X/Y VALUES)
-            if (Alert_ADC0_Conversion) {
-                // Toggle ADC0 Conversion notifier
-                Alert_ADC0_Conversion = false;
-                // Update current y position with current PS2 joystick ADC value
-                y_adc_data = ADC0 -> SSFIFO2 & ADC_SSFIFO2_DATA_M;
-                // y_adc_data = ps2_get_y();
-                navigate_main_menu(y_adc_data);
-            }
-
+						start_adc_on_timerB();
+						navigate_main_menu_adc();
             if(Alert_PortF) {
                 detect_button_press_main_menu();
                 Alert_PortF = false;
             }
             break;
-
+				case MODE_SELECTION:
+						start_adc_on_timerB();
+						navigate_mode_selection_adc();
+						update_ui_high_scores();
+						if(Alert_PortF) {
+                game_state = PLAY;
+                Alert_PortF = false;
+            }
+					break;
         case PLAY:
             button_vals = buttons_pressed();
             update_ui_play(button_vals);
-
             break;
 				case HIGH_SCORE:
 						update_ui_high_scores();

@@ -1,6 +1,6 @@
 #include "ddr_game.h"
 
-uint16_t score; 
+uint16_t score = 0; 
 uint8_t boos_in_a_row;
 uint8_t misses_in_a_row;
 uint8_t goods_in_a_row;

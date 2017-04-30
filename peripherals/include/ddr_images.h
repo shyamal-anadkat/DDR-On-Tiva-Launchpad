@@ -72,4 +72,11 @@ extern const uint8_t ddrlogoBitmaps[];
 extern const uint8_t ddrlogoWidthPixels;
 extern const uint8_t ddrlogoHeightPixels;
 
+/* Bitmap info for pause */
+extern const uint8_t pauseBitmaps[];
+extern const uint8_t pauseWidthPixels;
+extern const uint8_t pauseHeightPixels;
+
+
+
 #endif

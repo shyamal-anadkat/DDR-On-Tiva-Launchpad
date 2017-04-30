@@ -31,6 +31,8 @@
 #define DIFFICULTY_TIMER_HARD		8
 
 
+
+
 // macros for touch screen for win lose
 
 #define play_again_upper_bound 235
@@ -71,6 +73,8 @@ void print_score(void);
 void update_ui_init_high_score(void);
 void update_ui_init_win(void);
 void update_ui_init_lose(void);
+
+void handle_pause_screen(void);
 
 //*****************************************************************************
 // PROCESS ARROW FUNCTIONALITY

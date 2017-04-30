@@ -10,6 +10,7 @@ extern uint16_t score;
 static bool is_arrow_green = false;
 static arrow_t *last_arrow_hit;
 
+bool isPaused = false; 
 
 //*****************************************************************************
 //
@@ -25,10 +26,10 @@ void update_ui_init_play(void) {
  	uint16_t i = 0;
 	lcd_clear_screen(LCD_COLOR_BLACK);
 	init_play_top_arrows();
-	score = 0; 
-		
-	srand(timer_val); // TODO: This might be bad to call multiple times
 
+	srand(timer_val); // TODO: This might be bad to call multiple times
+	//print pause button at bottom of the screen 
+	lcd_draw_image( 10, pauseWidthPixels, 16, pauseHeightPixels, pauseBitmaps, LCD_COLOR_RED, LCD_COLOR_BLACK );
 }
 
 //*****************************************************************************
@@ -40,27 +41,12 @@ void update_ui_play(button_dir_t button_data) {
 	static button_dir_t button_val = BTN_NONE; 
 	static uint16_t ticks = 0;
 	
-	uint16_t x,y;
-  uint8_t touch_event;
-	
-	/*touch_event = ft6x06_read_td_status();
-		 if(touch_event > 0 && touch_event!=255) {
-				print_pause_screen();
-				x = ft6x06_read_x();
-				y = ft6x06_read_y();
-				if( y <= continue_upper_bound && y >= continue_lower_bound) {
-						//CODE FOR PLAY TO CONTINUE
-				}
-				else if(y <= menu_upper_bound && y >= menu_lower_bound) {
-						game_state = MENU; 
-				}
-		}*/
+	handle_pause_screen();
 	
 	// handle glitchy '2' that appears in button data before correct value appears
 	if(button_data != BTN_NONE && button_data != 2) {
 		button_val = button_data;
 	}
-	
 	
 	if(Alert_Timer0A) {
 		
@@ -112,6 +98,33 @@ void animate_arrows(uint8_t button_val) {
 	}
 }
 
+/* Handle Pause screen - go back to main menu / continue */
+void handle_pause_screen() {
+	 uint16_t x,y;
+   uint8_t touch_event;
+			
+	 x = ft6x06_read_x();
+	 y = ft6x06_read_y();
+	 touch_event = ft6x06_read_td_status();	
+	 if((touch_event > 0 && touch_event!=255) && !isPaused 
+		 && (y > 0 && y <= 60) && (x > 0 && x <= 35)) {
+			isPaused = true; 
+			print_pause_screen();
+		}
+			while(isPaused) {
+				y = ft6x06_read_y();
+				if( y <= continue_upper_bound && y >= continue_lower_bound) {
+					isPaused = false;
+					lcd_clear_screen(LCD_COLOR_BLACK);
+					update_ui_init_play();
+				} else if (y <= menu_upper_bound && y >= menu_lower_bound) {
+					game_state = MENU; 
+					lcd_clear_screen(LCD_COLOR_BLACK);
+					isPaused = false;
+				}
+		}
+}
+
 
 void init_play_top_arrows(void) {
 	print_top_arrow(ARROW_DIR_UP);
@@ -135,7 +148,6 @@ print_type_t process_arrow(arrow_t *arrow, button_dir_t button_val) {
 	difference = (y_pos_trgt_top >= y_pos_top) ? 
 	(y_pos_trgt_top - y_pos_top) : (y_pos_top - y_pos_trgt_top );
 	
-	// printf("difference: %x\n", difference);
 	// correct button, but need to see what region it was in (level of correctness)
 	if (correct_button_pressed(arrow, button_val)) {
 		return determine_button_outcome(difference, y_pos_top);
@@ -209,13 +221,13 @@ queue_node *process_print(print_type_t print_type) {
 			break;
 		case BOO:
 			print_boo_second();
+			//ioexpander_byte_write(IOEXPANDER_I2C_BASE, IO_LED_GPIO_BASE ,0xF2);
 			printf("process_print=boo\n");
 			break;
 		default:
 			printf("process_print=default\n");
 			break;
 	}
-	
 	return queue->head;
 }
 
@@ -231,7 +243,6 @@ void update_ui_init_high_score() {
     uint8_t touch_event;
 
     lcd_clear_screen(LCD_COLOR_BLACK);
-
     print_high_scores();
 }
 
