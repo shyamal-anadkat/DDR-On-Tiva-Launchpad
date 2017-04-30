@@ -22,15 +22,13 @@
 #define WAIT_TIME   500000
 #define ONE_SHOT    TIMER_TAMR_TAMR_1_SHOT
 #define PERIODIC    TIMER_TAMR_TAMR_PERIOD
-#define ARROW_DELAY 10000
+#define DELAY_FLASH 			50
 
 
 // DIFFICULTY MODE - ANIMATION SPEEDS
 #define DIFFICULTY_TIMER_EASY		3
 #define DIFFICULTY_TIMER_MEDIUM	2
 #define DIFFICULTY_TIMER_HARD		8
-
-
 
 
 //*****************************************************************************

@@ -6,12 +6,13 @@ extern bool Alert_Timer0A;
 extern bool Alert_Timer0B;
 extern uint16_t score;
 
+static bool is_arrow_green = false;
+static arrow_t *last_arrow_hit;
+
 
 //*****************************************************************************
-// 
 //
 // PLAY MODE ANIMATIONS
-//
 //
 //*****************************************************************************
 
@@ -36,24 +37,35 @@ void update_ui_init_play(void) {
 void update_ui_play(button_dir_t button_data) {
 	// need button to be stateful so it can be handled when timer goes off
 	static button_dir_t button_val = BTN_NONE; 
+	static uint16_t ticks = 0;
+
 	
 	// handle glitchy '2' that appears in button data before correct value appears
 	if(button_data != BTN_NONE && button_data != 2) {
 		button_val = button_data;
 	}
 	
+	
 	if(Alert_Timer0A) {
+		
 		print_score();
 		animate_arrows(button_val);
 		add_random_arrow();
 		button_val = BTN_NONE; // after processing the button value, reset it to NONE
+		
+		// To handle the green flash on hit 
+		ticks++;
+		if(ticks > DELAY_FLASH) {ticks = 0;}
+		if((ticks == DELAY_FLASH) && (is_arrow_green == true)){
+			print_top_arrow(last_arrow_hit->arrow_type);
+			is_arrow_green = false;
+			ticks = 0;
+		}
 		Alert_Timer0A = false;
 	}
 	
 	//clear miss/hit message on LCD
 	clear_hit_miss_message();
-	
-	
 	//led_blink(FAST);
 }
 
@@ -82,17 +94,6 @@ void animate_arrows(uint8_t button_val) {
 		print_arrow(arrow);
 		curr_node = curr_node->next;
 	}
-}
-
-void arrow_delay(void) {
-		if(Alert_Timer0A) {
-				static int ticks = 0;
-				ticks++;
-				if(ticks == ARROW_DELAY){
-					ticks = 0;
-				}
-				Alert_Timer0A = false; 
-		}
 }
 
 
@@ -172,13 +173,16 @@ queue_node *process_print(print_type_t print_type) {
 	// if NONE don't dequeue
 	switch(print_type) {
 		case NONE:
+			//print_top_arrow_hit(arrow->arrow_type);
 			break;
 		case GOOD:
 			print_hit_second();
 			printf("process_print=good\n");
 			arrow = dequeue(queue)->key;
 			clear_arrow(arrow);
-			print_top_arrow(arrow->arrow_type);
+			print_top_arrow_hit(arrow->arrow_type);
+			is_arrow_green = true; 
+			last_arrow_hit = arrow;
 			break;
 		case MISS:
 			print_miss_second();
