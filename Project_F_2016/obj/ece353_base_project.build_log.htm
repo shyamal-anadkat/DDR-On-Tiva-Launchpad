@@ -26,8 +26,304 @@ Project File Date:  04/29/2017
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 4 (build 422)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
-Build target 'Project'
-".\obj\ece353_base_project.axf" - 0 Error(s), 0 Warning(s).
+Rebuild target 'Project'
+compiling ddr_game.c...
+..\peripherals\include\mcp23017.h(85): warning:  #1295-D: Deprecated declaration ioexpander_init - give arg types
+  
+ool ioexpander_init(); //default : I2C1 BASE
+..\peripherals\include\mcp23017.h(99): warning:  #1295-D: Deprecated declaration buttons_pressed - give arg types
+  uint8_t buttons_pressed();
+..\peripherals\include\mcp23017.h(101): warning:  #1-D: last line of file ends without a newline
+  #endif
+arrow.h(43): warning:  #1-D: last line of file ends without a newline
+  #endif
+arrow_printing.h(39): warning:  #1-D: last line of file ends without a newline
+  #endif
+ddr_animations.h(89): warning:  #1-D: last line of file ends without a newline
+  #endif
+menu_nav.h(88): warning:  #1295-D: Deprecated declaration display_selected_menu_item - give arg types
+  void display_selected_menu_item();
+menu_nav.h(106): warning:  #1-D: last line of file ends without a newline
+  #endif
+io_expander_led.h(11): warning:  #47-D: incompatible redefinition of macro "LED7"  (declared at line 25 of "..\peripherals\include\mcp23017.h")
+  #define LED7 0x80
+io_expander_led.h(12): warning:  #47-D: incompatible redefinition of macro "LED6"  (declared at line 24 of "..\peripherals\include\mcp23017.h")
+  #define LED6 0x40
+io_expander_led.h(13): warning:  #47-D: incompatible redefinition of macro "LED5"  (declared at line 23 of "..\peripherals\include\mcp23017.h")
+  #define LED5 0x20
+io_expander_led.h(14): warning:  #47-D: incompatible redefinition of macro "LED4"  (declared at line 22 of "..\peripherals\include\mcp23017.h")
+  #define LED4 0x10
+io_expander_led.h(15): warning:  #47-D: incompatible redefinition of macro "LED3"  (declared at line 21 of "..\peripherals\include\mcp23017.h")
+  #define LED3 0x08
+io_expander_led.h(16): warning:  #47-D: incompatible redefinition of macro "LED2"  (declared at line 20 of "..\peripherals\include\mcp23017.h")
+  #define LED2 0x04
+io_expander_led.h(17): warning:  #47-D: incompatible redefinition of macro "LED1"  (declared at line 19 of "..\peripherals\include\mcp23017.h")
+  #define LED1 0x02
+io_expander_led.h(18): warning:  #47-D: incompatible redefinition of macro "LED0"  (declared at line 18 of "..\peripherals\include\mcp23017.h")
+  #define LED0 0x01
+arrow_queue.h(37): warning:  #1-D: last line of file ends without a newline
+  #endif
+ddr_game.h(21): warning:  #1-D: last line of file ends without a newline
+  #endif
+ddr_animations.h(89): warning:  #1-D: last line of file ends without a newline
+  #endif
+ddr_game.h(21): warning:  #1-D: last line of file ends without a newline
+  #endif
+ddr_game.c(11): warning:  #177-D: variable "time"  was declared but never referenced
+  	static uint8_t time = 0;
+ddr_game.c(12): warning:  #177-D: variable "arrow_dir"  was declared but never referenced
+  	static uint8_t arrow_dir;
+ddr_game.c(45): warning:  #1-D: last line of file ends without a newline
+  //}
+ddr_game.c: 23 warnings, 0 errors
+compiling main.c...
+..\peripherals\include\mcp23017.h(85): warning:  #1295-D: Deprecated declaration ioexpander_init - give arg types
+  
+ool ioexpander_init(); //default : I2C1 BASE
+..\peripherals\include\mcp23017.h(99): warning:  #1295-D: Deprecated declaration buttons_pressed - give arg types
+  uint8_t buttons_pressed();
+..\peripherals\include\mcp23017.h(101): warning:  #1-D: last line of file ends without a newline
+  #endif
+arrow.h(43): warning:  #1-D: last line of file ends without a newline
+  #endif
+arrow_printing.h(39): warning:  #1-D: last line of file ends without a newline
+  #endif
+ddr_animations.h(89): warning:  #1-D: last line of file ends without a newline
+  #endif
+menu_nav.h(106): warning:  #1-D: last line of file ends without a newline
+  #endif
+io_expander_led.h(11): warning:  #47-D: incompatible redefinition of macro "LED7"  (declared at line 25 of "..\peripherals\include\mcp23017.h")
+  #define LED7 0x80
+io_expander_led.h(12): warning:  #47-D: incompatible redefinition of macro "LED6"  (declared at line 24 of "..\peripherals\include\mcp23017.h")
+  #define LED6 0x40
+io_expander_led.h(13): warning:  #47-D: incompatible redefinition of macro "LED5"  (declared at line 23 of "..\peripherals\include\mcp23017.h")
+  #define LED5 0x20
+io_expander_led.h(14): warning:  #47-D: incompatible redefinition of macro "LED4"  (declared at line 22 of "..\peripherals\include\mcp23017.h")
+  #define LED4 0x10
+io_expander_led.h(15): warning:  #47-D: incompatible redefinition of macro "LED3"  (declared at line 21 of "..\peripherals\include\mcp23017.h")
+  #define LED3 0x08
+io_expander_led.h(16): warning:  #47-D: incompatible redefinition of macro "LED2"  (declared at line 20 of "..\peripherals\include\mcp23017.h")
+  #define LED2 0x04
+io_expander_led.h(17): warning:  #47-D: incompatible redefinition of macro "LED1"  (declared at line 19 of "..\peripherals\include\mcp23017.h")
+  #define LED1 0x02
+io_expander_led.h(18): warning:  #47-D: incompatible redefinition of macro "LED0"  (declared at line 18 of "..\peripherals\include\mcp23017.h")
+  #define LED0 0x01
+arrow_queue.h(37): warning:  #1-D: last line of file ends without a newline
+  #endif
+ddr_game.h(21): warning:  #1-D: last line of file ends without a newline
+  #endif
+ddr_animations.h(89): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\drivers\include\adc.h(68): warning:  #1295-D: Deprecated declaration initialize_adc_hw3 - give arg types
+  
+ool initialize_adc_hw3();
+main.c(103): warning:  #188-D: enumerated type mixed with another type
+          game_state = PLAY_NOW;
+main.c(198): warning:  #1-D: last line of file ends without a newline
+  }
+main.c(122): warning:  #177-D: variable "msg"  was declared but never referenced
+      char msg[80];
+main.c: 23 warnings, 0 errors
+compiling ddr_animations.c...
+..\peripherals\include\mcp23017.h(85): warning:  #1295-D: Deprecated declaration ioexpander_init - give arg types
+  
+ool ioexpander_init(); //default : I2C1 BASE
+..\peripherals\include\mcp23017.h(99): warning:  #1295-D: Deprecated declaration buttons_pressed - give arg types
+  uint8_t buttons_pressed();
+..\peripherals\include\mcp23017.h(101): warning:  #1-D: last line of file ends without a newline
+  #endif
+arrow.h(43): warning:  #1-D: last line of file ends without a newline
+  #endif
+arrow_printing.h(39): warning:  #1-D: last line of file ends without a newline
+  #endif
+ddr_animations.h(89): warning:  #1-D: last line of file ends without a newline
+  #endif
+menu_nav.h(88): warning:  #1295-D: Deprecated declaration display_selected_menu_item - give arg types
+  void display_selected_menu_item();
+menu_nav.h(106): warning:  #1-D: last line of file ends without a newline
+  #endif
+io_expander_led.h(11): warning:  #47-D: incompatible redefinition of macro "LED7"  (declared at line 25 of "..\peripherals\include\mcp23017.h")
+  #define LED7 0x80
+io_expander_led.h(12): warning:  #47-D: incompatible redefinition of macro "LED6"  (declared at line 24 of "..\peripherals\include\mcp23017.h")
+  #define LED6 0x40
+io_expander_led.h(13): warning:  #47-D: incompatible redefinition of macro "LED5"  (declared at line 23 of "..\peripherals\include\mcp23017.h")
+  #define LED5 0x20
+io_expander_led.h(14): warning:  #47-D: incompatible redefinition of macro "LED4"  (declared at line 22 of "..\peripherals\include\mcp23017.h")
+  #define LED4 0x10
+io_expander_led.h(15): warning:  #47-D: incompatible redefinition of macro "LED3"  (declared at line 21 of "..\peripherals\include\mcp23017.h")
+  #define LED3 0x08
+io_expander_led.h(16): warning:  #47-D: incompatible redefinition of macro "LED2"  (declared at line 20 of "..\peripherals\include\mcp23017.h")
+  #define LED2 0x04
+io_expander_led.h(17): warning:  #47-D: incompatible redefinition of macro "LED1"  (declared at line 19 of "..\peripherals\include\mcp23017.h")
+  #define LED1 0x02
+io_expander_led.h(18): warning:  #47-D: incompatible redefinition of macro "LED0"  (declared at line 18 of "..\peripherals\include\mcp23017.h")
+  #define LED0 0x01
+arrow_queue.h(37): warning:  #1-D: last line of file ends without a newline
+  #endif
+ddr_game.h(21): warning:  #1-D: last line of file ends without a newline
+  #endif
+ddr_animations.h(89): warning:  #1-D: last line of file ends without a newline
+  #endif
+ddr_animations.c(25): warning:  #177-D: variable "i"  was declared but never referenced
+   	uint16_t i = 0;
+ddr_animations.c(43): warning:  #177-D: variable "x"  was declared but never referenced
+  	uint16_t x,y;
+ddr_animations.c(43): warning:  #177-D: variable "y"  was declared but never referenced
+  	uint16_t x,y;
+ddr_animations.c(44): warning:  #177-D: variable "touch_event"  was declared but never referenced
+    uint8_t touch_event;
+ddr_animations.c(164): warning:  #940-D: missing return statement at end of non-void function "correct_button_pressed" 
+  }
+ddr_animations.c(230): warning:  #177-D: variable "x"  was declared but never referenced
+      uint16_t x,y;
+ddr_animations.c(230): warning:  #177-D: variable "y"  was declared but never referenced
+      uint16_t x,y;
+ddr_animations.c(231): warning:  #177-D: variable "touch_event"  was declared but never referenced
+      uint8_t touch_event;
+ddr_animations.c(247): warning:  #177-D: variable "x"  was declared but never referenced
+      uint16_t x,y;
+ddr_animations.c(247): warning:  #177-D: variable "y"  was declared but never referenced
+      uint16_t x,y;
+ddr_animations.c(272): warning:  #177-D: variable "x"  was declared but never referenced
+      uint16_t x,y;
+ddr_animations.c(272): warning:  #177-D: variable "y"  was declared but never referenced
+      uint16_t x,y;
+ddr_animations.c: 31 warnings, 0 errors
+compiling ddr_images.c...
+compiling arrow.c...
+arrow.h(43): warning:  #1-D: last line of file ends without a newline
+  #endif
+arrow.c(16): warning:  #188-D: enumerated type mixed with another type
+  			return 4;
+arrow.c(18): warning:  #1-D: last line of file ends without a newline
+  }
+arrow.c: 3 warnings, 0 errors
+compiling menu_nav.c...
+..\peripherals\include\mcp23017.h(85): warning:  #1295-D: Deprecated declaration ioexpander_init - give arg types
+  
+ool ioexpander_init(); //default : I2C1 BASE
+..\peripherals\include\mcp23017.h(99): warning:  #1295-D: Deprecated declaration buttons_pressed - give arg types
+  uint8_t buttons_pressed();
+..\peripherals\include\mcp23017.h(101): warning:  #1-D: last line of file ends without a newline
+  #endif
+arrow.h(43): warning:  #1-D: last line of file ends without a newline
+  #endif
+arrow_printing.h(39): warning:  #1-D: last line of file ends without a newline
+  #endif
+menu_nav.h(106): warning:  #1-D: last line of file ends without a newline
+  #endif
+io_expander_led.h(11): warning:  #47-D: incompatible redefinition of macro "LED7"  (declared at line 25 of "..\peripherals\include\mcp23017.h")
+  #define LED7 0x80
+io_expander_led.h(12): warning:  #47-D: incompatible redefinition of macro "LED6"  (declared at line 24 of "..\peripherals\include\mcp23017.h")
+  #define LED6 0x40
+io_expander_led.h(13): warning:  #47-D: incompatible redefinition of macro "LED5"  (declared at line 23 of "..\peripherals\include\mcp23017.h")
+  #define LED5 0x20
+io_expander_led.h(14): warning:  #47-D: incompatible redefinition of macro "LED4"  (declared at line 22 of "..\peripherals\include\mcp23017.h")
+  #define LED4 0x10
+io_expander_led.h(15): warning:  #47-D: incompatible redefinition of macro "LED3"  (declared at line 21 of "..\peripherals\include\mcp23017.h")
+  #define LED3 0x08
+io_expander_led.h(16): warning:  #47-D: incompatible redefinition of macro "LED2"  (declared at line 20 of "..\peripherals\include\mcp23017.h")
+  #define LED2 0x04
+io_expander_led.h(17): warning:  #47-D: incompatible redefinition of macro "LED1"  (declared at line 19 of "..\peripherals\include\mcp23017.h")
+  #define LED1 0x02
+io_expander_led.h(18): warning:  #47-D: incompatible redefinition of macro "LED0"  (declared at line 18 of "..\peripherals\include\mcp23017.h")
+  #define LED0 0x01
+arrow_queue.h(37): warning:  #1-D: last line of file ends without a newline
+  #endif
+ddr_animations.h(89): warning:  #1-D: last line of file ends without a newline
+  #endif
+ddr_game.h(21): warning:  #1-D: last line of file ends without a newline
+  #endif
+ddr_animations.h(89): warning:  #1-D: last line of file ends without a newline
+  #endif
+menu_nav.h(88): warning:  #1295-D: Deprecated declaration display_selected_menu_item - give arg types
+  void display_selected_menu_item();
+menu_nav.h(106): warning:  #1-D: last line of file ends without a newline
+  #endif
+menu_nav.c(65): warning:  #550-D: variable "x"  was set but never used
+  	uint16_t x,y;
+menu_nav.c(244): warning:  #177-D: variable "touch_event"  was declared but never referenced
+  	uint8_t touch_event;
+menu_nav.c: 22 warnings, 0 errors
+compiling arrow_printing.c...
+arrow.h(43): warning:  #1-D: last line of file ends without a newline
+  #endif
+arrow_printing.h(39): warning:  #1-D: last line of file ends without a newline
+  #endif
+arrow_printing.c(119): warning:  #111-D: statement is unreachable
+  			break;
+arrow_printing.c: 3 warnings, 0 errors
+compiling io_expander_led.c...
+io_expander_led.c(39): warning:  #1-D: last line of file ends without a newline
+  //}
+io_expander_led.c: 1 warning, 0 errors
+compiling pc_buffer.c...
+compiling arrow_queue.c...
+arrow.h(43): warning:  #1-D: last line of file ends without a newline
+  #endif
+arrow_queue.h(37): warning:  #1-D: last line of file ends without a newline
+  #endif
+arrow_queue.c: 2 warnings, 0 errors
+compiling uart.c...
+..\drivers\c\uart.c(184): warning:  #188-D: enumerated type mixed with another type
+         return 0;
+..\drivers\c\uart.c(329): warning:  #940-D: missing return statement at end of non-void function "uart_init" 
+  }
+..\drivers\c\uart.c: 2 warnings, 0 errors
+compiling gpio_port.c...
+..\drivers\c\gpio_port.c(82): warning:  #188-D: enumerated type mixed with another type
+         return 0;
+..\drivers\c\gpio_port.c: 1 warning, 0 errors
+compiling timers.c...
+compiling i2c.c...
+compiling serial_debug.c...
+..\peripherals\c\serial_debug.c(169): warning:  #177-D: variable "uart_base"  was declared but never referenced
+     uint32_t uart_base;
+..\peripherals\c\serial_debug.c(170): warning:  #177-D: variable "tx_buffer"  was declared but never referenced
+     PC_Buffer *tx_buffer;
+..\peripherals\c\serial_debug.c(229): warning:  #177-D: variable "c"  was declared but never referenced
+      char c;
+..\peripherals\c\serial_debug.c(263): warning:  #177-D: variable "uart"  was declared but never referenced
+  		UART0_Type *uart = (UART0_Type *)(UART0_BASE);
+..\peripherals\c\serial_debug.c: 4 warnings, 0 errors
+compiling lcd_images.c...
+compiling launchpad_io.c...
+compiling lcd.c...
+compiling ps2.c...
+..\drivers\include\adc.h(68): warning:  #1295-D: Deprecated declaration initialize_adc_hw3 - give arg types
+  
+ool initialize_adc_hw3();
+..\peripherals\c\ps2.c: 1 warning, 0 errors
+compiling adc.c...
+..\drivers\include\adc.h(68): warning:  #1295-D: Deprecated declaration initialize_adc_hw3 - give arg types
+  
+ool initialize_adc_hw3();
+..\drivers\c\adc.c(197): warning:  #1-D: last line of file ends without a newline
+  }
+..\drivers\c\adc.c: 2 warnings, 0 errors
+compiling mcp23017.c...
+..\peripherals\include\mcp23017.h(85): warning:  #1295-D: Deprecated declaration ioexpander_init - give arg types
+  
+ool ioexpander_init(); //default : I2C1 BASE
+..\peripherals\include\mcp23017.h(99): warning:  #1295-D: Deprecated declaration buttons_pressed - give arg types
+  uint8_t buttons_pressed();
+..\peripherals\include\mcp23017.h(101): warning:  #1-D: last line of file ends without a newline
+  #endif
+mcp23017.c(187): warning:  #940-D: missing return statement at end of non-void function "debounce_expander_fsm" 
+  }
+mcp23017.c(254): warning:  #1-D: last line of file ends without a newline
+  }
+mcp23017.c: 5 warnings, 0 errors
+assembling startup_TM4C123.s...
+compiling eeprom.c...
+..\peripherals\c\eeprom.c(272): warning:  #1-D: last line of file ends without a newline
+  }
+..\peripherals\c\eeprom.c: 1 warning, 0 errors
+compiling ft6x06.c...
+compiling system_TM4C123.c...
+linking...
+Program Size: Code=13340 RO-data=17412 RW-data=116 ZI-data=24604  
+".\obj\ece353_base_project.axf" - 0 Error(s), 123 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -53,10 +349,10 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.0.1
 
    * Component: Keil::Device:Startup:1.0.1
-      Include file:  Device\Include\TM4C123\TM4C123.h
-      Source file:   Device\Source\ARM\startup_TM4C123.s
       Source file:   Device\Source\system_TM4C123.c
-Build Time Elapsed:  00:00:00
+      Source file:   Device\Source\ARM\startup_TM4C123.s
+      Include file:  Device\Include\TM4C123\TM4C123.h
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>
