@@ -39,17 +39,6 @@ void print_arrow(arrow_t *arrow) {
                   LCD_COLOR_BLACK     // Background Color
                 );
 	}
-	
-		// CLEAR GLITCHY BLUE TRAIL : KEEP THE TRAIL ?
-		/*lcd_draw_image(
-                  x_pos,              // X Pos
-                  ARROW_WIDTH,   			// Image Horizontal Width
-                  arrow.y_pos - ARROW_HEIGHT + 1,// Y Pos of bottom of image
-                  ARROW_HEIGHT,  			// Image Vertical Height
-                  0x0, 								// DON'T CARE
-                  LCD_COLOR_BLACK,    // Foreground Color
-                  LCD_COLOR_BLACK     // Background Color
-                ); */
 }
 
 void print_top_arrow(arrow_dir_t arrow_dir) {

@@ -6,6 +6,9 @@ extern bool Alert_Timer0A;
 extern bool Alert_Timer0B;
 extern uint16_t score;
 
+extern uint8_t led_blink_ticks;
+extern led_blink_rate_t blink_rate;
+
 
 //*****************************************************************************
 // 
@@ -36,7 +39,7 @@ void update_ui_init_play(void) {
 void update_ui_play(button_dir_t button_data) {
 	// need button to be stateful so it can be handled when timer goes off
 	static button_dir_t button_val = BTN_NONE; 
-	
+		
 	// handle glitchy '2' that appears in button data before correct value appears
 	if(button_data != BTN_NONE && button_data != 2) {
 		button_val = button_data;
@@ -52,9 +55,7 @@ void update_ui_play(button_dir_t button_data) {
 	
 	//clear miss/hit message on LCD
 	clear_hit_miss_message();
-	
-	
-	//led_blink(FAST);
+	io_expander_blink_state(blink_rate);
 }
 
 
@@ -72,7 +73,7 @@ void animate_arrows(uint8_t button_val) {
 	
 	// process print returns new head node, function itself handles outcome of button press
 	curr_node = process_print(print_type);
-	// change_LED_expander_state(print_type);
+	change_LED_expander_state(print_type);
 	
 	
 	// MOVE THE REST OF THE ARROWS UP

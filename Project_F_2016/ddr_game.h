@@ -12,8 +12,8 @@
 
 void change_LED_expander_state(print_type_t);
 void add_random_arrow(void);
-
-
+void handle_good(void);
+void handle_boo_miss(void);
 
 
 

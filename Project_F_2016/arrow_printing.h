@@ -23,7 +23,7 @@ void clear_arrow(arrow_t *arrow);
 void print_top_arrow(arrow_dir_t arrow_dir);
 
 typedef enum {
-	NONE, GOOD, BAD, MISS, BOO
+	NONE, GOOD, MISS, BOO
 } print_type_t;
 
 void clear_hit_miss_message(void);

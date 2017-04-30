@@ -60,13 +60,13 @@ i2c_status_t ioexpander_byte_write( uint32_t  i2c_base,
   //==============================================================
   // Send the Lower byte of the address
   //==============================================================
-	status = i2cSendByte(i2c_base, (uint8_t)addr, I2C_MCS_START | I2C_MCS_RUN);
+	status = i2cSendByte(i2c_base, (uint8_t)addr, I2C_MCS_START | I2C_MCS_DATACK |	I2C_MCS_RUN);
 	if ( status != I2C_OK ){return status;}
 	
   //==============================================================
   // Send the Byte of data to write
   //==============================================================
-	status = i2cSendByte(i2c_base, data, I2C_MCS_RUN | I2C_MCS_STOP);
+	status = i2cSendByte(i2c_base, data, I2C_MCS_RUN | I2C_MCS_DATACK | I2C_MCS_STOP);
 	if ( status != I2C_OK ){return status;}
 	
   return status;
@@ -129,6 +129,7 @@ uint8_t get_button_data() {
 	i2cSendByte(I2C1_BASE, IO_BUTTON_GPIO_BASE, I2C_MCS_START | I2C_MCS_RUN);
 	i2cSetSlaveAddr(I2C1_BASE, MCP23017_DEV_ID, I2C_READ);
 	i2cGetByte(I2C1_BASE, &data, I2C_MCS_START | I2C_MCS_RUN | I2C_MCS_DATACK | I2C_MCS_STOP);
+	
 	return data;
 }
 

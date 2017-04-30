@@ -287,7 +287,7 @@ i2c_status_t i2cSendByte(
   myI2C = (I2C0_Type *) baseAddr;
   
    // Write the upper address to the data register
-  myI2C->MDR   = byte;
+  myI2C->MDR = byte;
   
   // Start the transaction
   myI2C->MCS = mcs;
