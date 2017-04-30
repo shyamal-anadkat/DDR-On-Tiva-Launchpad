@@ -27,6 +27,24 @@
 #define DIFFICULTY_TIMER_MEDIUM	2
 #define DIFFICULTY_TIMER_HARD		8
 
+// macros for touch screen for win lose
+
+#define play_again_upper_bound 235
+#define play_again_lower_bound 208
+
+#define high_scores_upper_bound 150
+#define high_scores_lower_bound 128
+
+// macros for high score
+#define back_upper_bound 286
+#define back_lower_bound 269
+
+// macros for pause
+#define continue_upper_bound 235
+#define continue_lower_bound 208
+
+#define menu_upper_bound 160
+#define menu_lower_bound 128
 
 //*****************************************************************************
 // ARROW QUEUE
@@ -69,6 +87,9 @@ void init_play_top_arrows(void);
 void update_ui_play(uint8_t button_data);
 
 void update_ui_init_high_score(void);
+void update_ui_init_win(void);
+void update_ui_init_lose(void);
+
 
 void arrow_delay(void);
 void print_score(void);

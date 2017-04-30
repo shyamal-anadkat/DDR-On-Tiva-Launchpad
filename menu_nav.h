@@ -70,7 +70,7 @@
 #define mode_screen_y 11
 
 #define back_screen_x 5
-#define back_screen_y 1
+#define back_screen_y 18
 
 // macros for win screen 
 #define win_screen_x  0
@@ -105,5 +105,6 @@ void print_pause_screen(void);
 void print_end_screen(void);
 
 void print_high_scores(void);
-
+void print_lose(void);
+void print_win(void);
 #endif
