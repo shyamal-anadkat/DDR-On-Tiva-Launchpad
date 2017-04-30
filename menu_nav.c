@@ -26,10 +26,10 @@ void update_ui_init_new_state(game_state_fsm new_state) {
  			update_ui_init_play();
  			break;
  		case WIN:
- 			//update_ui_init_win();
+ 			update_ui_init_win();
  			break;
  		case LOSE:
- 			//update_ui_init_lose();
+ 			update_ui_init_lose();
  			break;
 		case HIGH_SCORE:
 			update_ui_init_high_score();
@@ -120,7 +120,7 @@ void print_high_scores() {
 	lcd_print_stringXY(mode, mode_screen_x,mode_screen_y, LCD_COLOR_RED, LCD_COLOR_BLACK);
 	lcd_print_stringXY(back,back_screen_x, back_screen_y, LCD_COLOR_YELLOW,LCD_COLOR_BLACK);
 	
-	lcd_print_stringXY(dot, draw_line_x, (back_screen_y + 1), LCD_COLOR_BLUE, LCD_COLOR_BLACK);
+	lcd_print_stringXY(dot, draw_line_x, (back_screen_y - 1), LCD_COLOR_BLUE, LCD_COLOR_BLACK);
 }
 
 void print_hit() {
@@ -189,29 +189,43 @@ void print_win() {
 	
 	int8_t x = 0; 
 	
-	while(x <17 && x >0) {
-	
 	lcd_clear_screen(LCD_COLOR_BLACK);
 	
-	lcd_print_stringXY(win, x, win_screen_y, LCD_COLOR_BLUE, LCD_COLOR_BLUE);
-		
-	x++; 
-}
+	for(x = 0; x <= 4; x++){
+			lcd_print_stringXY(win, x, win_screen_y, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
+		if( x <4){ 
+			lcd_print_stringXY(win, x-1, win_screen_y, LCD_COLOR_BLACK, LCD_COLOR_BLACK);
+		}
+	}
+	
+	for(x = 4; 0 <= x; x--){
+			lcd_print_stringXY(win, x, win_screen_y, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
+		if( x > 2 ){ 
+			lcd_print_stringXY(win, x-1, win_screen_y, LCD_COLOR_BLACK, LCD_COLOR_BLACK);
+		}
+	}
 
 }
 
 void print_lose() {
-	char lost[] = "YOU LOST :/";
+	char win[] = "YOU LOST!!";
 	
 	int8_t x = 0; 
 	
-	while(x <17 && x >0) {
+	lcd_clear_screen(LCD_COLOR_BLACK);
 	
-		lcd_clear_screen(LCD_COLOR_BLACK);
+	for(x = 0; x <= 4; x++){
+			lcd_print_stringXY(win, x, win_screen_y, LCD_COLOR_RED, LCD_COLOR_BLACK);
+		if( x <4){ 
+			lcd_print_stringXY(win, x-1, win_screen_y, LCD_COLOR_BLACK, LCD_COLOR_BLACK);
+		}
+	}
 	
-		lcd_print_stringXY(lost, x, win_screen_y, LCD_COLOR_BLUE, LCD_COLOR_BLUE);
-		
-		x++; 
+	for(x = 4; 0 <= x; x--){
+			lcd_print_stringXY(win, x, win_screen_y, LCD_COLOR_RED, LCD_COLOR_BLACK);
+		if( x > 2 ){ 
+			lcd_print_stringXY(win, x-1, win_screen_y, LCD_COLOR_BLACK, LCD_COLOR_BLACK);
+		}
 	}
 }
 
