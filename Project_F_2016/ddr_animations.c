@@ -30,6 +30,7 @@ void update_ui_init_play(void) {
  	uint16_t i = 0;
 	lcd_clear_screen(LCD_COLOR_BLACK);
 	init_play_top_arrows();
+	printf("GAME MODE: %d\n", GAME_MODE);
 
 	srand(timer_val); // TODO: This might be bad to call multiple times
 	//print pause button at bottom of the screen 
@@ -79,7 +80,10 @@ void update_ui_play(button_dir_t button_data) {
 
 
 void handle_game_end() {
-			if((numArrows > (GAME_MODE * 10)) || (LED_LEVELS < 1)) {
+			uint8_t max_arrows = (GAME_MODE == DIFFICULTY_MODE_EASY) ? 
+			MAX_ARROWS_EASY : (GAME_MODE == DIFFICULTY_MODE_MEDIUM) ? MAX_ARROWS_MEDIUM : MAX_ARROWS_HARD;
+		
+			if((numArrows > max_arrows) || (LED_LEVELS < 1)) {
 			if (score > 0) { 
 				game_state = WIN; 
 			} else {
@@ -108,7 +112,6 @@ void animate_arrows(uint8_t button_val) {
 	// process print returns new head node, function itself handles outcome of button press
 	curr_node = process_print(print_type);
 	// change_LED_expander_state(print_type);
-	
 	
 	// MOVE THE REST OF THE ARROWS UP
 	while(curr_node != NULL_VALUE) {

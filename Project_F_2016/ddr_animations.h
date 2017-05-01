@@ -42,8 +42,8 @@
 #define DIFFICULTY_MODE_HARD 		1
 
 #define MAX_ARROWS_EASY   10
-#define MAX_ARROWS_MEDIUM 30
-#define MAX_ARROWS_HARD   40
+#define MAX_ARROWS_MEDIUM 20
+#define MAX_ARROWS_HARD   25
 
 
 // macros for touch screen for win lose

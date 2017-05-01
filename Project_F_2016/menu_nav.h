@@ -11,7 +11,6 @@
 #define x_right_threshold (0xFFF / 4)
 #define y_down_threshold  (0xFFF / 4)
 
-
 // offset macro
 #define offset 1
 
