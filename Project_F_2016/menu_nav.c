@@ -46,19 +46,12 @@ void update_ui_init_main_menu() {
 
 	char msg1[] = "PLAY NOW";
 	char msg2[] = "HIGH SCORES";
-	char msg3[] = "EASY";
-	char msg4[] = "OK";
-	char msg5[] = "HARD";
 	
   lcd_clear_screen(LCD_COLOR_BLACK);
 	
 	lcd_print_stringXY(msg1,menu_play_now_x,menu_play_now_y, LCD_COLOR_GREEN,LCD_COLOR_BLACK);
   lcd_print_stringXY(msg2,menu_high_scores_x,menu_high_scores_y, LCD_COLOR_YELLOW,LCD_COLOR_BLACK);
-	
-	//lcd_print_stringXY(msg3,1, 0, LCD_COLOR_BLACK,LCD_COLOR_GREEN);
-	//lcd_print_stringXY(msg4,6, 0, LCD_COLOR_BLACK,LCD_COLOR_ORANGE);
-	//lcd_print_stringXY(msg5,9, 0, LCD_COLOR_BLACK,LCD_COLOR_RED);
-	
+		
 	// DRAW DOPE DDR LOGO/IMAGE
 	lcd_draw_image(
                   37,            		  // X Pos
