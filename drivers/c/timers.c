@@ -240,7 +240,7 @@ void timer_config_hw3(void)
 	
 	// Set TIMER0A and TIMER0B prescalars
 	// timer_t->TAPR = TIMER0A_PRESCALAR;
-	//timer_t->TBPR = TIMER0B_PRESCALAR;
+	// timer_t->TBPR = TIMER0B_PRESCALAR;
 	
 	// Set NVIC interrupts for TIMER0A and TIMER0B
 	timer_nvic_config_hw3();

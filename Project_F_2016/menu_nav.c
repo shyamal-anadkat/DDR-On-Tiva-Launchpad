@@ -347,8 +347,6 @@ void print_lose() {
 }
 
 
-
-
 void print_end_screen() {
 	
 	char dot[] = "--------------";

@@ -26,17 +26,6 @@ char group[] = "Group36";
 char individual_1[] = "Shyamal Anadkat";
 char individual_2[] = "Aaron Levin";
 char individual_3[] = "Sneha Patri";
-
-extern game_state_fsm game_state;
-extern SELECTED_ITEM selected_item;
-
-extern volatile bool Alert_Timer0B;
-extern volatile bool Alert_ADC0_Conversion;
-extern volatile bool Alert_PortF;
-
-extern uint16_t score;
-extern uint8_t GAME_MODE;
-
 bool debugFlag = true;
 
 
@@ -49,7 +38,6 @@ void DisableInterrupts(void)
         CPSID  I
     }
 }
-
 //*****************************************************************************\
 // ENABLE INTERRUPTS
 //*****************************************************************************
@@ -59,7 +47,6 @@ void EnableInterrupts(void)
         CPSIE  I
     }
 }
-
 //*****************************************************************************
 // INIT HARDWARE AND PERIPHERALS
 //*****************************************************************************
@@ -99,7 +86,6 @@ void initialize_hardware(void)
 
 void detect_button_press_main_menu() {
     //navigate menu.todo: make stateful
-
     switch(selected_item) {
     case PLAY_NOW:
         game_state = MODE_SELECTION;
@@ -164,15 +150,15 @@ main(void)
     update_ui_init_main_menu();
 
     ioexpander_init();
-	
-		//write_high_score(501);
-		//read_high_score();
-		//write_game_mode(3);
-		//read_game_mode();
+		
+		//fix to first time garbage eeprom value
+		if(read_high_score() > 250) {
+			write_high_score(0);
+		}
 		
     while(1) {
 
-        // START: State Change Logic
+        //************START: State Change Logic**********************
         static game_state_fsm last_state = MENU;
 
         // If a state transition has occurred... initialize new state
@@ -180,7 +166,9 @@ main(void)
             last_state = game_state; // update last state to current state
             update_ui_init_new_state(game_state); // initialize the new state
         }
-        // END: State Change Logic
+        //************END: State Change Logic**********************
+				
+				
         // This part handles the current state
         switch(game_state) {
         case MENU:
