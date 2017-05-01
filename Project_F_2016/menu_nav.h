@@ -75,7 +75,10 @@
 #define MNAV_BACK_RGN_X					MNAV_STR_BACK_X
 #define MNAV_BACK_RGN_LOW_Y			MNAV_STR_BACK_Y - 1
 #define MNAV_BACK_RGN_HIGH_Y		MNAV_STR_BACK_Y + 1
-
+#define MNAV_RESET_TOUCH_LOW_Y  63
+#define MNAV_RESET_TOUCH_HIGH_Y 99
+#define MNAV_RESET_TOUCH_LOW_X  38
+#define MNAV_RESET_TOUCH_HIGH_X 180
 
 // macros for win screen 
 #define your_score_x  0

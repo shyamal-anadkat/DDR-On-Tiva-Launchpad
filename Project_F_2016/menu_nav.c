@@ -77,17 +77,21 @@ void update_ui_high_scores(void) {
 	} else {
 		x = y = 256;
 	}
+	//handle the back button 
 	if(y <= back_upper_bound) {
 		//CODE TO DISPLAY MAIN MENU
 		game_state = MENU;
 	}
 	
+	
+	printf("x: %d | y %d\n", x, y);
 	// TODO FOR SNEHA: Fix 
-	if(y >= MNAV_BACK_RGN_LOW_Y && y <= MNAV_BACK_RGN_HIGH_Y) {
+	if(y >= MNAV_RESET_TOUCH_LOW_Y && y <= MNAV_RESET_TOUCH_HIGH_Y && 
+		(x >= MNAV_RESET_TOUCH_LOW_X && x <= MNAV_RESET_TOUCH_HIGH_X)) {
 		write_high_score(0);
 		write_game_mode(0);
 		y = 255;
-		update_ui_high_scores();
+		update_ui_init_high_score();
 	}
 	
 }
@@ -297,9 +301,9 @@ void win_screen() {
 		// NO NEW HIGH SCORE 
 		
 		lcd_print_stringXY(high_score, high_score_x, high_score_y, LCD_COLOR_RED, LCD_COLOR_BLACK);
-		lcd_print_stringXY(player_score_arr, h_score_x + 11, h_score_y, LCD_COLOR_ORANGE, LCD_COLOR_BLACK);
+		lcd_print_stringXY(player_score_arr, h_score_x + 11, h_score_y, LCD_COLOR_CYAN, LCD_COLOR_BLACK);
 		} else {
-		lcd_print_stringXY(high_score_arr, high_score_x + 11, high_score_y, LCD_COLOR_ORANGE, LCD_COLOR_BLACK);
+		lcd_print_stringXY(high_score_arr, high_score_x + 11, high_score_y+2, LCD_COLOR_GREEN, LCD_COLOR_BLACK);
 		lcd_print_stringXY(new_score, new_score_x, new_score_y, LCD_COLOR_RED, LCD_COLOR_BLACK);	
 		lcd_print_stringXY(h_score, h_score_x, h_score_y, LCD_COLOR_RED, LCD_COLOR_BLACK);
 		}
