@@ -1,7 +1,6 @@
 #include "arrow_queue.h"
 
 queue_t *queue;
-extern uint8_t numArrows;
 
 
 //*****************************************************************************
@@ -44,7 +43,6 @@ queue_node *dequeue(queue_t *queue) {
 	queue->head = queue->head->next;
 	
 	if(queue->head == NULL_VALUE) queue->tail = NULL_VALUE;
-	
 	return temp;
 }
 
@@ -59,7 +57,6 @@ void add_arrow(arrow_dir_t dir) {
 	arrow->color = LCD_COLOR_BLUE;
 	
 	enqueue(queue, arrow);
-	numArrows ++; 
 }
 
 // Empties the arrow queue

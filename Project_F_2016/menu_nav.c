@@ -10,6 +10,7 @@ SELECTED_ITEM selected_item = PLAY_NOW;
 extern uint16_t score;
 extern bool Alert_Timer0B;
 bool backSelected;
+extern uint8_t max_arrows;
 
 //*****************************************************************************
 // FUNCTIONS
@@ -22,6 +23,7 @@ void update_ui_init_new_state(game_state_fsm new_state) {
  			update_ui_init_main_menu();
  			break;
 		case MODE_SELECTION:
+			update_ui_init_mode_selecion();
 			break;
  		case PLAY:
 			selected_item = NOTHING;
@@ -79,6 +81,15 @@ void update_ui_high_scores(void) {
 		//CODE TO DISPLAY MAIN MENU
 		game_state = MENU;
 	}
+	
+	// TODO FOR SNEHA: Fix 
+	if(y >= MNAV_BACK_RGN_LOW_Y && y <= MNAV_BACK_RGN_HIGH_Y) {
+		write_high_score(0);
+		write_game_mode(0);
+		y = 255;
+		update_ui_high_scores();
+	}
+	
 }
 
 void display_selected_menu_item() {
@@ -170,9 +181,9 @@ void print_high_scores() {
 	// character arrays for the text
 	char hs[] = "HIGH SCORE";
 	char gm[]   = "GAME MODE";
-	char easy[] = "EASY :)";
-	char medium[] = "MEDIUM :)";
-	char hard[] = "CHALLENGE ;)";
+	char easy[] = "EASY :P";
+	char medium[] = "MEDIUM :D";
+	char hard[] = "CHALLENGE :O";
 	char stars[] = "**************";
 	
 	char back[] = "BACK"; 
@@ -195,6 +206,7 @@ void print_high_scores() {
 	lcd_print_stringXY(gm, 2, 7, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
 	lcd_print_stringXY(stars, 0, 8, LCD_COLOR_ORANGE, LCD_COLOR_BLACK);
 	
+	print_reset_button();
 	
 	switch(read_game_mode()) {
 		case 1:
@@ -211,17 +223,6 @@ void print_high_scores() {
 	
 	lcd_print_stringXY(back,back_screen_x, back_screen_y, LCD_COLOR_YELLOW,LCD_COLOR_BLACK);
 	lcd_print_stringXY(dot, draw_line_x, (back_screen_y - 1), LCD_COLOR_BLUE, LCD_COLOR_BLACK);
-	
-
-	/*lcd_draw_image(
-                  50,            		  								// X Pos
-                  girlWidthPixels, // Image Horizontal Width
-                  6,       				  								 // Y Pos
-                  girlHeightPixels,// Image Vertical Height
-                  girlBitmaps, 		// Image
-                  LCD_COLOR_MAGENTA,      // Foreground Color
-                  LCD_COLOR_BLACK     // Background Color
-                ); */
 }
 
 void print_pause_screen() {
@@ -369,7 +370,7 @@ void print_end_screen() {
 	lcd_print_stringXY(dot, draw_line_x, (end_screen_high_y + offset), LCD_COLOR_BLUE, LCD_COLOR_BLACK);
 }
 
-void print_game_mode_selecion() {
+void update_ui_init_mode_selecion() {
 	
 	char dot[] = "--------------";
 	char hashes[] = "##############";
@@ -380,6 +381,10 @@ void print_game_mode_selecion() {
 	char back[]  = "BACK"; 
 	
 	char star[] = "@";
+	
+	max_arrows = (GAME_MODE == DIFFICULTY_MODE_EASY) ? 
+			MAX_ARROWS_EASY : (GAME_MODE == DIFFICULTY_MODE_MEDIUM) ? MAX_ARROWS_MEDIUM : MAX_ARROWS_HARD;
+
 	
 	// clear screen 
 	lcd_clear_screen(LCD_COLOR_BLACK);
@@ -409,4 +414,14 @@ void pause_screen() {
   printf("Touch Events :\tX: %d\t||\tY: %d \n\r", x, y);
 	print_pause_screen();
 				
+}
+
+void print_reset_button() {
+	char str_reset[] = "| RESET |";
+	char dot[] = "---------";
+
+	lcd_print_stringXY(str_reset,MNAV_STR_BACK_X, MNAV_STR_BACK_Y, MNAV_STR_BACK_COLOR,LCD_COLOR_BLACK);
+	lcd_print_stringXY(dot, MNAV_BACK_RGN_X, MNAV_BACK_RGN_LOW_Y, LCD_COLOR_RED, LCD_COLOR_BLACK);
+	lcd_print_stringXY(dot, MNAV_BACK_RGN_X, MNAV_BACK_RGN_HIGH_Y, LCD_COLOR_RED, LCD_COLOR_BLACK);
+
 }

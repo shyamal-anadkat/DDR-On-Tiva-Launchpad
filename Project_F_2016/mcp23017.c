@@ -125,10 +125,7 @@ uint8_t get_button_data() {
 	while(I2CMasterBusy(I2C1_BASE));
 
 	//GPIOB read
-	i2cSetSlaveAddr(I2C1_BASE, MCP23017_DEV_ID, I2C_WRITE);
-	i2cSendByte(I2C1_BASE, IO_BUTTON_GPIO_BASE, I2C_MCS_START | I2C_MCS_RUN);
-	i2cSetSlaveAddr(I2C1_BASE, MCP23017_DEV_ID, I2C_READ);
-	i2cGetByte(I2C1_BASE, &data, I2C_MCS_START | I2C_MCS_RUN | I2C_MCS_DATACK | I2C_MCS_STOP);
+	ioexpander_byte_read(  I2C1_BASE, IO_BUTTON_GPIO_BASE, &data);
 	return data;
 }
 

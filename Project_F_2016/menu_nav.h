@@ -69,6 +69,14 @@
 #define back_screen_x 5
 #define back_screen_y 18
 
+#define MNAV_STR_BACK_X					3
+#define MNAV_STR_BACK_Y					14
+#define MNAV_STR_BACK_COLOR			LCD_COLOR_RED
+#define MNAV_BACK_RGN_X					MNAV_STR_BACK_X
+#define MNAV_BACK_RGN_LOW_Y			MNAV_STR_BACK_Y - 1
+#define MNAV_BACK_RGN_HIGH_Y		MNAV_STR_BACK_Y + 1
+
+
 // macros for win screen 
 #define your_score_x  0
 #define your_score_y 13
@@ -109,7 +117,8 @@ void print_high_scores(void);
 void lose_screen(void);
 void win_screen (void);
 
-void print_game_mode_selecion(void);
+void update_ui_init_mode_selecion(void);
 void navigate_game_mode(uint16_t y_adc_data);
+void print_reset_button(void);
 
 #endif

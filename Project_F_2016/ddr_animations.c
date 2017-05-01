@@ -8,11 +8,15 @@ extern game_state_fsm game_state;
 extern uint8_t GAME_MODE;
 extern uint16_t score;
 
-uint8_t numArrows = 0;
-uint8_t LED_LEVELS = 5; 
+uint8_t dequeued_arrows = 0;
+uint8_t enqueued_arrows = 0;
 
 static bool is_arrow_green = false;
 static arrow_t *last_arrow_hit;
+extern led_blink_rate_t blink_rate;
+uint8_t max_arrows;
+
+extern uint8_t active_led_num;
 
 bool isPaused = false; 
 
@@ -31,7 +35,8 @@ void update_ui_init_play(void) {
 	lcd_clear_screen(LCD_COLOR_BLACK);
 	init_play_top_arrows();
 	printf("GAME MODE: %d\n", GAME_MODE);
-	numArrows = 0;
+	enqueued_arrows = 0;
+	dequeued_arrows = 0;
   score = 0; 	
 
 	srand(timer_val); // TODO: This might be bad to call multiple times
@@ -53,42 +58,39 @@ void update_ui_play(button_dir_t button_data) {
 	static uint16_t ticks = 0;
 	static uint16_t mode_level_ticks = 0; 
 	
+		// To handle the green flash on hit 
+	ticks++;
+	if(ticks > DELAY_FLASH) {ticks = 0;}
+	if((ticks == DELAY_FLASH) && (is_arrow_green == true)){
+		print_top_arrow(last_arrow_hit->arrow_type);
+		is_arrow_green = false;
+		ticks = 0;
+	}
+	
 	
 	// handle glitchy '2' that appears in button data before correct value appears
 	if(button_data != BTN_NONE && button_data != 2) {
 		button_val = button_data;
 	}
 	
-		print_score();
-	  handle_game_end();
+	print_score();
+	handle_game_end();
 			
-		animate_arrows(button_val);
-		add_random_arrow();
-		button_val = BTN_NONE; // after processing the button value, reset it to NONE
-		mode_level_ticks = 0; 
+	animate_arrows(button_val);
+	add_random_arrow();
+	button_val = BTN_NONE; // after processing the button value, reset it to NONE
+	mode_level_ticks = 0; 
 
-	
-		// To handle the green flash on hit 
-		ticks++;
-		if(ticks > DELAY_FLASH) {ticks = 0;}
-		if((ticks == DELAY_FLASH) && (is_arrow_green == true)){
-			print_top_arrow(last_arrow_hit->arrow_type);
-			is_arrow_green = false;
-			ticks = 0;
-		}
-	
 	//clear miss/hit message on LCD
 	clear_hit_miss_message();
-	//led_blink(FAST);
+	io_expander_blink_state(blink_rate);
 	handle_pause_screen();
 }
 
 
 void handle_game_end() {
-			uint8_t max_arrows = (GAME_MODE == DIFFICULTY_MODE_EASY) ? 
-			MAX_ARROWS_EASY : (GAME_MODE == DIFFICULTY_MODE_MEDIUM) ? MAX_ARROWS_MEDIUM : MAX_ARROWS_HARD;
 		
-			if((numArrows > max_arrows) || (LED_LEVELS < 1)) {
+	if((dequeued_arrows > max_arrows) || (active_led_num == 0)) {
 			if (score > (read_high_score())) { 
 				game_state = WIN; 
 			} else {
@@ -117,7 +119,7 @@ void animate_arrows(uint8_t button_val) {
 	
 	// process print returns new head node, function itself handles outcome of button press
 	curr_node = process_print(print_type);
-	// change_LED_expander_state(print_type);
+	change_LED_expander_state(print_type);
 	
 	// MOVE THE REST OF THE ARROWS UP
 	while(curr_node != NULL_VALUE) {
@@ -146,7 +148,6 @@ void handle_pause_screen() {
 				if( y <= continue_upper_bound && y >= continue_lower_bound) {
 					isPaused = false;
 					lcd_clear_screen(LCD_COLOR_BLACK);
-					//update_ui_init_play();
 					init_play_top_arrows(); // only need reinit these because moving arrows are still in queue
 					print_pause_button();
 				} else if (y <= menu_upper_bound && y >= menu_lower_bound) {
@@ -247,8 +248,6 @@ queue_node *process_print(print_type_t print_type) {
 			break;
 		case MISS:
 			print_miss_second();
-			LED_LEVELS --; 
-			//ioexpander_byte_write(IOEXPANDER_I2C_BASE, IO_LED_GPIO_BASE , 0xF0);
 			printf("process_print=miss\n");
 			arrow = dequeue(queue)->key;
 			clear_arrow(arrow);
@@ -262,6 +261,10 @@ queue_node *process_print(print_type_t print_type) {
 			printf("process_print=default\n");
 			break;
 	}
+	
+	// If print condition was one that dequeues arrows, increment completed arrows tally
+	if(print_type == GOOD || print_type == MISS || print_type == BOO) dequeued_arrows++; 
+	
 	return queue->head;
 }
 
