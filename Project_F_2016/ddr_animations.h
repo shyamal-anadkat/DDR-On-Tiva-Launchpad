@@ -17,6 +17,7 @@
 #include "io_expander_led.h"
 #include "arrow_queue.h"
 #include "ddr_game.h"
+#include "eeprom.h"
 
 #define SEC_ONE     50000000
 #define WAIT_TIME   500000
@@ -24,13 +25,25 @@
 #define PERIODIC    TIMER_TAMR_TAMR_PERIOD
 #define DELAY_FLASH 			50
 
+#define LED_LEVEL_8 0xFF
+#define LED_LEVEL_7 0x7F
+#define LED_LEVEL_6 0x3F
+#define LED_LEVEL_5 0x1F
+#define LED_LEVEL_4 0x0F
+#define LED_LEVEL_3 0x07
+#define LED_LEVEL_2 0x03
+#define LED_LEVEL_1 0x01
+#define LED_LEVEL_0 0x00
+
 
 // DIFFICULTY MODE - ANIMATION SPEEDS
-#define DIFFICULTY_TIMER_EASY		3
-#define DIFFICULTY_TIMER_MEDIUM	2
-#define DIFFICULTY_TIMER_HARD		8
+#define DIFFICULTY_MODE_EASY 		3
+#define DIFFICULTY_MODE_MEDIUM 	2
+#define DIFFICULTY_MODE_HARD 		1
 
-
+#define MAX_ARROWS_EASY   10
+#define MAX_ARROWS_MEDIUM 30
+#define MAX_ARROWS_HARD   40
 
 
 // macros for touch screen for win lose
@@ -75,6 +88,9 @@ void update_ui_init_win(void);
 void update_ui_init_lose(void);
 
 void handle_pause_screen(void);
+void handle_game_end(void);
+
+uint8_t led_level(uint8_t level);
 
 //*****************************************************************************
 // PROCESS ARROW FUNCTIONALITY

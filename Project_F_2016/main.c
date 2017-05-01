@@ -200,18 +200,22 @@ main(void)
                 Alert_PortF = false;
             }
 					break;
-        case PLAY:
+        
+				case PLAY:
             button_vals = buttons_pressed();
             update_ui_play(button_vals);
             break;
+				
 				case HIGH_SCORE:
 						update_ui_high_scores();
 						break;
 
         case WIN:
+						update_ui_init_win();
             break;
 
         case LOSE:
+						update_ui_init_lose();
             break;
         }
     }
