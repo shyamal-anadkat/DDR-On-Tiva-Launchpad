@@ -89,7 +89,6 @@ void detect_button_press_main_menu() {
     switch(selected_item) {
     case PLAY_NOW:
         game_state = MODE_SELECTION;
-				print_game_mode_selecion();
         break;
     case HIGH_SCORES:
         game_state = HIGH_SCORE;
@@ -152,7 +151,7 @@ main(void)
     ioexpander_init();
 		
 		//fix to first time garbage eeprom value
-		if(read_high_score() > 250) {
+		if(read_high_score() > MAX_SCORE_POSSIBLE) {
 			write_high_score(0);
 		}
 		

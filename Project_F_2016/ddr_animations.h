@@ -23,7 +23,7 @@
 #define WAIT_TIME   500000
 #define ONE_SHOT    TIMER_TAMR_TAMR_1_SHOT
 #define PERIODIC    TIMER_TAMR_TAMR_PERIOD
-#define DELAY_FLASH 			50
+#define DELAY_FLASH 			40
 
 #define LED_LEVEL_8 0xFF
 #define LED_LEVEL_7 0x7F
@@ -34,15 +34,6 @@
 #define LED_LEVEL_2 0x03
 #define LED_LEVEL_1 0x01
 #define LED_LEVEL_0 0x00
-
-// DIFFICULTY MODE - ANIMATION SPEEDS
-#define DIFFICULTY_MODE_EASY 		1
-#define DIFFICULTY_MODE_MEDIUM 	2
-#define DIFFICULTY_MODE_HARD 		3
-
-#define MAX_ARROWS_EASY   12
-#define MAX_ARROWS_MEDIUM 22
-#define MAX_ARROWS_HARD   27
 
 // macros for touch screen for win lose
 

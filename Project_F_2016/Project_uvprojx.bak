@@ -424,6 +424,11 @@
               <FileType>1</FileType>
               <FilePath>.\io_expander_led.c</FilePath>
             </File>
+            <File>
+              <FileName>arrow_queue.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\arrow_queue.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -502,7 +507,7 @@
             <File>
               <FileName>ft6x06.c</FileName>
               <FileType>1</FileType>
-              <FilePath>C:\ECE353\peripherals\c\ft6x06.c</FilePath>
+              <FilePath>..\peripherals\c\ft6x06.c</FilePath>
             </File>
           </Files>
         </Group>

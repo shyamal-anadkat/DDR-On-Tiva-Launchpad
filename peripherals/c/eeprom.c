@@ -257,6 +257,7 @@ uint16_t read_high_score(void) {
 		return read_score;
 }
 
+// Takes DIFFICULTY_MODE macros
 void write_game_mode(uint8_t game_mode) {
 		printf("Writing game mode to eeprom : %d\n\r", game_mode);
 		//write the 1 byte
