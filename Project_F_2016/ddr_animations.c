@@ -5,7 +5,11 @@ extern queue_t *queue;
 extern bool Alert_Timer0A;
 extern bool Alert_Timer0B;
 extern game_state_fsm game_state;
+extern uint8_t GAME_MODE;
 extern uint16_t score;
+
+uint8_t numArrows = 0;
+uint8_t LED_LEVELS = 4; 
 
 static bool is_arrow_green = false;
 static arrow_t *last_arrow_hit;
@@ -40,6 +44,7 @@ void update_ui_play(button_dir_t button_data) {
 	// need button to be stateful so it can be handled when timer goes off
 	static button_dir_t button_val = BTN_NONE; 
 	static uint16_t ticks = 0;
+	static uint16_t mode_level_ticks = 0; 
 	
 	handle_pause_screen();
 	
@@ -48,13 +53,16 @@ void update_ui_play(button_dir_t button_data) {
 		button_val = button_data;
 	}
 	
-	if(Alert_Timer0A) {
-		
 		print_score();
+	  handle_game_end();
+			
 		animate_arrows(button_val);
 		add_random_arrow();
 		button_val = BTN_NONE; // after processing the button value, reset it to NONE
-		
+		mode_level_ticks = 0; 
+	 
+	
+	
 		// To handle the green flash on hit 
 		ticks++;
 		if(ticks > DELAY_FLASH) {ticks = 0;}
@@ -63,12 +71,25 @@ void update_ui_play(button_dir_t button_data) {
 			is_arrow_green = false;
 			ticks = 0;
 		}
-		Alert_Timer0A = false;
-	}
 	
 	//clear miss/hit message on LCD
 	clear_hit_miss_message();
 	//led_blink(FAST);
+}
+
+
+void handle_game_end() {
+			if((numArrows > (GAME_MODE * 10)) || (LED_LEVELS < 1)) {
+			if (score > 0) { 
+				game_state = WIN; 
+			} else {
+				game_state = LOSE;
+			}
+			if (read_high_score() < score) {
+				write_high_score(score);
+				write_game_mode(GAME_MODE);
+			}
+		}
 }
 
 
@@ -214,6 +235,8 @@ queue_node *process_print(print_type_t print_type) {
 			break;
 		case MISS:
 			print_miss_second();
+			LED_LEVELS --; 
+			//ioexpander_byte_write(IOEXPANDER_I2C_BASE, IO_LED_GPIO_BASE , 0xF0);
 			printf("process_print=miss\n");
 			arrow = dequeue(queue)->key;
 			clear_arrow(arrow);
@@ -221,7 +244,6 @@ queue_node *process_print(print_type_t print_type) {
 			break;
 		case BOO:
 			print_boo_second();
-			//ioexpander_byte_write(IOEXPANDER_I2C_BASE, IO_LED_GPIO_BASE ,0xF2);
 			printf("process_print=boo\n");
 			break;
 		default:
@@ -294,6 +316,31 @@ void update_ui_init_lose() {
         // NEEDS TO DISPLAY THE HIGH SCORES PAGE
         game_state = HIGH_SCORE;
     }
+}
+
+
+uint8_t led_level(uint8_t level) {
+	
+	switch(level) {
+		case 4: 
+			return LED_LEVEL_4; 
+			break;
+		case 3: 
+			return LED_LEVEL_3; 
+			break;
+		case 2: 
+			return LED_LEVEL_2; 
+			break;
+		case 1: 
+			return LED_LEVEL_1; 
+			break;
+		case 0: 
+			return LED_LEVEL_0; 
+			break;
+		default:
+			break;
+	}
+	
 }
 
 

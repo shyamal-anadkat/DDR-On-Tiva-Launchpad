@@ -1,7 +1,7 @@
 #include "arrow_queue.h"
 
 queue_t *queue;
-
+extern uint8_t numArrows;
 
 
 //*****************************************************************************
@@ -59,5 +59,6 @@ void add_arrow(arrow_dir_t dir) {
 	arrow->color = LCD_COLOR_BLUE;
 	
 	enqueue(queue, arrow);
+	numArrows ++; 
 }
 

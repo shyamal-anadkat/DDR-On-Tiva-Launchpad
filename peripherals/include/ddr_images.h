@@ -77,6 +77,19 @@ extern const uint8_t pauseBitmaps[];
 extern const uint8_t pauseWidthPixels;
 extern const uint8_t pauseHeightPixels;
 
+/* Bitmap info for dance_Dance_Revolution */
+extern const uint8_t dance_Dance_RevolutionBitmaps[];
+extern const uint8_t dance_Dance_RevolutionWidthPixels;
+extern const uint8_t dance_Dance_RevolutionHeightPixels;
+
+
+/* Bitmap info for girl */
+extern const uint8_t girlBitmaps[];
+extern const uint8_t girlWidthPixels;
+extern const uint8_t girlHeightPixels;
+
+
+
 
 
 #endif

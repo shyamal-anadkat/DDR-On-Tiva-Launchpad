@@ -11,7 +11,6 @@ extern uint16_t score;
 extern bool Alert_Timer0B;
 bool backSelected;
 
-
 //*****************************************************************************
 // FUNCTIONS
 //*****************************************************************************
@@ -171,31 +170,54 @@ void clear_line(uint8_t y) {
 }
 
 void print_high_scores() {
-	
+
+
+	char score_arr[4]; 
+
+		
 	// character arrays for the text
 	char h[] = "HIGH";
 	char s[] = "SCORES: ";
-	//char lon[] = "LONGEST";
-	//char time[] = "TIME: ";
+	char hs[] = "HIGH SCORE";
 	char game[] = "GAME";
 	char mode[] = "MODE: ";
+	char gm[]   = "GAME MODE";
+	
 	char back[] = "BACK"; 
 	// for the boxes
 	char dot[] = "--------------";
+	//printf("Current Score: %d", score);
+	sprintf(score_arr,"%ld",(long)read_high_score());
 	
 	// clear the screen
 	lcd_clear_screen(LCD_COLOR_BLACK);
 	
 	// print statements for printing to the high score screens with macros
-	lcd_print_stringXY(h, high_screen_x,high_screen_y, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
-	lcd_print_stringXY(s, score_screen_x,score_screen_y, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
-	//lcd_print_stringXY(lon,longest_screen_x, longest_screen_y, LCD_COLOR_GREEN,LCD_COLOR_BLACK);
-	//lcd_print_stringXY(time, time_screen_x,time_screen_y, LCD_COLOR_GREEN, LCD_COLOR_BLACK);
-  lcd_print_stringXY(game,game_screen_x,game_screen_y, LCD_COLOR_RED,LCD_COLOR_BLACK);
-	lcd_print_stringXY(mode, mode_screen_x,mode_screen_y, LCD_COLOR_RED, LCD_COLOR_BLACK);
+	//lcd_print_stringXY(h, high_screen_x,high_screen_y, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
+	//lcd_print_stringXY(s, score_screen_x,score_screen_y, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
+	lcd_print_stringXY(hs, 2, 1, LCD_COLOR_WHITE, LCD_COLOR_BLACK);
+	lcd_print_stringXY(score_arr, 2, 3, LCD_COLOR_BLUE, LCD_COLOR_WHITE);
+  //lcd_print_stringXY(game,game_screen_x,game_screen_y, LCD_COLOR_RED,LCD_COLOR_BLACK);
+	//lcd_print_stringXY(mode, mode_screen_x,mode_screen_y, LCD_COLOR_RED, LCD_COLOR_BLACK);
+	lcd_print_stringXY(gm, 2, 7, LCD_COLOR_ORANGE, LCD_COLOR_BLACK);
+	
+	
 	
 	lcd_print_stringXY(back,back_screen_x, back_screen_y, LCD_COLOR_YELLOW,LCD_COLOR_BLACK);
 	lcd_print_stringXY(dot, draw_line_x, (back_screen_y - 1), LCD_COLOR_BLUE, LCD_COLOR_BLACK);
+	
+	
+	
+	
+	/*lcd_draw_image(
+                  50,            		  								// X Pos
+                  girlWidthPixels, // Image Horizontal Width
+                  6,       				  								 // Y Pos
+                  girlHeightPixels,// Image Vertical Height
+                  girlBitmaps, 		// Image
+                  LCD_COLOR_MAGENTA,      // Foreground Color
+                  LCD_COLOR_BLACK     // Background Color
+                ); */
 }
 
 void print_pause_screen() {
@@ -218,53 +240,121 @@ void print_pause_screen() {
 	
 	lcd_print_stringXY(dot, draw_line_x, (pause_screen_menu_y - offset), LCD_COLOR_BLUE, LCD_COLOR_BLACK);
 	lcd_print_stringXY(dot, draw_line_x, (pause_screen_menu_y + offset), LCD_COLOR_BLUE, LCD_COLOR_BLACK);
+	
+	
+	lcd_draw_image(
+                  50,            		  								// X Pos
+                  dance_Dance_RevolutionWidthPixels, // Image Horizontal Width
+                  3,       				  								 // Y Pos
+                  dance_Dance_RevolutionHeightPixels,// Image Vertical Height
+                  dance_Dance_RevolutionBitmaps, 		// Image
+                  LCD_COLOR_MAGENTA,      // Foreground Color
+                  LCD_COLOR_BLACK     // Background Color
+                );
 }
 
-
 void print_win() {
-	char win[] = "YOU WON!!!";
+	char win[] = "YOU WON";
 	
-	int8_t x = 0; 
-	
+	char dot[] = "--------------";
+
 	lcd_clear_screen(LCD_COLOR_BLACK);
 	
-	for(x = 0; x <= 4; x++){
-			lcd_print_stringXY(win, x, win_screen_y, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
-		if( x <4){ 
-			lcd_print_stringXY(win, x-1, win_screen_y, LCD_COLOR_BLACK, LCD_COLOR_BLACK);
-		}
-	}
+	lcd_print_stringXY(win, win_screen_x, win_screen_y, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
 	
-	for(x = 4; 0 <= x; x--){
-			lcd_print_stringXY(win, x, win_screen_y, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
-		if( x > 2 ){ 
-			lcd_print_stringXY(win, x-1, win_screen_y, LCD_COLOR_BLACK, LCD_COLOR_BLACK);
+	if(Alert_Timer0B) {
+		static int ticks = 0;
+		ticks++;
+		if(ticks == win_screen_time_wait_1 ) {
+				lcd_print_stringXY(dot, 0, win_screen_y -1, LCD_COLOR_RED, LCD_COLOR_BLACK);
+				lcd_print_stringXY(dot, 0, win_screen_y + 1, LCD_COLOR_RED, LCD_COLOR_BLACK);
+				ticks = 0;
 		}
-	}
+		Alert_Timer0B = false;
+}
+
+		Alert_Timer0B = true;
+	
+	 if(Alert_Timer0B) {
+		static int ticks = 0;
+		ticks++;
+		if(ticks == win_screen_time_wait_2 ) { 
+				lcd_print_stringXY(dot, 0, win_screen_y -2, LCD_COLOR_GREEN, LCD_COLOR_BLACK);
+				lcd_print_stringXY(dot, 0, win_screen_y + 2, LCD_COLOR_GREEN, LCD_COLOR_BLACK);
+				ticks = 0;
+		}
+		Alert_Timer0B = false;
+}
+	
+	Alert_Timer0B = true;
+
+	if(Alert_Timer0B) {
+		static int ticks = 0;
+		ticks++;
+		if(ticks == win_screen_time_wait_3 ) { 
+				//lcd_print_stringXY(win, win_screen_x, win_screen_y, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
+				lcd_print_stringXY(dot, 0, win_screen_y -3, LCD_COLOR_YELLOW, LCD_COLOR_BLACK);
+				lcd_print_stringXY(dot, 0, win_screen_y + 3, LCD_COLOR_YELLOW, LCD_COLOR_BLACK);
+				ticks = 0;
+		}
+		Alert_Timer0B = false;
+}
+	
+		
 
 }
 
 void print_lose() {
-	char win[] = "YOU LOST!!";
+	char lost[] = "YOU LOST";
 	
-	int8_t x = 0; 
-	
+	char dot[] = "--------------";
+
 	lcd_clear_screen(LCD_COLOR_BLACK);
 	
-	for(x = 0; x <= 4; x++){
-			lcd_print_stringXY(win, x, win_screen_y, LCD_COLOR_RED, LCD_COLOR_BLACK);
-		if( x <4){ 
-			lcd_print_stringXY(win, x-1, win_screen_y, LCD_COLOR_BLACK, LCD_COLOR_BLACK);
-		}
-	}
+	lcd_print_stringXY(lost, win_screen_x, win_screen_y, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
 	
-	for(x = 4; 0 <= x; x--){
-			lcd_print_stringXY(win, x, win_screen_y, LCD_COLOR_RED, LCD_COLOR_BLACK);
-		if( x > 2 ){ 
-			lcd_print_stringXY(win, x-1, win_screen_y, LCD_COLOR_BLACK, LCD_COLOR_BLACK);
+	if(Alert_Timer0B) {
+		static int ticks = 0;
+		ticks++;
+		if(ticks == win_screen_time_wait_1 ) {
+				lcd_print_stringXY(dot, 0, win_screen_y -1, LCD_COLOR_RED, LCD_COLOR_BLACK);
+				lcd_print_stringXY(dot, 0, win_screen_y + 1, LCD_COLOR_RED, LCD_COLOR_BLACK);
+				ticks = 0;
 		}
-	}
+		Alert_Timer0B = false;
 }
+
+		Alert_Timer0B = true;
+	
+	 if(Alert_Timer0B) {
+		static int ticks = 0;
+		ticks++;
+		if(ticks == win_screen_time_wait_2 ) { 
+				lcd_print_stringXY(dot, 0, win_screen_y -2, LCD_COLOR_GREEN, LCD_COLOR_BLACK);
+				lcd_print_stringXY(dot, 0, win_screen_y + 2, LCD_COLOR_GREEN, LCD_COLOR_BLACK);
+				ticks = 0;
+		}
+		Alert_Timer0B = false;
+}
+	
+	Alert_Timer0B = true;
+
+	if(Alert_Timer0B) {
+		static int ticks = 0;
+		ticks++;
+		if(ticks == win_screen_time_wait_3 ) { 
+				//lcd_print_stringXY(win, win_screen_x, win_screen_y, LCD_COLOR_BLUE, LCD_COLOR_BLACK);
+				lcd_print_stringXY(dot, 0, win_screen_y -3, LCD_COLOR_YELLOW, LCD_COLOR_BLACK);
+				lcd_print_stringXY(dot, 0, win_screen_y + 3, LCD_COLOR_YELLOW, LCD_COLOR_BLACK);
+				ticks = 0;
+		}
+		Alert_Timer0B = false;
+}
+
+}
+
+
+
 
 void print_end_screen() {
 	

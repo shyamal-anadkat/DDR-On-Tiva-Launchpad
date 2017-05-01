@@ -11,10 +11,6 @@
 #define x_right_threshold (0xFFF / 4)
 #define y_down_threshold  (0xFFF / 4)
 
-#define DIFFICULTY_MODE_EASY 		0
-#define DIFFICULTY_MODE_MEDIUM 	1
-#define DIFFICULTY_MODE_HARD 		2
-
 
 // offset macro
 #define offset 1
@@ -75,8 +71,12 @@
 #define back_screen_y 18
 
 // macros for win screen 
-#define win_screen_x  0
+#define win_screen_x  3
 #define win_screen_y 10 
+
+#define win_screen_time_wait_1 2
+#define win_screen_time_wait_2 4
+#define win_screen_time_wait_3 6
 
 typedef enum {
 	NOTHING,

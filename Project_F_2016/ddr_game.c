@@ -4,8 +4,9 @@ uint16_t score = 0;
 uint8_t boos_in_a_row;
 uint8_t misses_in_a_row;
 uint8_t goods_in_a_row;
-
 uint8_t random_ticks;
+
+extern uint8_t GAME_MODE;
 
 void add_random_arrow(void) {
 	static uint8_t time = 0;
@@ -14,7 +15,7 @@ void add_random_arrow(void) {
 	
 	if(random_ticks == 0) {
 		random_ticks = rand();
-		if(random_ticks < 50) {
+		if(random_ticks < 150 * GAME_MODE) {
 			random_ticks *= 5;
 		}
 		dir = convert_int_to_arrow(random_ticks % 4);
