@@ -94,4 +94,9 @@ queue_node *process_print(print_type_t print_type);
 
 void print_pause_button();
 
+
+// PROCESS PRINT HANDLING FUNCTIONS
+void process_print_good(arrow_t *arrow);
+void process_print_miss(arrow_t *arrow);
+
 #endif

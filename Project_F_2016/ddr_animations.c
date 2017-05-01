@@ -235,30 +235,17 @@ queue_node *process_print(print_type_t print_type) {
 	// if NONE don't dequeue
 	switch(print_type) {
 		case NONE:
-			//print_top_arrow_hit(arrow->arrow_type);
 			break;
 		case GOOD:
-			print_hit_second();
-			printf("process_print=good\n");
-			arrow = dequeue(queue)->key;
-			clear_arrow(arrow);
-			print_top_arrow_hit(arrow->arrow_type);
-			is_arrow_green = true; 
-			last_arrow_hit = arrow;
+			process_print_good(arrow);
 			break;
 		case MISS:
-			print_miss_second();
-			printf("process_print=miss\n");
-			arrow = dequeue(queue)->key;
-			clear_arrow(arrow);
-			print_top_arrow(arrow->arrow_type);
+			process_print_miss(arrow);
 			break;
 		case BOO:
 			print_boo_second();
-			printf("process_print=boo\n");
 			break;
 		default:
-			printf("process_print=default\n");
 			break;
 	}
 	
@@ -284,28 +271,23 @@ void update_ui_init_high_score() {
 }
 
 
-uint8_t led_level(uint8_t level) {
-	
-	switch(level) {
-		case 4: 
-			return LED_LEVEL_4; 
-			break;
-		case 3: 
-			return LED_LEVEL_3; 
-			break;
-		case 2: 
-			return LED_LEVEL_2; 
-			break;
-		case 1: 
-			return LED_LEVEL_1; 
-			break;
-		case 0: 
-			return LED_LEVEL_0; 
-			break;
-		default:
-			break;
-	}
-	
+void process_print_good(arrow_t *arrow) {
+			print_hit_second();
+			printf("process_print=good\n");
+			arrow = dequeue(queue)->key;
+			clear_arrow(arrow);
+			print_top_arrow_hit(arrow->arrow_type);
+			is_arrow_green = true; 
+			last_arrow_hit = arrow;
 }
 
+
+
+void process_print_miss(arrow_t *arrow) {
+			print_miss_second();
+			printf("process_print=miss\n");
+			arrow = dequeue(queue)->key;
+			clear_arrow(arrow);
+			print_top_arrow(arrow->arrow_type);
+}
 
