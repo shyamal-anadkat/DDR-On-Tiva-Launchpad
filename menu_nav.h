@@ -1,18 +1,16 @@
 #ifndef __MENU_NAV_H__
 #define __MENU_NAV_H__
 
-
-#include "ddr_animations.h"
-#include "ft6x06.h"
 #include "lcd.h"
 #include "ddr_images.h"
+#include "ddr_animations.h"
+#include "ft6x06.h"
 
 #define x_left_threshold  (0xFFF / 4) * 3
 #define y_up_threshold  	(0xFFF / 4) * 3
 #define x_right_threshold (0xFFF / 4)
 #define y_down_threshold  (0xFFF / 4)
 
-#define PRINT_MESSAGE_DELAY 300
 
 // offset macro
 #define offset 1
@@ -73,12 +71,17 @@
 #define back_screen_y 18
 
 // macros for win screen 
-#define win_screen_x  3
-#define win_screen_y 10 
+#define your_score_x  0
+#define your_score_y 13
 
-#define win_screen_time_wait_1 2
-#define win_screen_time_wait_2 4
-#define win_screen_time_wait_3 6
+#define high_score_x  0
+#define high_score_y 14 
+
+#define new_score_x  0
+#define new_score_y 15
+
+#define h_score_x 0
+#define h_score_y 16
 
 typedef enum {
 	NOTHING,
@@ -90,25 +93,25 @@ typedef enum {
 	MENU, PLAY, WIN, LOSE, HIGH_SCORE
 } game_state_fsm;
 
+
 void display_selected_menu_item();
 void navigate_main_menu(uint16_t y_adc_data);
 void update_ui_init_new_state(game_state_fsm new_state);
 
 void update_ui_init_main_menu(void);
+void update_ui_high_scores(void);
 void draw_line(uint8_t y);
 void clear_line(uint8_t y);
 
-void print_hit_second(void);
-void print_boo_second(void);
-void print_miss_second(void);
-
-void clear_hit(void);
-void clear_boo(void);
 
 void print_pause_screen(void);
 void print_end_screen(void);
+void print_high_scores(void);
 
 void print_high_scores(void);
 void print_lose(void);
 void print_win(void);
+
+void win_image(void);
+
 #endif
