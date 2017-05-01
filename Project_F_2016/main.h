@@ -42,6 +42,17 @@
 #include "ddr_game.h"
 #include "eeprom.h"
 
+
+extern game_state_fsm game_state;
+extern SELECTED_ITEM selected_item;
+
+extern volatile bool Alert_Timer0B;
+extern volatile bool Alert_ADC0_Conversion;
+extern volatile bool Alert_PortF;
+
+extern uint16_t score;
+extern uint8_t GAME_MODE;
+
 void detect_button_press_main_menu(void);
 
 
