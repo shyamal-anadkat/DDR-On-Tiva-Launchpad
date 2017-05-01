@@ -38,6 +38,10 @@ extern const uint8_t left_arrowBitmaps[];
 /* Bitmap info for right_arrow */
 extern const uint8_t right_arrowBitmaps[];
 
+/* Bitmap info for three right arrows */ 
+
+extern const uint8_t right_three_arrowBitmaps [];
+
 /* Bitmap info for up_arrow */
 extern const uint8_t up_arrowBitmaps[];
 
@@ -71,6 +75,22 @@ extern const uint8_t sitkaSmall_12ptBitmaps[];
 extern const uint8_t ddrlogoBitmaps[];
 extern const uint8_t ddrlogoWidthPixels;
 extern const uint8_t ddrlogoHeightPixels;
+
+/* Bitmap info for pause */
+extern const uint8_t pauseBitmaps[];
+extern const uint8_t pauseWidthPixels;
+extern const uint8_t pauseHeightPixels;
+
+/* Bitmap info for dance_Dance_Revolution */
+extern const uint8_t dance_Dance_RevolutionBitmaps[];
+extern const uint8_t dance_Dance_RevolutionWidthPixels;
+extern const uint8_t dance_Dance_RevolutionHeightPixels;
+
+
+/* Bitmap info for girl */
+extern const uint8_t girlBitmaps[];
+extern const uint8_t girlWidthPixels;
+extern const uint8_t girlHeightPixels;
 
 
 /* Bitmap info for win */
