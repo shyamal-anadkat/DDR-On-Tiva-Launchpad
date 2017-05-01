@@ -15,9 +15,22 @@ void add_random_arrow(void) {
 	
 	if(random_ticks == 0) {
 		random_ticks = rand();
-		if(random_ticks < 150 * GAME_MODE) {
-			random_ticks *= 5;
+
+		
+		switch(GAME_MODE) {
+			case DIFFICULTY_MODE_EASY: 
+				random_ticks = rand() % MAX_INTERVAL_EASY + MIN_INTERVAL_EASY;
+				break;
+			case DIFFICULTY_MODE_MEDIUM:
+				random_ticks = rand() % MAX_INTERVAL_MEDIUM + MIN_INTERVAL_MEDIUM;
+				break;
+			case DIFFICULTY_MODE_HARD:
+				random_ticks = rand() % MAX_INTERVAL_HARD + MIN_INTERVAL_HARD;
+				break;
 		}
+		
+		
+		
 		dir = convert_int_to_arrow(random_ticks % 4);
 		add_arrow(dir);
 		printf("random_ticks: %d\n", random_ticks);

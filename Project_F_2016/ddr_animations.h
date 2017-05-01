@@ -35,16 +35,14 @@
 #define LED_LEVEL_1 0x01
 #define LED_LEVEL_0 0x00
 
-
 // DIFFICULTY MODE - ANIMATION SPEEDS
-#define DIFFICULTY_MODE_EASY 		3
+#define DIFFICULTY_MODE_EASY 		1
 #define DIFFICULTY_MODE_MEDIUM 	2
-#define DIFFICULTY_MODE_HARD 		1
+#define DIFFICULTY_MODE_HARD 		3
 
-#define MAX_ARROWS_EASY   10
-#define MAX_ARROWS_MEDIUM 20
-#define MAX_ARROWS_HARD   25
-
+#define MAX_ARROWS_EASY   12
+#define MAX_ARROWS_MEDIUM 22
+#define MAX_ARROWS_HARD   27
 
 // macros for touch screen for win lose
 
@@ -83,8 +81,6 @@ void arrow_delay(void);
 void print_score(void);
 
 void update_ui_init_high_score(void);
-void update_ui_init_win(void);
-void update_ui_init_lose(void);
 
 void handle_pause_screen(void);
 void handle_game_end(void);
@@ -104,5 +100,7 @@ print_type_t process_arrow(arrow_t *arrow, uint8_t button_val);
 bool correct_button_pressed(arrow_t * arrow, uint8_t button_val);
 print_type_t determine_button_outcome(uint16_t difference, uint16_t arrow_y_pos_top);
 queue_node *process_print(print_type_t print_type);
+
+void print_pause_button();
 
 #endif

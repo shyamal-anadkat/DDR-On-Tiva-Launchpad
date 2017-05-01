@@ -199,11 +199,11 @@ main(void)
 						break;
 
         case WIN:
-						update_ui_init_win();
+						
             break;
 
         case LOSE:
-						update_ui_init_lose();
+						
             break;
         }
     }
