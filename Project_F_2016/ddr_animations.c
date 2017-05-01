@@ -1,7 +1,8 @@
 #include "ddr_animations.h"
 
-extern queue_t *queue;
 
+//*******GLOBAL VARIABLES START**********//
+extern queue_t *queue;
 extern bool Alert_Timer0A;
 extern bool Alert_Timer0B;
 extern game_state_fsm game_state;
@@ -10,15 +11,18 @@ extern uint16_t score;
 
 uint8_t dequeued_arrows = 0;
 uint8_t enqueued_arrows = 0;
-
-static bool is_arrow_green = false;
-static arrow_t *last_arrow_hit;
-extern led_blink_rate_t blink_rate;
 uint8_t max_arrows;
 
+extern led_blink_rate_t blink_rate;
 extern uint8_t active_led_num;
 
+
+bool is_right_arrow_green = false; 
+bool is_up_arrow_green = false; 
+bool is_down_arrow_green = false; 
+bool is_left_arrow_green = false; 
 bool isPaused = false; 
+//*******GLOBAL VARIABLES END**********//
 
 //*****************************************************************************
 //
@@ -61,9 +65,9 @@ void update_ui_play(button_dir_t button_data) {
 		// To handle the green flash on hit 
 	ticks++;
 	if(ticks > DELAY_FLASH) {ticks = 0;}
-	if((ticks == DELAY_FLASH) && (is_arrow_green == true)){
-		print_top_arrow(last_arrow_hit->arrow_type);
-		is_arrow_green = false;
+	if((ticks == DELAY_FLASH) && 
+		(is_down_arrow_green || is_left_arrow_green || is_right_arrow_green || is_up_arrow_green)){
+		handle_clear_green_arrow();
 		ticks = 0;
 	}
 	
@@ -89,7 +93,6 @@ void update_ui_play(button_dir_t button_data) {
 
 
 void handle_game_end() {
-		
 	if((dequeued_arrows > max_arrows) || (active_led_num == 0)) {
 			if (score > (read_high_score())) { 
 				game_state = WIN; 
@@ -161,10 +164,10 @@ void handle_pause_screen() {
 
 
 void init_play_top_arrows(void) {
-	print_top_arrow(ARROW_DIR_UP);
-	print_top_arrow(ARROW_DIR_DOWN);
-	print_top_arrow(ARROW_DIR_LEFT);
-	print_top_arrow(ARROW_DIR_RIGHT);
+			print_top_arrow(ARROW_DIR_UP);
+			print_top_arrow(ARROW_DIR_DOWN);
+			print_top_arrow(ARROW_DIR_LEFT);
+			print_top_arrow(ARROW_DIR_RIGHT);
 }
 
 
@@ -251,7 +254,6 @@ queue_node *process_print(print_type_t print_type) {
 	
 	// If print condition was one that dequeues arrows, increment completed arrows tally
 	if(print_type == GOOD || print_type == MISS || print_type == BOO) dequeued_arrows++; 
-	
 	return queue->head;
 }
 
@@ -271,23 +273,76 @@ void update_ui_init_high_score() {
 }
 
 
+
+//*****************************************************************************
+//
+//
+// ARROW AND PRINTING PROCESSING ANIMATIONS
+//
+//
+//*****************************************************************************
+
+
+/*Processes an arrow which is hit*/
 void process_print_good(arrow_t *arrow) {
 			print_hit_second();
 			printf("process_print=good\n");
 			arrow = dequeue(queue)->key;
 			clear_arrow(arrow);
-			print_top_arrow_hit(arrow->arrow_type);
-			is_arrow_green = true; 
-			last_arrow_hit = arrow;
+			set_arrow_green(arrow, true);
 }
 
 
-
+/*Processes a missed arrow*/
 void process_print_miss(arrow_t *arrow) {
 			print_miss_second();
 			printf("process_print=miss\n");
 			arrow = dequeue(queue)->key;
 			clear_arrow(arrow);
 			print_top_arrow(arrow->arrow_type);
+}
+
+
+/*Sets the arrows green when hit*/
+void set_arrow_green(arrow_t *arrow, bool isGreen) {
+	print_top_arrow_hit(arrow->arrow_type);
+	switch(arrow->arrow_type) {
+		case ARROW_DIR_UP:
+			is_up_arrow_green 	=  isGreen;
+			break;
+		case ARROW_DIR_DOWN:
+			is_down_arrow_green = isGreen;
+			break;
+		case ARROW_DIR_LEFT:
+			is_left_arrow_green = isGreen;
+			break;
+		case ARROW_DIR_RIGHT:
+			is_right_arrow_green = isGreen;
+			break; 
+	}
+}
+
+/*Handles clearing the green flash arrow on hit  */
+void handle_clear_green_arrow() {
+		
+	if(is_left_arrow_green) {
+		print_top_arrow(ARROW_DIR_LEFT);
+		is_left_arrow_green = false;
+	}
+	
+	if(is_right_arrow_green) {
+		print_top_arrow(ARROW_DIR_RIGHT);
+		is_right_arrow_green = false;
+	}
+	
+	if(is_up_arrow_green) {
+		print_top_arrow(ARROW_DIR_UP);
+		is_up_arrow_green =  false;
+	}
+	
+	if(is_down_arrow_green) {
+		print_top_arrow(ARROW_DIR_DOWN);
+		is_down_arrow_green = false;
+	}
 }
 

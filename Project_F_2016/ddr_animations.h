@@ -54,6 +54,9 @@
 #define menu_upper_bound 160
 #define menu_lower_bound 128
 
+
+
+
 //*****************************************************************************
 // ARROW FUNCTIONALITY
 //*****************************************************************************
@@ -98,5 +101,9 @@ void print_pause_button();
 // PROCESS PRINT HANDLING FUNCTIONS
 void process_print_good(arrow_t *arrow);
 void process_print_miss(arrow_t *arrow);
+
+
+void set_arrow_green(arrow_t *arrow, bool isGreen);
+void handle_clear_green_arrow(void);
 
 #endif
