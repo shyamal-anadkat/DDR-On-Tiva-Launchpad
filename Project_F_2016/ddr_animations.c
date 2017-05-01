@@ -144,6 +144,7 @@ void handle_pause_screen() {
 				} else if (y <= menu_upper_bound && y >= menu_lower_bound) {
 					game_state = MENU; 
 					lcd_clear_screen(LCD_COLOR_BLACK);
+					empty_the_queue(queue);
 					isPaused = false;
 				}
 		}

@@ -32,6 +32,7 @@ queue_node *new_node(arrow_t *arrow);
 queue_t *create_queue(void);
 void enqueue(queue_t *queue, arrow_t *arrow);
 queue_node *dequeue(queue_t *queue);
+void empty_the_queue(queue_t *queue);
 
 
 #endif

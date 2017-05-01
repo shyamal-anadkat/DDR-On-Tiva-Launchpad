@@ -62,3 +62,15 @@ void add_arrow(arrow_dir_t dir) {
 	numArrows ++; 
 }
 
+// Empties the arrow queue
+// Ideal usages are when the player loses the game or goes to main menu
+void empty_the_queue(queue_t *queue) {
+	queue_node *temp = queue->head;
+	
+	if(queue->head == NULL_VALUE && queue->tail == NULL_VALUE) return;
+	
+	while(temp != NULL_VALUE) {
+		temp = dequeue(queue);
+	}
+}
+
