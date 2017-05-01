@@ -9,7 +9,7 @@ extern uint8_t GAME_MODE;
 extern uint16_t score;
 
 uint8_t numArrows = 0;
-uint8_t LED_LEVELS = 4; 
+uint8_t LED_LEVELS = 5; 
 
 static bool is_arrow_green = false;
 static arrow_t *last_arrow_hit;
@@ -31,8 +31,14 @@ void update_ui_init_play(void) {
 	lcd_clear_screen(LCD_COLOR_BLACK);
 	init_play_top_arrows();
 	printf("GAME MODE: %d\n", GAME_MODE);
+	numArrows = 0;
+  score = 0; 	
 
 	srand(timer_val); // TODO: This might be bad to call multiple times
+	print_pause_button();
+}
+
+void print_pause_button(){
 	//print pause button at bottom of the screen 
 	lcd_draw_image( 10, pauseWidthPixels, 16, pauseHeightPixels, pauseBitmaps, LCD_COLOR_RED, LCD_COLOR_BLACK );
 }
@@ -47,7 +53,6 @@ void update_ui_play(button_dir_t button_data) {
 	static uint16_t ticks = 0;
 	static uint16_t mode_level_ticks = 0; 
 	
-	handle_pause_screen();
 	
 	// handle glitchy '2' that appears in button data before correct value appears
 	if(button_data != BTN_NONE && button_data != 2) {
@@ -61,8 +66,7 @@ void update_ui_play(button_dir_t button_data) {
 		add_random_arrow();
 		button_val = BTN_NONE; // after processing the button value, reset it to NONE
 		mode_level_ticks = 0; 
-	 
-	
+
 	
 		// To handle the green flash on hit 
 		ticks++;
@@ -76,6 +80,7 @@ void update_ui_play(button_dir_t button_data) {
 	//clear miss/hit message on LCD
 	clear_hit_miss_message();
 	//led_blink(FAST);
+	handle_pause_screen();
 }
 
 
@@ -84,10 +89,11 @@ void handle_game_end() {
 			MAX_ARROWS_EASY : (GAME_MODE == DIFFICULTY_MODE_MEDIUM) ? MAX_ARROWS_MEDIUM : MAX_ARROWS_HARD;
 		
 			if((numArrows > max_arrows) || (LED_LEVELS < 1)) {
-			if (score > 0) { 
+			if (score > (read_high_score())) { 
 				game_state = WIN; 
 			} else {
 				game_state = LOSE;
+				
 			}
 			if (read_high_score() < score) {
 				write_high_score(score);
@@ -116,7 +122,7 @@ void animate_arrows(uint8_t button_val) {
 	// MOVE THE REST OF THE ARROWS UP
 	while(curr_node != NULL_VALUE) {
 		arrow = curr_node->key;
-		arrow->y_pos++;
+		arrow->y_pos += GAME_MODE;
 		print_arrow(arrow);
 		curr_node = curr_node->next;
 	}
@@ -140,7 +146,9 @@ void handle_pause_screen() {
 				if( y <= continue_upper_bound && y >= continue_lower_bound) {
 					isPaused = false;
 					lcd_clear_screen(LCD_COLOR_BLACK);
-					update_ui_init_play();
+					//update_ui_init_play();
+					init_play_top_arrows(); // only need reinit these because moving arrows are still in queue
+					print_pause_button();
 				} else if (y <= menu_upper_bound && y >= menu_lower_bound) {
 					game_state = MENU; 
 					lcd_clear_screen(LCD_COLOR_BLACK);
@@ -270,56 +278,6 @@ void update_ui_init_high_score() {
 
     lcd_clear_screen(LCD_COLOR_BLACK);
     print_high_scores();
-}
-
-//*****************************************************************************
-//
-//
-// WIN MODE SET UPS
-//
-//
-//*****************************************************************************
-
-void update_ui_init_win() {
-    uint16_t x,y;
-    uint8_t touch_event;
-
-    print_win();
-    print_end_screen();
-    touch_event = ft6x06_read_td_status();
-    if(touch_event <= play_again_upper_bound && touch_event >= play_again_lower_bound) {
-        // NEEDS TO START PLAY AGAIN
-        game_state = PLAY;
-    }
-    else if(touch_event <= high_scores_upper_bound && touch_event >= high_scores_lower_bound) {
-        // NEEDS TO DISPLAY THE HIGH SCORES PAGE
-        game_state = HIGH_SCORE;
-    }
-}
-
-
-//*****************************************************************************
-//
-//
-// LOSE MODE SET UPS
-//
-//
-//*****************************************************************************
-void update_ui_init_lose() {
-    uint16_t x,y;
-    uint8_t touch_event;
-
-    print_lose();
-    print_end_screen();
-    touch_event = ft6x06_read_td_status();
-    if(touch_event <= play_again_upper_bound && touch_event >= play_again_lower_bound) {
-        // NEEDS TO START PLAY AGAIN
-        game_state = PLAY;
-    }
-    else if(touch_event <= high_scores_upper_bound && touch_event >= high_scores_lower_bound) {
-        // NEEDS TO DISPLAY THE HIGH SCORES PAGE
-        game_state = HIGH_SCORE;
-    }
 }
 
 

@@ -179,15 +179,12 @@ void print_score(void) {
 
 void clear_hit_miss_message(void){
 	//this is to clear the hit/miss message on LCD
-	if(Alert_Timer0B) {
 		static int ticks = 0;
 		ticks++;
 		if(ticks == PRINT_MESSAGE_DELAY){
 			clear_boo();
 			ticks = 0;
 		}
-		Alert_Timer0B = false; 
-	}
 }
 
 void print_hit() {
@@ -201,7 +198,7 @@ void print_boo() {
 }
 
 void clear_boo() {
-	char miss[] = "BOOO!";
+	char miss[] = "MISS!";
 	lcd_print_stringXY(miss,10,10, LCD_COLOR_BLACK,LCD_COLOR_BLACK);
 }
 

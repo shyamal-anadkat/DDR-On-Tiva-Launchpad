@@ -89,7 +89,16 @@ extern const uint8_t girlWidthPixels;
 extern const uint8_t girlHeightPixels;
 
 
+/* Bitmap info for win */
+extern const uint8_t winBitmaps[];
+extern const uint8_t winWidthPixels;
+extern const uint8_t winHeightPixels;
 
+
+/* Bitmap info for lOSEBITMAP */
+extern const uint8_t lOSEBITMAPBitmaps[];
+extern const uint8_t lOSEBITMAPWidthPixels;
+extern const uint8_t lOSEBITMAPHeightPixels;
 
 
 #endif

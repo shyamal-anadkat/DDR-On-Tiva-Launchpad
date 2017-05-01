@@ -70,12 +70,17 @@
 #define back_screen_y 18
 
 // macros for win screen 
-#define win_screen_x  3
-#define win_screen_y 10 
+#define your_score_x  0
+#define your_score_y 13
 
-#define win_screen_time_wait_1 2
-#define win_screen_time_wait_2 4
-#define win_screen_time_wait_3 6
+#define high_score_x  0
+#define high_score_y 14 
+
+#define new_score_x  0
+#define new_score_y 15
+
+#define h_score_x 0
+#define h_score_y 16
 
 typedef enum {
 	NOTHING,
@@ -98,12 +103,11 @@ void draw_line(uint8_t y);
 void clear_line(uint8_t y);
 
 void print_pause_screen(void);
-void print_end_screen(void);
 void print_high_scores(void);
 
 void print_high_scores(void);
-void print_lose(void);
-void print_win(void);
+void lose_screen(void);
+void win_screen (void);
 
 void print_game_mode_selecion(void);
 void navigate_game_mode(uint16_t y_adc_data);

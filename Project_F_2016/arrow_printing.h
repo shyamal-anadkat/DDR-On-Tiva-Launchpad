@@ -15,7 +15,7 @@
 #define		RGN_BOO		0xd0
 #define		RGN_NONE	0xf0
 
-#define PRINT_MESSAGE_DELAY 300
+#define PRINT_MESSAGE_DELAY 75
 
 
 void print_arrow(arrow_t *arrow);
