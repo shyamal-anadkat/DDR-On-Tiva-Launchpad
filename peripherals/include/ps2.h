@@ -28,6 +28,7 @@
 #include "gpio_port.h"
 #include "adc.h"
 #include "driver_defines.h"
+#include "mcp23017.h"
 
 // Define the base addresses for the GPIO port that is connected to the PS2 Joystick
 #define   PS2_GPIO_BASE    GPIOE_BASE
@@ -52,6 +53,23 @@
 // analog channel.  Specifically, look at the column Pin Name.
 #define   PS2_X_ADC_CHANNEL  0
 #define   PS2_Y_ADC_CHANNEL  1
+
+//*****************************************************************************
+// PS2 DIRECTIONAL THRESHOLDS
+//*****************************************************************************
+#define PS2_THRSHLD_UP  	(0xFFF / 4) * 3
+#define PS2_THRSHLD_DOWN  (0xFFF / 4)
+#define PS2_THRSHLD_RIGHT (0xFFF / 4)
+#define PS2_THRSHLD_LEFT  (0xFFF / 4) * 3
+
+#define PS2_DIR_NONE			0
+#define PS2_DIR_UP				1
+#define PS2_DIR_DOWN			2
+#define PS2_DIR_LEFT			3
+#define PS2_DIR_RIGHT			4
+
+typedef uint16_t ps2_dir_t;
+
 
 /*******************************************************************************
 * Function Name: ps2_initialize
@@ -78,6 +96,8 @@ uint16_t ps2_get_x(void);
 uint16_t ps2_get_y(void);
 
 void ps2_initialize_hw3(void);
+
+ps2_dir_t ps2_debounce(uint16_t y_val);
 
 #endif
 

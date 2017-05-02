@@ -11,6 +11,7 @@ extern uint16_t score;
 extern bool Alert_Timer0B;
 bool backSelected;
 extern uint8_t max_arrows;
+diff_select_t selected_difficulty = DIFFICULTY_SELECT_NONE;
 
 //*****************************************************************************
 // FUNCTIONS
@@ -27,8 +28,9 @@ void update_ui_init_new_state(game_state_fsm new_state) {
 			break;
  		case PLAY:
 			selected_item = NOTHING;
+			choose_mode_from_selected_item();
+			selected_difficulty = DIFFICULTY_SELECT_NONE;
  			update_ui_init_play();
-		  score = 0;
  			break;
  		case WIN:
 			win_screen();
@@ -84,7 +86,7 @@ void update_ui_high_scores(void) {
 	}
 	
 	
-	printf("x: %d | y %d\n", x, y);
+	//printf("x: %d | y %d\n", x, y);
 	// TODO FOR SNEHA: Fix 
 	if(y >= MNAV_RESET_TOUCH_LOW_Y && y <= MNAV_RESET_TOUCH_HIGH_Y && 
 		(x >= MNAV_RESET_TOUCH_LOW_X && x <= MNAV_RESET_TOUCH_HIGH_X)) {
@@ -125,6 +127,7 @@ void navigate_main_menu(uint16_t y_adc_data) {
 		display_selected_menu_item();
 }
 
+/*
 void navigate_game_mode(uint16_t y_adc_data) {
 	
 		static uint8_t moved_up = 0;
@@ -159,6 +162,37 @@ void navigate_game_mode(uint16_t y_adc_data) {
 				lcd_print_stringXY("@",0,8, LCD_COLOR_BLACK,LCD_COLOR_BLACK);	 //clear medium
 			}
 	}
+}*/
+
+void navigate_game_mode(uint16_t y_adc_data) {
+
+	static uint8_t moved_up = 0;
+	static uint8_t moved_down = 0;
+	diff_select_t tmp = selected_difficulty;
+	
+	ps2_dir_t dir = ps2_debounce(y_adc_data);
+	
+	switch(selected_difficulty) {
+		case DIFFICULTY_SELECT_NONE:
+			break;
+		case DIFFICULTY_SELECT_EASY:
+			selected_difficulty = (dir == PS2_DIR_DOWN) ? DIFFICULTY_SELECT_MEDIUM : selected_difficulty;
+			break;
+		case DIFFICULTY_SELECT_MEDIUM:
+			selected_difficulty = (dir == PS2_DIR_UP) ? DIFFICULTY_SELECT_EASY : (dir == PS2_DIR_DOWN) ? DIFFICULTY_SELECT_HARD : selected_difficulty;
+			break;
+		case DIFFICULTY_SELECT_HARD:
+			selected_difficulty = (dir == PS2_DIR_UP) ? DIFFICULTY_SELECT_MEDIUM : selected_difficulty;
+			break;
+	}
+	
+	if(tmp != selected_difficulty) display_selected_difficulty_item();
+}
+
+
+void display_selected_difficulty_item(void) {
+	clear_select_arrow_area();
+	print_select_arrow(selected_difficulty);
 }
 
 
@@ -384,28 +418,39 @@ void update_ui_init_mode_selecion() {
 	char msg3[]  = "CHALLENGE";
 	char back[]  = "BACK"; 
 	
-	char star[] = "@";
+	char back_color[] = "              ";
 	
-	max_arrows = (GAME_MODE == DIFFICULTY_MODE_EASY) ? 
-			MAX_ARROWS_EASY : (GAME_MODE == DIFFICULTY_MODE_MEDIUM) ? MAX_ARROWS_MEDIUM : MAX_ARROWS_HARD;
-
+	char star[] = ".";
+	
+	selected_difficulty = DIFFICULTY_SELECT_MEDIUM;
 	
 	// clear screen 
 	lcd_clear_screen(LCD_COLOR_BLACK);
 	
-	lcd_print_stringXY(guide,1,1, LCD_COLOR_YELLOW, LCD_COLOR_BLACK);
-	lcd_print_stringXY(hashes,draw_line_x,2,LCD_COLOR_BLUE, LCD_COLOR_BLACK);
 	
-	lcd_print_stringXY(msg1,2,6, LCD_COLOR_BLACK,LCD_COLOR_GREEN);
-  lcd_print_stringXY(msg2,2,8, LCD_COLOR_BLACK,LCD_COLOR_ORANGE);
-	lcd_print_stringXY(msg3,2,10, LCD_COLOR_BLACK,LCD_COLOR_RED);
+	lcd_print_stringXY(back_color,0, 1, LCD_COLOR_BLUE,LCD_COLOR_BLUE);
+	lcd_print_stringXY(guide,1,1, LCD_COLOR_YELLOW, LCD_COLOR_BLUE);
+	//lcd_print_stringXY(dot,draw_line_x,2,LCD_COLOR_BLUE, LCD_COLOR_BLACK);
+	
+	lcd_print_stringXY(msg1,4,6, LCD_COLOR_BLACK,LCD_COLOR_GREEN);
+  lcd_print_stringXY(msg2,4,8, LCD_COLOR_BLACK,LCD_COLOR_ORANGE);
+	lcd_print_stringXY(msg3,4,10, LCD_COLOR_BLACK,LCD_COLOR_RED);
 	
 	//lcd_print_stringXY(star,0,6, LCD_COLOR_CYAN,LCD_COLOR_BLACK);
-	lcd_print_stringXY(star,0,8, LCD_COLOR_CYAN,LCD_COLOR_BLACK);
+				lcd_draw_image(
+                  180,            		  // X Pos
+                  ARROWS_WIDTH_PIXELS, 		// Image Horizontal Width
+                  164,       				  // Y Pos
+                  ARROWS_HEIGHT_PIXELS,		// Image Vertical Height
+                  right_arrowBitmaps, 				// Image
+                  LCD_COLOR_BLUE,    // Foreground Color
+                  LCD_COLOR_BLACK     // Background Color
+                );
 	//lcd_print_stringXY(star,0,10, LCD_COLOR_CYAN,LCD_COLOR_BLACK);
 	
-	lcd_print_stringXY(back,back_screen_x, back_screen_y, LCD_COLOR_YELLOW,LCD_COLOR_BLACK);
-	lcd_print_stringXY(dot, draw_line_x, (back_screen_y - 1), LCD_COLOR_BLUE, LCD_COLOR_BLACK);
+	lcd_print_stringXY(back_color,0, back_screen_y, LCD_COLOR_BLUE,LCD_COLOR_BLUE);
+	lcd_print_stringXY(back,back_screen_x, back_screen_y, LCD_COLOR_YELLOW,LCD_COLOR_BLUE);
+	//lcd_print_stringXY(dot, draw_line_x, (back_screen_y - 1), LCD_COLOR_BLUE, LCD_COLOR_BLACK);
 }
 
 void pause_screen() {
@@ -415,7 +460,7 @@ void pause_screen() {
 	x = ft6x06_read_x();
 	y = ft6x06_read_y();
 	
-  printf("Touch Events :\tX: %d\t||\tY: %d \n\r", x, y);
+  //printf("Touch Events :\tX: %d\t||\tY: %d \n\r", x, y);
 	print_pause_screen();
 				
 }
@@ -429,3 +474,86 @@ void print_reset_button() {
 	lcd_print_stringXY(dot, MNAV_BACK_RGN_X, MNAV_BACK_RGN_HIGH_Y, LCD_COLOR_RED, LCD_COLOR_BLACK);
 
 }
+
+void choose_mode_from_selected_item(void) {
+	switch(selected_difficulty) {
+		case DIFFICULTY_SELECT_NONE:
+			break;
+		case DIFFICULTY_SELECT_EASY:
+			GAME_MODE = DIFFICULTY_MODE_EASY;
+			break;
+		case DIFFICULTY_SELECT_MEDIUM:
+			GAME_MODE = DIFFICULTY_MODE_MEDIUM;
+			break;
+		case DIFFICULTY_SELECT_HARD:
+			GAME_MODE = DIFFICULTY_MODE_HARD;
+			break;
+	}
+}
+
+void clear_select_arrow_area(void) {
+	lcd_draw_image(
+					arrow_easy_x,            				// X Pos
+					ARROWS_WIDTH_PIXELS, 						// Image Horizontal Width
+					arrow_easy_y,       				 		// Y Pos
+					ARROWS_HEIGHT_PIXELS,						// Image Vertical Height
+					right_arrowBitmaps, 						// Image
+					LCD_COLOR_BLACK,    						// Foreground Color
+					LCD_COLOR_BLACK     						// Background Color
+				);
+	lcd_draw_image(
+					arrow_medium_x,            			// X Pos
+					ARROWS_WIDTH_PIXELS, 						// Image Horizontal Width
+					arrow_medium_y,       				 	// Y Pos
+					ARROWS_HEIGHT_PIXELS,		// Image Vertical Height
+					right_arrowBitmaps, 						// Image
+					LCD_COLOR_BLACK,    						// Foreground Color
+					LCD_COLOR_BLACK     						// Background Color
+				);
+	lcd_draw_image(
+					arrow_difficult_x,            	// X Pos
+					ARROWS_WIDTH_PIXELS, 						// Image Horizontal Width
+					arrow_difficult_y,       				// Y Pos
+					ARROWS_HEIGHT_PIXELS,		// Image Vertical Height
+					right_arrowBitmaps, 						// Image
+					LCD_COLOR_BLACK,    						// Foreground Color
+					LCD_COLOR_BLACK     						// Background Color
+				);
+}
+
+void print_select_arrow(diff_select_t selected_difficulty) {
+	uint16_t fColor = random_lcd_color();
+	uint16_t x_start;
+	uint16_t y_start;
+
+	switch(selected_difficulty) {
+		case DIFFICULTY_SELECT_NONE:
+			break;
+		case DIFFICULTY_SELECT_EASY:
+			x_start = arrow_easy_x;
+			y_start = arrow_easy_y;
+			break;
+		case DIFFICULTY_SELECT_MEDIUM:
+			x_start = arrow_medium_x;
+			y_start = arrow_medium_y;
+			break;
+		case DIFFICULTY_SELECT_HARD:
+			x_start = arrow_difficult_x;
+			y_start = arrow_difficult_y;
+			break;
+	}
+	
+	lcd_draw_image(
+		x_start, 
+		ARROWS_WIDTH_PIXELS, 
+		y_start, 
+		ARROWS_HEIGHT_PIXELS, 
+		right_arrowBitmaps, 
+		fColor, 
+		LCD_COLOR_BLACK);
+}
+
+
+
+
+

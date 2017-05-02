@@ -98,3 +98,58 @@ uint16_t ps2_get_y(void)
   return adc_val;
 }
 
+
+ps2_dir_t ps2_debounce(uint16_t y_adc_val) {
+	static DEBOUNCE_STATES debounce_ps2_state = DEBOUNCE_ONE;	
+	static ps2_dir_t curr_ps2_dir = PS2_DIR_NONE;
+	static ps2_dir_t last_ps2_dir = PS2_DIR_NONE;
+	
+	// Determine current direction based on ADC value and thresholds
+	curr_ps2_dir = (y_adc_val > PS2_THRSHLD_UP) ? PS2_DIR_UP : (y_adc_val < PS2_THRSHLD_DOWN) ? PS2_DIR_DOWN : PS2_DIR_NONE;
+	
+		switch(debounce_ps2_state) {
+		case DEBOUNCE_ONE:
+			if(curr_ps2_dir != PS2_DIR_NONE) {
+				debounce_ps2_state = DEBOUNCE_1ST_ZERO;
+				last_ps2_dir = curr_ps2_dir;
+			}
+			return PS2_DIR_NONE;
+			
+		case DEBOUNCE_1ST_ZERO:
+			if(curr_ps2_dir == last_ps2_dir) debounce_ps2_state = DEBOUNCE_2ND_ZERO;
+			else {
+				last_ps2_dir = curr_ps2_dir;
+				debounce_ps2_state = DEBOUNCE_ONE;
+			}
+			return PS2_DIR_NONE;
+			
+		case DEBOUNCE_2ND_ZERO:
+			if(curr_ps2_dir == last_ps2_dir) debounce_ps2_state = DEBOUNCE_PRESSED;
+			else {
+				last_ps2_dir = curr_ps2_dir;
+				debounce_ps2_state = DEBOUNCE_ONE;
+			}
+			return PS2_DIR_NONE;
+			
+		case DEBOUNCE_PRESSED:
+			if(curr_ps2_dir == last_ps2_dir) {
+				debounce_ps2_state = DEBOUNCE_DONE;
+			}
+			else {
+				curr_ps2_dir = curr_ps2_dir;
+				debounce_ps2_state = DEBOUNCE_ONE;
+			}
+			return curr_ps2_dir;
+			
+		case DEBOUNCE_DONE:
+			if(curr_ps2_dir == last_ps2_dir) {
+				debounce_ps2_state = DEBOUNCE_DONE;
+			}
+			else {
+				last_ps2_dir = curr_ps2_dir;
+				debounce_ps2_state = DEBOUNCE_ONE;
+			}
+			return PS2_DIR_NONE;
+	}
+}
+

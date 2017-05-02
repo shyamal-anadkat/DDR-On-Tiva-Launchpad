@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdint.h>
+#include <stdlib.h>
 #include <string.h>
 #include "arrow.h"
 #include "lcd.h"
@@ -16,12 +17,14 @@
 #define		RGN_NONE	0xf0
 
 #define PRINT_MESSAGE_DELAY 75
+#define LCD_NUM_COLORS 14
 
 
 void print_arrow(arrow_t *arrow);
 void clear_arrow(arrow_t *arrow);
 void print_top_arrow(arrow_dir_t arrow_dir);
 void print_top_arrow_hit(arrow_dir_t arrow_dir);
+uint16_t random_lcd_color(void);
 
 typedef enum {
 	NONE, GOOD, MISS, BOO
