@@ -9,9 +9,9 @@ No operating system, no game engine, no graphics library — one superloop, a ha
 of timer interrupts, and drivers written from scratch for every peripheral on the
 board.
 
-Arrows scroll down a 240×320 SPI LCD toward a target row. You hit the matching
-button as each one lands. Miss enough and the LED bar down the side of the board
-runs out and the game ends.
+Arrows rise up a 240×320 SPI LCD toward four targets at the top. You hit the
+matching button as each one arrives. Miss enough and the LED bar on the side of
+the board runs out and the game ends.
 
 <p align="center">
   <img src="docs/title.jpg" alt="The DDR welcome screen on the Tiva LaunchPad: green PLAY NOW and yellow HIGH SCORES above a pixel-art DDR title, drawn on the 240x320 LCD" width="88%">
@@ -53,20 +53,30 @@ Y — held in a fixed-size queue. The renderer only ever reads that queue, so
 spawning, moving, and drawing stay independent of each other:
 
 ```c
-#define ARROW_POS_START_Y   5     // spawns at the top of the LCD
-#define ARROW_POS_TRGT_Y    250   // the target row
-#define ARROW_POS_END_Y     319   // past here it is a MISS
+#define ARROW_POS_START_Y   5     // where an arrow enters its lane
+#define ARROW_POS_TRGT_Y    250   // the target row it has to reach
+#define ARROW_POS_END_Y     319   // travel past this and it is a MISS
 ```
+
+<p align="center">
+  <img src="docs/gameplay.jpg" alt="Mid-game on the LCD: four coloured target arrows across the top, blue arrows rising through the lanes below them, score 340, and a red MISS banner" width="82%">
+</p>
+
+<p align="center"><sub>four targets across the top, arrows rising to meet them &mdash; and one that got away</sub></p>
 
 **Difficulty is timing, not logic.** The three modes change only how often an arrow
 spawns and how many appear in total. The game loop itself never branches on
 difficulty:
 
-| Mode | Arrows | Spawn interval (ticks) |
-|---|---|---|
-| Easy | 15 | 40 – 141 |
-| Medium | 30 | 50 – 81 |
-| Hard | 60 | 10 – 31 |
+| On screen | In the code | Arrows | Spawn interval (ticks) |
+|---|---|---|---|
+| `EASY` | `DIFFICULTY_MODE_EASY` | 15 | 40 – 141 |
+| `STANDARD` | `DIFFICULTY_MODE_MEDIUM` | 30 | 50 – 81 |
+| `CHALLENGE` | `DIFFICULTY_MODE_HARD` | 60 | 10 – 31 |
+
+<p align="center">
+  <img src="docs/select.jpg" alt="The SELECT LEVEL screen on the LCD, offering EASY in green, STANDARD in yellow and CHALLENGE in red, with a cyan selector arrow" width="82%">
+</p>
 
 **Eight lives, eight LEDs.** The life bar is a real GPIO expander on the I²C bus,
 driven by a bitmask — one bit per LED, so losing a life is a single write:
@@ -85,7 +95,13 @@ driven by a bitmask — one bit per LED, so losing a life is a single write:
 whose <code>CONTINUE</code> and <code>MENU</code> are hit-tested against the FT6x06 touch controller</sub></p>
 
 **The high score survives a power cycle.** Score and difficulty mode are written to
-the EEPROM on the MCU, so the board remembers between sessions.
+the EEPROM on the MCU, so the board remembers between sessions — the losing round
+below still knows about the 340 set on the winning one.
+
+<p align="center">
+  <img src="docs/win.jpg" alt="The win screen: WIN! in green with YOUR SCORE 340 and NEW HIGH SCORE 340" width="49%">
+  <img src="docs/lose.jpg" alt="The lose screen: YOU LOSE in red with YOUR SCORE 100 and HIGH SCORE 340 recalled from EEPROM" width="49%">
+</p>
 
 ---
 
