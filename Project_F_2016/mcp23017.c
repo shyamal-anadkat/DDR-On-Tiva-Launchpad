@@ -29,8 +29,8 @@ bool ioexpander_init()
 	status = ioexpander_byte_write(IOEXPANDER_I2C_BASE, IO_LED_DIR, 0x00);
 	if(status != I2C_OK) return false;
 	
-	// TURN ALL LEDS ON
-	status = ioexpander_byte_write(IOEXPANDER_I2C_BASE, IO_LED_GPIO_BASE ,0xFF);
+	// TURN ALL LEDS OFF
+	status = ioexpander_byte_write(IOEXPANDER_I2C_BASE, IO_LED_GPIO_BASE ,0x00);
 	if(status != I2C_OK) return false;
 	
 	// FOR PUSH BUTTONS 

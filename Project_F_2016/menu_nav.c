@@ -11,6 +11,7 @@ extern uint16_t score;
 extern bool Alert_Timer0B;
 bool backSelected;
 extern uint8_t max_arrows;
+extern uint8_t active_led_num;
 diff_select_t selected_difficulty = DIFFICULTY_SELECT_NONE;
 
 //*****************************************************************************
@@ -57,6 +58,8 @@ void update_ui_init_main_menu() {
 	lcd_print_stringXY(msg1,menu_play_now_x,menu_play_now_y, LCD_COLOR_GREEN,LCD_COLOR_BLACK);
   lcd_print_stringXY(msg2,menu_high_scores_x,menu_high_scores_y, LCD_COLOR_YELLOW,LCD_COLOR_BLACK);
 		
+	active_led_num = 0;
+	
 	// DRAW DOPE DDR LOGO/IMAGE
 	lcd_draw_image(
                   37,            		  // X Pos
@@ -332,14 +335,17 @@ void win_screen() {
 		lcd_print_stringXY(player_score_arr,your_score_x + 11,your_score_y, LCD_COLOR_ORANGE,LCD_COLOR_BLACK);
 		
 		if(read_high_score() > score) {
-		// NO NEW HIGH SCORE 
-		
-		lcd_print_stringXY(high_score, high_score_x, high_score_y, LCD_COLOR_RED, LCD_COLOR_BLACK);
-		lcd_print_stringXY(player_score_arr, h_score_x + 11, h_score_y, LCD_COLOR_CYAN, LCD_COLOR_BLACK);
-		} else {
-		lcd_print_stringXY(high_score_arr, high_score_x + 11, high_score_y+2, LCD_COLOR_GREEN, LCD_COLOR_BLACK);
-		lcd_print_stringXY(new_score, new_score_x, new_score_y, LCD_COLOR_RED, LCD_COLOR_BLACK);	
-		lcd_print_stringXY(h_score, h_score_x, h_score_y, LCD_COLOR_RED, LCD_COLOR_BLACK);
+			// NO NEW HIGH SCORE 
+			lcd_print_stringXY(high_score, high_score_x, high_score_y, LCD_COLOR_RED, LCD_COLOR_BLACK);
+			lcd_print_stringXY(player_score_arr, h_score_x + 11, h_score_y, LCD_COLOR_CYAN, LCD_COLOR_BLACK);
+		} 
+		else {
+			// NEW HIGH SCORE
+			lcd_print_stringXY(player_score_arr, high_score_x + 11, high_score_y+2, LCD_COLOR_GREEN, LCD_COLOR_BLACK);
+			lcd_print_stringXY(new_score, new_score_x, new_score_y, LCD_COLOR_RED, LCD_COLOR_BLACK);	
+			lcd_print_stringXY(h_score, h_score_x, h_score_y, LCD_COLOR_RED, LCD_COLOR_BLACK);
+			write_high_score(score);
+			write_game_mode(GAME_MODE);
 		}
 }
 
@@ -552,8 +558,3 @@ void print_select_arrow(diff_select_t selected_difficulty) {
 		fColor, 
 		LCD_COLOR_BLACK);
 }
-
-
-
-
-

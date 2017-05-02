@@ -75,12 +75,13 @@ void initialize_hardware(void)
 
     //GPIOF INTERRUPT SET for SW2
     init_interrupt_sw2();
+		
 		//touch screen init
     ft6x06_init();
 
-    //eeprom init
     eeprom_init();
-
+		ioexpander_init();
+		
     //enable interrupts
     EnableInterrupts();
 }
@@ -149,11 +150,8 @@ main(void)
     printf("* ECE353 - Final Project - Debug\n\r");
     printf("**************************************\n\r");
     printf("\n\r");
-	  uart_tx_poll_string(UART0_BASE,"0x17a");
 
     update_ui_init_main_menu();
-
-    ioexpander_init();
 		
 		//fix to first time garbage eeprom value
 		if(read_high_score() > MAX_SCORE_POSSIBLE) {
