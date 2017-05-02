@@ -14,7 +14,7 @@ button as each one lands. Miss enough and the LED bar down the side of the board
 runs out and the game ends.
 
 <p align="center">
-  <img src="docs/title.jpg" alt="The DDR welcome screen running on the Tiva LaunchPad: PLAY NOW and HIGH SCORES above a pixel-art DDR title, with the eight life LEDs along the bottom edge of the board" width="88%">
+  <img src="docs/title.jpg" alt="The DDR welcome screen on the Tiva LaunchPad: green PLAY NOW and yellow HIGH SCORES above a pixel-art DDR title, drawn on the 240x320 LCD" width="88%">
 </p>
 
 <p align="center"><em>
@@ -78,10 +78,11 @@ driven by a bitmask — one bit per LED, so losing a life is a single write:
 ```
 
 <p align="center">
-  <img src="docs/demo.jpg" alt="Mid-game: arrows falling down the LCD toward the target row, with the red life bar lit on the right-hand board" width="78%">
+  <img src="docs/demo.jpg" alt="The board part-way through a session: the life bar lit red down the middle of the board, with the LCD showing the green CONTINUE pause screen" width="78%">
 </p>
 
-<p align="center"><sub>mid-game — arrows falling toward the target row, life bar lit on the right</sub></p>
+<p align="center"><sub>the life bar part-way through a session &mdash; the LCD is on the pause screen,
+whose <code>CONTINUE</code> and <code>MENU</code> are hit-tested against the FT6x06 touch controller</sub></p>
 
 **The high score survives a power cycle.** Score and difficulty mode are written to
 the EEPROM on the MCU, so the board remembers between sessions.
@@ -98,7 +99,7 @@ Everything below the game logic is ours — there is no HAL doing the work:
 | MCP23017 IO expander | I²C register protocol for 8 LEDs and the push buttons |
 | EEPROM | read/write for high score and game mode |
 | ADC | joystick position for menu navigation |
-| Capacitive touch | menu buttons and the pause screen |
+| FT6x06 capacitive touch | menu buttons and the pause screen |
 | Timers | TIMER0A/TIMER0B for arrow cadence and hit windows |
 | UART | `printf` to a serial console for debugging |
 
