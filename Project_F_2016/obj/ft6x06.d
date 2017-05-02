@@ -1,0 +1,14 @@
+.\obj\ft6x06.o: ..\peripherals\c\ft6x06.c
+.\obj\ft6x06.o: ..\peripherals\include\ft6x06.h
+.\obj\ft6x06.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\obj\ft6x06.o: ..\drivers\include\driver_defines.h
+.\obj\ft6x06.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\obj\ft6x06.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\obj\ft6x06.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\errno.h
+.\obj\ft6x06.o: C:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\TM4C123GH6PM.h
+.\obj\ft6x06.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include\core_cm4.h
+.\obj\ft6x06.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include\cmsis_compiler.h
+.\obj\ft6x06.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include\cmsis_armcc.h
+.\obj\ft6x06.o: C:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123\system_TM4C123.h
+.\obj\ft6x06.o: ..\drivers\include\gpio_port.h
+.\obj\ft6x06.o: ..\drivers\include\i2c.h
