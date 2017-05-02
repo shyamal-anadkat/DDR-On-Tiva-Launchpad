@@ -35,7 +35,6 @@ bool isPaused = false;
 //*****************************************************************************
 void update_ui_init_play(void) {
 	uint16_t timer_val = get_timer0A_current_value();
- 	uint16_t i = 0;
 	lcd_clear_screen(LCD_COLOR_BLACK);
 	init_play_top_arrows();
 	printf("GAME MODE: %d\n", GAME_MODE);
@@ -45,6 +44,7 @@ void update_ui_init_play(void) {
 	? MAX_ARROWS_EASY : (GAME_MODE == DIFFICULTY_MODE_MEDIUM) 
 	? MAX_ARROWS_MEDIUM : MAX_ARROWS_HARD;
   score = 0; 	
+	active_led_num = 3;
 
 	srand(timer_val); // TODO: This might be bad to call multiple times
 	print_pause_button();
@@ -96,18 +96,27 @@ void update_ui_play(button_dir_t button_data) {
 
 
 void handle_game_end() {
-	if((dequeued_arrows > max_arrows) || (active_led_num == 0)) {
-			if (score > (read_high_score())) { 
-				game_state = WIN; 
-			} else {
-				game_state = LOSE;
-				
-			}
-			if (read_high_score() < score) {
-				write_high_score(score);
-				write_game_mode(GAME_MODE);
-			}
-		}
+	if(dequeued_arrows >= max_arrows) {
+		game_state = WIN;
+		
+		
+	}
+	
+	if(active_led_num == 0) game_state = LOSE;
+	
+//	
+//	if((dequeued_arrows > max_arrows) || (active_led_num == 0)) {
+//			if (score > (read_high_score())) { 
+//				game_state = WIN; 
+//			} else {
+//				game_state = LOSE;
+//				
+//			}
+//			if (read_high_score() < score) {
+//				write_high_score(score);
+//				write_game_mode(GAME_MODE);
+//			}
+//		}
 }
 
 
