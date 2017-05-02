@@ -281,7 +281,7 @@
       <GroupNumber>1</GroupNumber>
       <FileNumber>3</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>.\ddr_animations.c</PathWithFileName>
@@ -293,7 +293,7 @@
       <GroupNumber>1</GroupNumber>
       <FileNumber>4</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>.\ddr_game.c</PathWithFileName>
@@ -317,7 +317,7 @@
       <GroupNumber>1</GroupNumber>
       <FileNumber>6</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>.\menu_nav.c</PathWithFileName>
@@ -329,7 +329,7 @@
       <GroupNumber>1</GroupNumber>
       <FileNumber>7</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>.\arrow_printing.c</PathWithFileName>
@@ -501,7 +501,7 @@
       <GroupNumber>3</GroupNumber>
       <FileNumber>20</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>..\peripherals\c\ps2.c</PathWithFileName>

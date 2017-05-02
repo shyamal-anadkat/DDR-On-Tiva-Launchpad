@@ -27,6 +27,8 @@ char individual_1[] = "Shyamal Anadkat";
 char individual_2[] = "Aaron Levin";
 char individual_3[] = "Sneha Patri";
 bool debugFlag = true;
+bool isPlaying = false; 
+bool isStopped = false;
 
 
 //*****************************************************************************
@@ -137,14 +139,17 @@ main(void)
     uint8_t button_vals = 0;
     char msg[80];
 
+		
     initialize_hardware();
     init_arrow_queue();
 
+		//printf("echo -ne `cd`\r");
     printf("\n\r");
     printf("**************************************\n\r");
     printf("* ECE353 - Final Project - Debug\n\r");
     printf("**************************************\n\r");
     printf("\n\r");
+	  uart_tx_poll_string(UART0_BASE,"0x17a");
 
     update_ui_init_main_menu();
 
@@ -189,6 +194,10 @@ main(void)
 					break;
         
 				case PLAY:
+						if(!isPlaying) {
+						printf("XPLAY THE DDR SONG\n");
+							isPlaying = true;
+						}
             button_vals = buttons_pressed();
             update_ui_play(button_vals);
             break;
@@ -198,11 +207,17 @@ main(void)
 						break;
 
         case WIN:
-						
+						if(!isStopped) {
+							printf("ZSTOP");
+							isStopped = true;
+						}
             break;
 
         case LOSE:
-						
+						if(!isStopped) {
+							printf("ZSTOP");
+							isStopped = true;
+						}
             break;
         }
     }

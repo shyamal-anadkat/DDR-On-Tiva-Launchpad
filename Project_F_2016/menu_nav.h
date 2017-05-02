@@ -5,6 +5,7 @@
 #include "ddr_images.h"
 #include "ddr_animations.h"
 #include "ft6x06.h"
+#include "ps2.h"
 
 #define x_left_threshold  (0xFFF / 4) * 3
 #define y_up_threshold  	(0xFFF / 4) * 3
@@ -75,12 +76,14 @@
 #define MNAV_BACK_RGN_X					MNAV_STR_BACK_X
 #define MNAV_BACK_RGN_LOW_Y			MNAV_STR_BACK_Y - 1
 #define MNAV_BACK_RGN_HIGH_Y		MNAV_STR_BACK_Y + 1
+
 #define MNAV_RESET_TOUCH_LOW_Y  63
 #define MNAV_RESET_TOUCH_HIGH_Y 99
 #define MNAV_RESET_TOUCH_LOW_X  38
 #define MNAV_RESET_TOUCH_HIGH_X 180
 
-// macros for win screen 
+
+// MACROS for win screen 
 #define your_score_x  0
 #define your_score_y 13
 
@@ -93,11 +96,29 @@
 #define h_score_x 0
 #define h_score_y 16
 
+// MACROS for Select Difficulty Screen images (arrows)
+#define arrow_easy_x 180
+#define arrow_easy_y 200
+
+#define arrow_medium_x 180
+#define arrow_medium_y 164
+
+#define arrow_difficult_x 		180
+#define arrow_difficult_y 		135
+
+
 typedef enum {
 	NOTHING,
 	PLAY_NOW,
 	HIGH_SCORES
 } SELECTED_ITEM;
+
+typedef enum {
+	DIFFICULTY_SELECT_NONE,
+	DIFFICULTY_SELECT_EASY,
+	DIFFICULTY_SELECT_MEDIUM,
+	DIFFICULTY_SELECT_HARD
+} diff_select_t;
 
 typedef enum {
 	MENU, MODE_SELECTION, PLAY, WIN, LOSE, HIGH_SCORE
@@ -107,6 +128,11 @@ typedef enum {
 void display_selected_menu_item();
 void navigate_main_menu(uint16_t y_adc_data);
 void update_ui_init_new_state(game_state_fsm new_state);
+
+void update_ui_init_mode_selecion(void);
+void choose_mode_from_selected_item(void);
+void navigate_game_mode(uint16_t y_adc_data);
+void display_selected_difficulty_item(void);
 
 void update_ui_init_main_menu(void);
 void update_ui_high_scores(void);
@@ -120,8 +146,8 @@ void print_high_scores(void);
 void lose_screen(void);
 void win_screen (void);
 
-void update_ui_init_mode_selecion(void);
-void navigate_game_mode(uint16_t y_adc_data);
 void print_reset_button(void);
 
+void	clear_select_arrow_area(void);
+void	print_select_arrow(diff_select_t difficulty_selected);
 #endif

@@ -209,3 +209,15 @@ void print_miss_second() {
 }
 
 
+uint16_t random_lcd_color(void) {
+    // Note: Subtract 1 from LCD_NUM_COLORS because we're excluding LCD_COLOR_BLACK (since it
+    // makes the arrow invisible)
+    uint8_t rand_int = rand() % LCD_NUM_COLORS - 1;
+    uint16_t lcd_color_array[LCD_NUM_COLORS - 1] = {LCD_COLOR_WHITE, LCD_COLOR_RED,
+    LCD_COLOR_GREEN, LCD_COLOR_GREEN2, LCD_COLOR_BLUE, LCD_COLOR_BLUE2, LCD_COLOR_YELLOW,
+    LCD_COLOR_ORANGE, LCD_COLOR_CYAN, LCD_COLOR_MAGENTA, LCD_COLOR_GRAY, LCD_COLOR_BROWN};
+   
+    return lcd_color_array[rand_int];
+}
+
+

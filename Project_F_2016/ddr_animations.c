@@ -41,6 +41,9 @@ void update_ui_init_play(void) {
 	printf("GAME MODE: %d\n", GAME_MODE);
 	enqueued_arrows = 0;
 	dequeued_arrows = 0;
+	max_arrows = (GAME_MODE == DIFFICULTY_MODE_EASY) 
+	? MAX_ARROWS_EASY : (GAME_MODE == DIFFICULTY_MODE_MEDIUM) 
+	? MAX_ARROWS_MEDIUM : MAX_ARROWS_HARD;
   score = 0; 	
 
 	srand(timer_val); // TODO: This might be bad to call multiple times

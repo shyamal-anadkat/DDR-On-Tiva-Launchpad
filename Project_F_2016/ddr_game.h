@@ -20,7 +20,6 @@
 #define DIFFICULTY_MODE_EASY 		1
 #define DIFFICULTY_MODE_MEDIUM 	2
 #define DIFFICULTY_MODE_HARD 		3
-
 #define MAX_ARROWS_EASY   			15
 #define MAX_ARROWS_MEDIUM 			30
 #define MAX_ARROWS_HARD   			60
@@ -36,6 +35,5 @@ void add_random_arrow(void);
 void handle_good(void);
 void handle_boo(void);
 void handle_miss(void);
-
 
 #endif
