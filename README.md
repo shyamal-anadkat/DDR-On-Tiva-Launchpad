@@ -14,7 +14,7 @@ button as each one lands. Miss enough and the LED bar down the side of the board
 runs out and the game ends.
 
 <p align="center">
-  <img src="docs/demo.jpg" alt="The DDR game running on the Tiva LaunchPad: arrows scrolling on the LCD, the red LED life bar lit down the right-hand board" width="80%">
+  <img src="docs/title.jpg" alt="The DDR welcome screen running on the Tiva LaunchPad: PLAY NOW and HIGH SCORES above a pixel-art DDR title, with the eight life LEDs along the bottom edge of the board" width="88%">
 </p>
 
 <p align="center"><em>
@@ -76,6 +76,12 @@ driven by a bitmask — one bit per LED, so losing a life is a single write:
 #define LED_LEVEL_5  0x1F
 #define LED_LEVEL_0  0x00     // game over
 ```
+
+<p align="center">
+  <img src="docs/demo.jpg" alt="Mid-game: arrows falling down the LCD toward the target row, with the red life bar lit on the right-hand board" width="78%">
+</p>
+
+<p align="center"><sub>mid-game — arrows falling toward the target row, life bar lit on the right</sub></p>
 
 **The high score survives a power cycle.** Score and difficulty mode are written to
 the EEPROM on the MCU, so the board remembers between sessions.
