@@ -85,6 +85,7 @@ void update_ui_play(button_dir_t button_data) {
 			
 	animate_arrows(button_val);
 	add_random_arrow();
+
 	button_val = BTN_NONE; // after processing the button value, reset it to NONE
 	mode_level_ticks = 0; 
 
@@ -96,27 +97,16 @@ void update_ui_play(button_dir_t button_data) {
 
 
 void handle_game_end() {
-	if(dequeued_arrows >= max_arrows) {
-		game_state = WIN;
-		
-		
+	if(dequeued_arrows > max_arrows || (active_led_num == 0)) {
+		if(score > read_high_score()) {
+			game_state = WIN;
+		}
+		else game_state = LOSE;
+		if(read_high_score() < score) {
+			write_high_score(score);
+			write_game_mode(GAME_MODE);
+		}
 	}
-	
-	if(active_led_num == 0) game_state = LOSE;
-	
-//	
-//	if((dequeued_arrows > max_arrows) || (active_led_num == 0)) {
-//			if (score > (read_high_score())) { 
-//				game_state = WIN; 
-//			} else {
-//				game_state = LOSE;
-//				
-//			}
-//			if (read_high_score() < score) {
-//				write_high_score(score);
-//				write_game_mode(GAME_MODE);
-//			}
-//		}
 }
 
 

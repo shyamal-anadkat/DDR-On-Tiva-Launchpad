@@ -59,6 +59,7 @@ void update_ui_init_main_menu() {
   lcd_print_stringXY(msg2,menu_high_scores_x,menu_high_scores_y, LCD_COLOR_YELLOW,LCD_COLOR_BLACK);
 		
 	active_led_num = 0;
+	control_leds(active_led_num);
 	
 	// DRAW DOPE DDR LOGO/IMAGE
 	lcd_draw_image(
@@ -341,11 +342,9 @@ void win_screen() {
 		} 
 		else {
 			// NEW HIGH SCORE
-			lcd_print_stringXY(player_score_arr, high_score_x + 11, high_score_y+2, LCD_COLOR_GREEN, LCD_COLOR_BLACK);
+			lcd_print_stringXY(high_score_arr, high_score_x + 11, high_score_y+2, LCD_COLOR_GREEN, LCD_COLOR_BLACK);
 			lcd_print_stringXY(new_score, new_score_x, new_score_y, LCD_COLOR_RED, LCD_COLOR_BLACK);	
 			lcd_print_stringXY(h_score, h_score_x, h_score_y, LCD_COLOR_RED, LCD_COLOR_BLACK);
-			write_high_score(score);
-			write_game_mode(GAME_MODE);
 		}
 }
 
